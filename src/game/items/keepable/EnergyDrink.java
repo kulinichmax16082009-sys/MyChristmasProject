@@ -5,6 +5,10 @@ import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
 public class EnergyDrink extends Item {
+    public EnergyDrink(String name) {
+        super(name);
+    }
+
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
     }

@@ -5,6 +5,10 @@ import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
 public class MagicPear extends Item {
+    public MagicPear(String name) {
+        super(name);
+    }
+
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
     }
