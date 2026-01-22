@@ -1,6 +1,8 @@
 package game.items.unkeepable;
 
+import game.characters.Player;
 import game.items.Item;
+import game.uiUtils.RandomGenerator;
 
 public class Chair extends Item {
     @Override

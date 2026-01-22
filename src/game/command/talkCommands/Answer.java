@@ -1,5 +1,8 @@
 package game.command.talkCommands;
 
+import game.characters.Player;
+import game.command.Command;
+
 public class Answer extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

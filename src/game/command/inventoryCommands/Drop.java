@@ -1,5 +1,6 @@
 package game.command.inventoryCommands;
 
+import game.characters.Player;
 import game.command.Command;
 
 public class Drop extends Command {

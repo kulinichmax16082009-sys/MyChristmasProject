@@ -1,5 +1,6 @@
 package game.command.utilsCommands;
 
+import game.characters.Player;
 import game.command.Command;
 
 public class Quit extends Command {

@@ -1,5 +1,6 @@
 package game.command.walkCommands;
 
+import game.characters.Player;
 import game.command.Command;
 
 public class Walk extends Command {

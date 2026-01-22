@@ -1,5 +1,6 @@
 package game.command.talkCommands;
 
+import game.characters.Player;
 import game.command.Command;
 
 public class Talk extends Command {

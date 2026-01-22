@@ -1,6 +1,8 @@
 package game.items.keepable;
 
+import game.characters.Player;
 import game.items.Item;
+import game.uiUtils.RandomGenerator;
 
 public class Resistor extends Item {
     @Override
