@@ -1,6 +1,10 @@
 package game.characters.teachers;
 
 public class CzechTeacher extends Teacher {
+    public CzechTeacher(String name) {
+        super(name);
+    }
+
     @Override
     public String getTasksFile() {
         return "";
