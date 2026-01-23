@@ -66,14 +66,39 @@ public class Room {
                 ", is visited: " + isVisited;
     }
 
-
-    //TODO: Dodelat implementace metody
-    public void move(Coordinates where, GameObject gameObject) {}
-    public void place(Coordinates where, GameObject gameObject) {}
-    public boolean canBePlaced(Coordinates where) {
-        return true;
+    public boolean move(Coordinates where, GameObject gameObject) {
+        if (canBePlaced(where) && gameObjects.containsKey(gameObject.getCoordinates())) {
+            gameObjects.remove(gameObject.getCoordinates());
+            place(where, gameObject);
+            gameObject.setCoordinates(where);
+            return true;
+        }
+        return false;
     }
+
+    public boolean place(Coordinates where, GameObject gameObject) {
+        if (canBePlaced(where)) {
+            gameObjects.put(where, gameObject);
+            gameObject.setCoordinates(where);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean canBePlaced(Coordinates where) {
+        return where.getX() >= 0 && where.getX() < width && where.getY() >= 0 && where.getY() < height && !gameObjects.containsKey(where);
+    }
+
     public ArrayList<Coordinates> findFreeCoordinates() {
-        return new ArrayList<>();
+        ArrayList<Coordinates> freeCoordinates = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Coordinates coordinates = new Coordinates(x, y);
+                if (!gameObjects.containsKey(coordinates)) {
+                    freeCoordinates.add(coordinates);
+                }
+            }
+        }
+        return freeCoordinates;
     }
 }
