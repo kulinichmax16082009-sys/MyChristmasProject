@@ -15,7 +15,7 @@ public class GoldenKey extends Item {
 
     @Override
     public boolean isKeepable() {
-        return false;
+        return true;
     }
 
     @Override
