@@ -12,12 +12,15 @@ public abstract class GameObject {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public Coordinates getCoordinates() {
         return coordinates;
     }
+
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
@@ -30,9 +33,11 @@ public abstract class GameObject {
 
     //TODO: Dodelat metody pro hledani objektu v okoli
     public abstract String getSprite();
+
     public GameObject getNearObjectByType(Class<?> type, boolean isKeepable) {
         return null;
     }
+
     public boolean isAnyObjectNearByType(Class<?> type, boolean isKeepable) {
         return false;
     }

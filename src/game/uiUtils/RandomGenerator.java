@@ -1,13 +1,29 @@
 package game.uiUtils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Random;
+
 public class RandomGenerator {
+    private Random rnd = new Random();
+
     public boolean generateProbability(int percent) {
-        return false;
+        int randomChance = randomNumber(0, 100);
+        if (percent > 100 || percent < 0) return false;
+        return randomChance <= percent;
     }
+
     public int generateFileLineIndex(String fileName) {
-        return 0;
+        int size = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            do size++; while (br.readLine() != null);
+        } catch (Exception e) {
+            return -1;
+        }
+        return randomNumber(0, size - 1);
     }
+
     public int randomNumber(int min, int max) {
-        return 0;
+        return rnd.nextInt(max - min + 1) + min;
     }
 }
