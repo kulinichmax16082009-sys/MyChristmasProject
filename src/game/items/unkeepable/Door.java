@@ -59,6 +59,16 @@ public class Door extends Item {
     }
 
     @Override
+    public String getPathFile() {
+        return "";
+    }
+
+    @Override
+    public Item initializeItem() {
+        return null;
+    }
+
+    @Override
     public String getSprite() {
         return "";
     }
