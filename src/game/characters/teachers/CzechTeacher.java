@@ -22,6 +22,6 @@ public class CzechTeacher extends Teacher {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83D\uDC69\uD83C\uDFFB\u200D\uD83C\uDFEB";
     }
 }

@@ -30,6 +30,6 @@ public class EnergyDrink extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83E\uDD64";
     }
 }

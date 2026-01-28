@@ -30,6 +30,6 @@ public class Wall extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83E\uDDF1";
     }
 }

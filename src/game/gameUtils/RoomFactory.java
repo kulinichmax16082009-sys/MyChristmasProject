@@ -67,7 +67,7 @@ public class RoomFactory {
         allPossibleItems.add(new Desk().initializeItem());
         allPossibleItems.add(new Resistor().initializeItem());
         allPossibleItems.add(new EnergyDrink().initializeItem());
-        allPossibleItems.add(new MagicPear().initializeItem());
         allPossibleItems.add(new GoldenKey().initializeItem());
+        allPossibleItems.add(new MagicPear().initializeItem());
     }
 }

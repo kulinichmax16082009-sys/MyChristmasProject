@@ -30,6 +30,6 @@ public class MagicPear extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83C\uDF50";
     }
 }

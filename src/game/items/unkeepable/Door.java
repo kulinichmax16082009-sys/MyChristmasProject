@@ -65,6 +65,6 @@ public class Door extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83D\uDEAA";
     }
 }

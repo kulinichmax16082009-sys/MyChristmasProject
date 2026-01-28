@@ -30,6 +30,6 @@ public class GoldenKey extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83D\uDD11";
     }
 }

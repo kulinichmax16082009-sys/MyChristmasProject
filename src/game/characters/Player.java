@@ -81,7 +81,7 @@ public class Player extends Character {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83E\uDDCD";
     }
 
     //TODO: handle exceptions properly

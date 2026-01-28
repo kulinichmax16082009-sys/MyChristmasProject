@@ -30,6 +30,6 @@ public class Chair extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "\uD83E\uDE91";
     }
 }

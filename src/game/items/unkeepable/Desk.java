@@ -29,6 +29,6 @@ public class Desk extends Item {
 
     @Override
     public String getSprite() {
-        return "";
+        return "┬─┬";
     }
 }
