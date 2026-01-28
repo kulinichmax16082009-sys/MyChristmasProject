@@ -3,11 +3,9 @@ package game.items;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Player;
 import game.gameUtils.GameObject;
-import game.items.unkeepable.Chair;
 import game.uiUtils.RandomGenerator;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public abstract class Item extends GameObject {
@@ -49,11 +47,11 @@ public abstract class Item extends GameObject {
 
     public abstract String getPathFile();
 
-    public void initializeItem() {
+    public Item initializeItem() {
         ObjectMapper mapper = new ObjectMapper();
 
         try (InputStream input = new FileInputStream(getPathFile())) {
-            mapper.readerForUpdating(this).readValue(input);
+            return mapper.readValue(input, (Class<Item>) this.getClass());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

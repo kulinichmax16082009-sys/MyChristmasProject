@@ -1,6 +1,6 @@
 {
   "name": "rezistor",
-  "spawnChance": 20,
+  "spawnChance": 1,
   "damageChance": 25,
   "damageInPercent": 0.25
 }

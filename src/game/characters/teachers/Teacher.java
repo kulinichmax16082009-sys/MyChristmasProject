@@ -11,7 +11,7 @@ public abstract class Teacher extends Character {
     public abstract String getNamesFile();
     public abstract String getAnswersFile();
     public void initializeTaskAnswerPair() {}
-    public Teacher teacherFactory(int number) {
+    public static Teacher teacherFactory(int number) {
         return null;
     }
 }

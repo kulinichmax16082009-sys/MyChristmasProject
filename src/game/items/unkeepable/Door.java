@@ -10,11 +10,11 @@ public class Door extends Item {
     private Door nextDoor;
     private boolean isOpen;
 
-    public Door(Room nextRoom, Door nextDoor, boolean isOpen) {
+    public Door() {
         super("dveře");
-        this.nextRoom = nextRoom;
-        this.nextDoor = nextDoor;
-        this.isOpen = isOpen;
+        this.nextRoom = null;
+        this.nextDoor = null;
+        this.isOpen = true;
     }
 
     public Room getNextRoom() {
