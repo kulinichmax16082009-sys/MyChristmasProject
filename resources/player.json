@@ -1,0 +1,15 @@
+{
+  "name": "Igo",
+  "intelligence": 2000,
+  "oneStepDistance": 1,
+  "inventory": {
+      "items": null,
+      "maxItemsCount": 10
+  },
+  "marks": {
+      "marks": null,
+      "hasEightOnes": false
+  },
+  "tasks": null,
+  "isTalking": false
+}

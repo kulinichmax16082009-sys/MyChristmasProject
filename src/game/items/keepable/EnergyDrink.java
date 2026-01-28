@@ -25,7 +25,7 @@ public class EnergyDrink extends Item {
 
     @Override
     public String getPathFile() {
-        return "resources/energyDrink.json";
+        return "resources/items/energyDrink.json";
     }
 
     @Override

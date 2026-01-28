@@ -25,7 +25,7 @@ public class Chair extends Item {
 
     @Override
     public String getPathFile() {
-        return "resources/chair.json";
+        return "resources/items/chair.json";
     }
 
     @Override

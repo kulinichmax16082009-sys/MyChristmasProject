@@ -25,7 +25,7 @@ public class Wall extends Item {
 
     @Override
     public String getPathFile() {
-        return "resources/wall.json";
+        return "resources/items/wall.json";
     }
 
     @Override

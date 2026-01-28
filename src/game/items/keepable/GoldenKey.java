@@ -25,7 +25,7 @@ public class GoldenKey extends Item {
 
     @Override
     public String getPathFile() {
-        return "resources/goldenKey.json";
+        return "resources/items/goldenKey.json";
     }
 
     @Override
