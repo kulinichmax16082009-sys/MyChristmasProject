@@ -19,13 +19,6 @@ public abstract class Item extends GameObject {
         super(name);
     }
 
-    public Item() {
-        super(null);
-        spawnChance = 0;
-        damageChance = 0;
-        damageInPercent = 0;
-    }
-
     public abstract void useAbility(Player player, RandomGenerator rnd);
 
     public abstract boolean isKeepable();
@@ -56,7 +49,15 @@ public abstract class Item extends GameObject {
 
     public abstract String getPathFile();
 
-    public abstract Item initializeItem();
+    public void initializeItem() {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try (InputStream input = new FileInputStream(getPathFile())) {
+            mapper.readerForUpdating(this).readValue(input);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public String toString() {

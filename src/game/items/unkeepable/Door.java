@@ -10,8 +10,8 @@ public class Door extends Item {
     private Door nextDoor;
     private boolean isOpen;
 
-    public Door(String name, Room nextRoom, Door nextDoor, boolean isOpen) {
-        super(name);
+    public Door(Room nextRoom, Door nextDoor, boolean isOpen) {
+        super("dveře");
         this.nextRoom = nextRoom;
         this.nextDoor = nextDoor;
         this.isOpen = isOpen;
@@ -61,11 +61,6 @@ public class Door extends Item {
     @Override
     public String getPathFile() {
         return "";
-    }
-
-    @Override
-    public Item initializeItem() {
-        return null;
     }
 
     @Override

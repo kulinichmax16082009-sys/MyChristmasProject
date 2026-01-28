@@ -1,12 +1,17 @@
 package game.items.keepable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Player;
 import game.items.Item;
+import game.items.unkeepable.Chair;
 import game.uiUtils.RandomGenerator;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class EnergyDrink extends Item {
-    public EnergyDrink(String name) {
-        super(name);
+    public EnergyDrink() {
+        super(null);
     }
 
     @Override
@@ -20,12 +25,7 @@ public class EnergyDrink extends Item {
 
     @Override
     public String getPathFile() {
-        return "";
-    }
-
-    @Override
-    public Item initializeItem() {
-        return null;
+        return "resources/energyDrink.json";
     }
 
     @Override

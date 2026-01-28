@@ -1,0 +1,6 @@
+{
+  "name": "energetický_nápoj",
+  "spawnChance": 10,
+  "damageChance": 35,
+  "damageInPercent": 0.35
+}

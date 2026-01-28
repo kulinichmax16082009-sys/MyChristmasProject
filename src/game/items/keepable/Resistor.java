@@ -1,12 +1,17 @@
 package game.items.keepable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Player;
 import game.items.Item;
+import game.items.unkeepable.Chair;
 import game.uiUtils.RandomGenerator;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class Resistor extends Item {
-    public Resistor(String name) {
-        super(name);
+    public Resistor() {
+        super(null);
     }
 
     @Override
@@ -20,12 +25,7 @@ public class Resistor extends Item {
 
     @Override
     public String getPathFile() {
-        return "";
-    }
-
-    @Override
-    public Item initializeItem() {
-        return null;
+        return "resources/resistor.json";
     }
 
     @Override

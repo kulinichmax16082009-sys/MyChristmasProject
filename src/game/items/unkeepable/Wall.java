@@ -1,12 +1,17 @@
 package game.items.unkeepable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Player;
 import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class Wall extends Item {
-    public Wall(String name) {
-        super(name);
+
+    public Wall() {
+        super(null);
     }
 
     @Override
@@ -20,12 +25,7 @@ public class Wall extends Item {
 
     @Override
     public String getPathFile() {
-        return "";
-    }
-
-    @Override
-    public Item initializeItem() {
-        return null;
+        return "resources/wall.json";
     }
 
     @Override

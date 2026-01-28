@@ -1,6 +1,6 @@
 {
-  "name": "židle",
-  "spawnChance": 40,
+  "name": "lavice",
+  "spawnChance": 30,
   "damageChance": 0,
   "damageInPercent": 0
 }

@@ -1,12 +1,16 @@
 package game.items.unkeepable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Player;
 import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class Desk extends Item {
-    public Desk(String name) {
-        super(name);
+    public Desk() {
+        super(null);
     }
 
     @Override
@@ -20,12 +24,7 @@ public class Desk extends Item {
 
     @Override
     public String getPathFile() {
-        return "";
-    }
-
-    @Override
-    public Item initializeItem() {
-        return null;
+        return "resources/desk.json";
     }
 
     @Override
