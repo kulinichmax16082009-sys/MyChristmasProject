@@ -13,12 +13,20 @@ public class RoomFactory {
 
     public RoomFactory() {
         allPossibleItems = new ArrayList<>();
+        initializeAllPossibleItems();
     }
 
     public Room generateRoom(RandomGenerator rnd) {
         Room room = new Room("Učebna č." + rnd.randomNumber(1, 100), rnd.randomNumber(2, 15), rnd.randomNumber(2, 15));
         room.place(new Coordinates(rnd.randomNumber(0, room.getWidth() - 1), rnd.randomNumber(0, room.getHeight() - 1)), Teacher.teacherFactory(rnd.randomNumber(1,5)));
         generateItems(room, rnd);
+
+        //Další kabinet v učebně
+        if (rnd.generateProbability(50)) {
+            Room sideRoom = new Room("Kabinet č." + rnd.randomNumber(1, 100), rnd.randomNumber(2, 6), rnd.randomNumber(2, 6));
+            generateItems(sideRoom, rnd);
+            connectRooms(room, sideRoom, rnd);
+        }
         return room;
     }
 
@@ -32,35 +40,21 @@ public class RoomFactory {
         doorB.setNextDoor(doorA);
 
         //Přidání dveří do místností
-        boolean isPlaced = false;
-
-        while (!isPlaced) {
-            isPlaced = roomA.place(new Coordinates(rnd.randomNumber(0, roomA.getWidth() - 1), rnd.randomNumber(0, roomA.getHeight() - 1)), doorA);
-        }
-        isPlaced = false;
-        while (!isPlaced) {
-            isPlaced = roomB.place(new Coordinates(rnd.randomNumber(0, roomB.getWidth() - 1), rnd.randomNumber(0, roomB.getHeight() - 1)), doorB);
-        }
+        roomA.place(roomA.findFreeCoordinates().get(rnd.randomNumber(0, roomA.findFreeCoordinates().size() - 1)), doorA);
+        roomB.place(roomB.findFreeCoordinates().get(rnd.randomNumber(0, roomB.findFreeCoordinates().size() - 1)), doorB);
 
         //Odstranění překážek kolem dveři
-        for (int i = 0; i < 8; i++) {
-            Item deletedA = doorA.getAnyItemNear(false, roomA);
-            if (deletedA != null) roomA.getGameObjects().remove(deletedA.getCoordinates());
-
-            Item deletedB = doorB.getAnyItemNear(false, roomB);
-            if (deletedB != null) roomB.getGameObjects().remove(deletedB.getCoordinates());
-        }
+        clearItemsAroundDoor(roomA, doorA);
+        clearItemsAroundDoor(roomB, doorB);
     }
 
     public void generateItems(Room room, RandomGenerator rnd) {
-        initializeAllPossibleItems();
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 Coordinates coordinates = new Coordinates(j, i);
 
                 //Předem rezervované pozice (počáteční pozice hráče a pozice učitele)
-                if (coordinates.equals(new Coordinates(0,0))) continue;
-                if (coordinates.equals(new Coordinates(room.getWidth() - 1, room.getHeight() -1))) continue;
+                if (isReserved(j, i, room)) continue;
 
                 //generace předmětů
                 for (Item possibleItem : allPossibleItems) {
@@ -74,7 +68,6 @@ public class RoomFactory {
         }
     }
 
-    //TODO: Opravit aby šance byla menší
     public void initializeAllPossibleItems() {
         allPossibleItems.add(new MagicPear().initializeItem());
         allPossibleItems.add(new GoldenKey().initializeItem());
@@ -114,6 +107,19 @@ public class RoomFactory {
         //Y souřadnice
         for (int i = 0; i < Math.abs(coordinatesDiffY); i++) {
             room.getGameObjects().remove(new Coordinates(doorCoordinates.getX() + coordinatesDiffX, doorCoordinates.getY() + Integer.signum(coordinatesDiffY) * i));
+        }
+    }
+
+    public boolean isReserved(int x, int y, Room room) {
+        return x == 0 && y == 0 || x == room.getWidth() - 1 && y == room.getHeight() - 1;
+    }
+
+    public void clearItemsAroundDoor(Room room, Door door) {
+        for (int i = 0; i < 8; i++) {
+            Item deletedKeepable = door.getAnyItemNear(true, room);
+            Item deletedUnkeepable = door.getAnyItemNear(false, room);
+            if (deletedUnkeepable != null) room.getGameObjects().remove(deletedUnkeepable.getCoordinates());
+            if (deletedKeepable != null) room.getGameObjects().remove(deletedKeepable.getCoordinates());
         }
     }
 }

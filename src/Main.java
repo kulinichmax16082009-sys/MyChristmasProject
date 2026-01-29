@@ -11,27 +11,29 @@ public class Main {
     public static void main(String[] args) {
         OutputUtils outputUtils = new OutputUtils();
         RoomFactory roomFactory = new RoomFactory();
-        Room roomA = new Room("a", 15, 15);
-
-//        Door door = new Door();
-//        roomA.place(new Coordinates(3,3), door);
-//        roomA.place(new Coordinates(4,3), new Chair());
+//        Room roomA = new Room("a", 15, 15);
 //
-//        System.out.println(door.getAnyItemNear(false, roomA).getCoordinates());
+//      Door door = new Door();
+//       roomA.place(new Coordinates(3,3), door);
+//       roomA.place(new Coordinates(4,3), new Chair());
+//
+//       System.out.println(door.getAnyItemNear(false, roomA).getCoordinates());
+//
+//
+//
+//        Room roomB = new Room("b", 6, 6);
+//
+//        roomFactory.generateItems(roomA, new RandomGenerator());
+//        roomFactory.generateItems(roomB, new RandomGenerator());
+//
+//        roomFactory.connectRooms(roomA, roomB, new RandomGenerator());
+//
+//        outputUtils.printRoom(roomA);
+//        System.out.println();
+//        outputUtils.printRoom(roomB);
 
-
-
-        Room roomB = new Room("b", 6, 6);
-
-        roomFactory.generateItems(roomA, new RandomGenerator());
-        roomFactory.generateItems(roomB, new RandomGenerator());
-
-        roomFactory.connectRooms(roomA, roomB, new RandomGenerator());
-
-        outputUtils.printRoom(roomA);
-        System.out.println();
-        outputUtils.printRoom(roomB);
-
+        Room newRoom = roomFactory.generateRoom(new RandomGenerator());
+        outputUtils.printRoom(newRoom);
 
         Game game = new Game();
         game.play();
