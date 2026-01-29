@@ -9,10 +9,10 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public abstract class Item extends GameObject {
-    //TODO: přidat maxItemCount pro items
     private int spawnChance;
     private int damageChance;
     private int damageInPercent;
+    private int maxCount;
 
     public Item(String name) {
         super(name);
@@ -46,6 +46,18 @@ public abstract class Item extends GameObject {
         this.damageInPercent = damageInPercent;
     }
 
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(int maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    public void subMaxCount(int amount) {
+        if (maxCount - amount >= 0) maxCount -= amount;
+    }
+
     public abstract String getPathFile();
 
     public Item initializeItem() {
@@ -62,6 +74,7 @@ public abstract class Item extends GameObject {
     public String toString() {
         return "spawn chance: " + spawnChance +
                 ", damage chance: " + damageChance +
-                ", damage in percent: " + damageInPercent;
+                ", damage in percent: " + damageInPercent +
+                ", max count: " + maxCount;
     }
 }

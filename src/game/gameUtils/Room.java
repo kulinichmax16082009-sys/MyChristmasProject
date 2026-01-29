@@ -91,9 +91,9 @@ public class Room {
 
     public ArrayList<Coordinates> findFreeCoordinates() {
         ArrayList<Coordinates> freeCoordinates = new ArrayList<>();
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Coordinates coordinates = new Coordinates(x, y);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Coordinates coordinates = new Coordinates(j, i);
                 if (!gameObjects.containsKey(coordinates)) {
                     freeCoordinates.add(coordinates);
                 }

@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         OutputUtils outputUtils = new OutputUtils();
         RoomFactory roomFactory = new RoomFactory();
-        Room roomA = new Room("a", 10, 4);
+        Room roomA = new Room("a", 15, 15);
 
 //        Door door = new Door();
 //        roomA.place(new Coordinates(3,3), door);

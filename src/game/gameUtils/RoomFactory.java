@@ -15,7 +15,6 @@ public class RoomFactory {
         allPossibleItems = new ArrayList<>();
     }
 
-    //TODO: Učit jména učeben z externího souboru (nebo generovat podle nějakého vzoru)
     public Room generateRoom(RandomGenerator rnd) {
         Room room = new Room("Učebna č." + rnd.randomNumber(1, 100), rnd.randomNumber(2, 15), rnd.randomNumber(2, 15));
         room.place(new Coordinates(rnd.randomNumber(0, room.getWidth() - 1), rnd.randomNumber(0, room.getHeight() - 1)), Teacher.teacherFactory(rnd.randomNumber(1,5)));
@@ -23,10 +22,7 @@ public class RoomFactory {
         return room;
     }
 
-    //TODO: Ošetřít podmínku při které není možné dveře umístit
     public void connectRooms(Room roomA, Room roomB, RandomGenerator rnd) {
-        //TODO: Ošetřit aby dveře bylo možné umístit
-
         Door doorA = new Door();
         Door doorB = new Door();
 
@@ -50,27 +46,28 @@ public class RoomFactory {
         for (int i = 0; i < 8; i++) {
             Item deletedA = doorA.getAnyItemNear(false, roomA);
             if (deletedA != null) roomA.getGameObjects().remove(deletedA.getCoordinates());
-        }
 
-        for (int j = 0; j < 8; j++) {
             Item deletedB = doorB.getAnyItemNear(false, roomB);
             if (deletedB != null) roomB.getGameObjects().remove(deletedB.getCoordinates());
         }
     }
 
     public void generateItems(Room room, RandomGenerator rnd) {
-        //TODO: generovat šanci pouze jednou
         initializeAllPossibleItems();
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 Coordinates coordinates = new Coordinates(j, i);
+
                 //Předem rezervované pozice (počáteční pozice hráče a pozice učitele)
                 if (coordinates.equals(new Coordinates(0,0))) continue;
                 if (coordinates.equals(new Coordinates(room.getWidth() - 1, room.getHeight() -1))) continue;
+
+                //generace předmětů
                 for (Item possibleItem : allPossibleItems) {
                     Item item = possibleItem.initializeItem();
-                    if (rnd.generateProbability(possibleItem.getSpawnChance())) {
+                    if (rnd.generateProbability(possibleItem.getSpawnChance()) && possibleItem.getMaxCount() != 0) {
                         room.place(coordinates, item);
+                        possibleItem.subMaxCount(1);
                     }
                 }
             }
@@ -79,13 +76,14 @@ public class RoomFactory {
 
     //TODO: Opravit aby šance byla menší
     public void initializeAllPossibleItems() {
+        allPossibleItems.add(new MagicPear().initializeItem());
+        allPossibleItems.add(new GoldenKey().initializeItem());
+        allPossibleItems.add(new EnergyDrink().initializeItem());
+        allPossibleItems.add(new EnergyDrink().initializeItem());
+        allPossibleItems.add(new Resistor().initializeItem());
         allPossibleItems.add(new Chair().initializeItem());
         allPossibleItems.add(new Wall().initializeItem());
         allPossibleItems.add(new Desk().initializeItem());
-        allPossibleItems.add(new Resistor().initializeItem());
-        allPossibleItems.add(new EnergyDrink().initializeItem());
-        allPossibleItems.add(new GoldenKey().initializeItem());
-        allPossibleItems.add(new MagicPear().initializeItem());
     }
 
     public void clearWayFromDoorToTeacher(Room room) {

@@ -9,7 +9,7 @@ public class RandomGenerator {
 
     public boolean generateProbability(int percent) {
         int randomChance = randomNumber(0, 100);
-        if (percent > 100 || percent < 0) return false;
+        if (percent > 100 || percent <= 0) return false;
         return randomChance <= percent;
     }
 
