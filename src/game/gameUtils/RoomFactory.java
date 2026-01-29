@@ -2,14 +2,8 @@ package game.gameUtils;
 
 import game.characters.teachers.Teacher;
 import game.items.Item;
-import game.items.keepable.EnergyDrink;
-import game.items.keepable.GoldenKey;
-import game.items.keepable.MagicPear;
-import game.items.keepable.Resistor;
-import game.items.unkeepable.Chair;
-import game.items.unkeepable.Desk;
-import game.items.unkeepable.Door;
-import game.items.unkeepable.Wall;
+import game.items.keepable.*;
+import game.items.unkeepable.*;
 import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
@@ -31,6 +25,8 @@ public class RoomFactory {
 
     //TODO: Ošetřít podmínku při které není možné dveře umístit
     public void connectRooms(Room roomA, Room roomB, RandomGenerator rnd) {
+        //TODO: Ošetřit aby dveře bylo možné umístit
+
         Door doorA = new Door();
         Door doorB = new Door();
 
@@ -39,37 +35,49 @@ public class RoomFactory {
         doorB.setNextRoom(roomA);
         doorB.setNextDoor(doorA);
 
+        //Přidání dveří do místností
         boolean isPlaced = false;
-        while (!isPlaced) isPlaced = roomA.place(new Coordinates(rnd.randomNumber(0, roomA.getWidth() - 1), rnd.randomNumber(0, roomA.getHeight() - 1)), doorA);
-        isPlaced = false;
-        while (!isPlaced) isPlaced = roomB.place(new Coordinates(rnd.randomNumber(0, roomB.getWidth() - 1), rnd.randomNumber(0, roomB.getHeight() - 1)), doorB);
 
-        for (int i = 0; i < 7; i++) {
-            if (!doorA.isAnyObjectNearByType(Teacher.class, false)) {
-                roomA.getGameObjects().remove(doorA.getNearObjectByType(GameObject.class, false).getCoordinates());
-            }
+        while (!isPlaced) {
+            isPlaced = roomA.place(new Coordinates(rnd.randomNumber(0, roomA.getWidth() - 1), rnd.randomNumber(0, roomA.getHeight() - 1)), doorA);
+        }
+        isPlaced = false;
+        while (!isPlaced) {
+            isPlaced = roomB.place(new Coordinates(rnd.randomNumber(0, roomB.getWidth() - 1), rnd.randomNumber(0, roomB.getHeight() - 1)), doorB);
         }
 
-        for (int i = 0; i < 7; i++) {
-            if (!doorB.isAnyObjectNearByType(Teacher.class, false)) {
-                roomB.getGameObjects().remove(doorB.getNearObjectByType(GameObject.class, false).getCoordinates());
-            }
+        //Odstranění překážek kolem dveři
+        for (int i = 0; i < 8; i++) {
+            Item deletedA = doorA.getAnyItemNear(false, roomA);
+            if (deletedA != null) roomA.getGameObjects().remove(deletedA.getCoordinates());
+        }
+
+        for (int j = 0; j < 8; j++) {
+            Item deletedB = doorB.getAnyItemNear(false, roomB);
+            if (deletedB != null) roomB.getGameObjects().remove(deletedB.getCoordinates());
         }
     }
 
     public void generateItems(Room room, RandomGenerator rnd) {
+        //TODO: generovat šanci pouze jednou
         initializeAllPossibleItems();
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
+                Coordinates coordinates = new Coordinates(j, i);
+                //Předem rezervované pozice (počáteční pozice hráče a pozice učitele)
+                if (coordinates.equals(new Coordinates(0,0))) continue;
+                if (coordinates.equals(new Coordinates(room.getWidth() - 1, room.getHeight() -1))) continue;
                 for (Item possibleItem : allPossibleItems) {
-                    if (rnd.generateProbability(possibleItem.getSpawnChance()) && !possibleItem.isAnyObjectNearByType(GameObject.class, false)) {
-                        room.place(new Coordinates(j, i), possibleItem);
+                    Item item = possibleItem.initializeItem();
+                    if (rnd.generateProbability(possibleItem.getSpawnChance())) {
+                        room.place(coordinates, item);
                     }
                 }
             }
         }
     }
 
+    //TODO: Opravit aby šance byla menší
     public void initializeAllPossibleItems() {
         allPossibleItems.add(new Chair().initializeItem());
         allPossibleItems.add(new Wall().initializeItem());
@@ -96,15 +104,16 @@ public class RoomFactory {
 
         Coordinates doorCoordinates = door.getCoordinates();
 
+        //Vypočet rozdílu souřadnic
         coordinatesDiffX = teacher.getCoordinates().getX() - door.getCoordinates().getX();
         coordinatesDiffY = teacher.getCoordinates().getY() - door.getCoordinates().getY();
 
-        //X axis
+        //X souřadnice
         for (int i = 1; i < Math.abs(coordinatesDiffX); i++) {
             room.getGameObjects().remove(new Coordinates(doorCoordinates.getX() + Integer.signum(coordinatesDiffX) * i, doorCoordinates.getY()));
         }
 
-        //Y axis
+        //Y souřadnice
         for (int i = 0; i < Math.abs(coordinatesDiffY); i++) {
             room.getGameObjects().remove(new Coordinates(doorCoordinates.getX() + coordinatesDiffX, doorCoordinates.getY() + Integer.signum(coordinatesDiffY) * i));
         }

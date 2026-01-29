@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public abstract class Item extends GameObject {
+    //TODO: přidat maxItemCount pro items
     private int spawnChance;
     private int damageChance;
     private int damageInPercent;
