@@ -4,7 +4,6 @@ import game.characters.teachers.Teacher;
 import game.items.Item;
 import game.items.keepable.*;
 import game.items.unkeepable.*;
-import game.uiUtils.OutputUtils;
 import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
@@ -126,8 +125,8 @@ public class RoomFactory {
 
     public void lockConnectedDoors(Door doorA, Door doorB) {
         if (doorA.getNextDoor() == doorB && doorB.getNextDoor() == doorA) {
-            doorA.setOpen(false);
-            doorB.setOpen(false);
+            doorA.setIsOpen(false);
+            doorB.setIsOpen(false);
         }
     }
 

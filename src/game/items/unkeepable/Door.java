@@ -33,11 +33,11 @@ public class Door extends Item {
         this.nextDoor = nextDoor;
     }
 
-    public boolean isOpen() {
+    public boolean getIsOpen() {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
+    public void setIsOpen(boolean open) {
         isOpen = open;
     }
 
