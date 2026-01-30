@@ -5,9 +5,6 @@ import game.uiUtils.RandomGenerator;
 
 public class Main {
     public static void main(String[] args) {
-
-        System.out.println(2%3);
-
         OutputUtils outputUtils = new OutputUtils();
         WorldGenerator worldGenerator = new WorldGenerator();
         RoomFactory roomFactory = new RoomFactory();
@@ -35,12 +32,12 @@ public class Main {
 //        outputUtils.printRoom(roomB);
 
 //        Room newRoom = roomFactory.generateRoom(new RandomGenerator());
-//        outputUtils.printRoom(newRoom);
-        worldGenerator.initializeWorld(roomFactory, new RandomGenerator(), player);
-        Room center = worldGenerator.initializeCenterRoom(player, new RandomGenerator(), roomFactory);
-        worldGenerator.connectAllRooms(center, roomFactory, new RandomGenerator());
-
-        outputUtils.printRoom(center);
+//       outputUtils.printRoom(newRoom);
+//        worldGenerator.initializeWorld(roomFactory, new RandomGenerator(), player);
+//        Room center = worldGenerator.initializeCenterRoom(player, new RandomGenerator(), roomFactory);
+//        worldGenerator.connectAllRooms(center, roomFactory, new RandomGenerator());
+//
+//        outputUtils.printRoom(center);
 
         Game game = new Game();
         game.play();

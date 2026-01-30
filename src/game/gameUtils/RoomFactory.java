@@ -4,6 +4,7 @@ import game.characters.teachers.Teacher;
 import game.items.Item;
 import game.items.keepable.*;
 import game.items.unkeepable.*;
+import game.uiUtils.OutputUtils;
 import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class RoomFactory {
     }
 
     public Room generateRoom(RandomGenerator rnd) {
-        Room room = new Room("Učebna č." + rnd.randomNumber(2, 100), rnd.randomNumber(2, 15), rnd.randomNumber(2, 15));
+        Room room = new Room("Učebna č." + rnd.randomNumber(2, 100), rnd.randomNumber(3, 15), rnd.randomNumber(3, 15));
         room.place(new Coordinates(rnd.randomNumber(0, room.getWidth() - 1), rnd.randomNumber(0, room.getHeight() - 1)), Teacher.teacherFactory(rnd.randomNumber(1,5)));
         generateItems(room, rnd);
 
@@ -116,8 +117,8 @@ public class RoomFactory {
 
     public void clearItemsAroundDoor(Room room, Door door) {
         for (int i = 0; i < 8; i++) {
-            Item deletedKeepable = door.getAnyItemNear(true, room);
-            Item deletedUnkeepable = door.getAnyItemNear(false, room);
+            Item deletedKeepable = (Item) door.getAnyObjectNearByType(Item.class, false , room);
+            Item deletedUnkeepable = (Item) door.getAnyObjectNearByType(Item.class,true, room);
             if (deletedUnkeepable != null) room.getGameObjects().remove(deletedUnkeepable.getCoordinates());
             if (deletedKeepable != null) room.getGameObjects().remove(deletedKeepable.getCoordinates());
         }
@@ -132,7 +133,7 @@ public class RoomFactory {
 
     private void placeDoor(Room room, Door door, RandomGenerator rnd) {
         room.place(randomFree(room, rnd), door);
-        while (door.isAnyDoorNear(room)) {
+        while (door.isAnyObjectNearByType(Door.class, false, room)) {
             room.move(randomFree(room, rnd), door);
         }
     }

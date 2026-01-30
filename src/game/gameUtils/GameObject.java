@@ -1,8 +1,5 @@
 package game.gameUtils;
-
-import game.characters.teachers.Teacher;
 import game.items.Item;
-import game.items.unkeepable.Door;
 
 public abstract class GameObject {
     private String name;
@@ -35,67 +32,35 @@ public abstract class GameObject {
                 ", coordinates: " + coordinates;
     }
 
-    //TODO: Dodelat metody pro hledani objektu v okoli
     public abstract String getSprite();
 
     public int[][] initializeDirections() {
         return new int[][] { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1} };
     }
 
-    public Item getAnyItemNear(boolean isKeepable, Room currentRoom) {
+    public GameObject getAnyObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
         int x = getCoordinates().getX();
         int y = getCoordinates().getY();
 
         for (int[] d : initializeDirections()) {
             Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);
             if (currentRoom.getGameObjects().containsKey(coordinates)) {
+
+                //Vyběr předmětu
                 if (currentRoom.getGameObjects().get(coordinates) instanceof Item item) {
-                    if (item.isKeepable() == isKeepable) return item;
+                    if (type.isInstance(item) && item.isKeepable() == isKeepable) return item;
+                }
+
+                //Obecný výběr
+                if (type.isInstance(currentRoom.getGameObjects().get(coordinates))) {
+                    return currentRoom.getGameObjects().get(coordinates);
                 }
             }
         }
         return null;
     }
 
-    public Teacher getAnyTeacherNear(Room currentRoom) {
-        int x = getCoordinates().getX();
-        int y = getCoordinates().getY();
-
-        for (int[] d : initializeDirections()) {
-            Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);
-            if (currentRoom.getGameObjects().containsKey(coordinates)) {
-                if (currentRoom.getGameObjects().get(coordinates) instanceof Teacher teacher) {
-                    return teacher;
-                }
-            }
-        }
-        return null;
-    }
-
-    public Door getAnyDoorNear(Room currentRoom) {
-        int x = getCoordinates().getX();
-        int y = getCoordinates().getY();
-
-        for (int[] d : initializeDirections()) {
-            Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);
-            if (currentRoom.getGameObjects().containsKey(coordinates)) {
-                if (currentRoom.getGameObjects().get(coordinates) instanceof Door door) {
-                    return door;
-                }
-            }
-        }
-        return null;
-    }
-
-    public boolean isAnyItemNear(boolean isKeepable, Room currentRoom) {
-        return getAnyItemNear(isKeepable, currentRoom) != null;
-    }
-
-    public boolean isAnyTeacherNear(Room currentRoom) {
-        return getAnyTeacherNear(currentRoom) != null;
-    }
-
-    public boolean isAnyDoorNear(Room currentRoom) {
-        return getAnyDoorNear(currentRoom) != null;
+    public boolean isAnyObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
+        return getAnyObjectNearByType(type, isKeepable, currentRoom) != null;
     }
 }

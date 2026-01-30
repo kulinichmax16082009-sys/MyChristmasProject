@@ -13,9 +13,8 @@ public class WorldGenerator {
     }
 
     public void initializeWorld(RoomFactory roomFactory, RandomGenerator rnd, Player player) {
-        Room newRoom = roomFactory.generateRoom(rnd);
-        roomFactory.clearWayFromDoorToTeacher(newRoom);
-        for (int i = 0; i < player.getRoomsLeftCount(); i++) rooms.add(newRoom);
+        for (int i = 0; i < player.getRoomsLeftCount(); i++) rooms.add(roomFactory.generateRoom(rnd));
+        for (Room room : rooms) roomFactory.clearWayFromDoorToTeacher(room);
     }
 
     public void connectAllRooms(Room center, RoomFactory roomFactory, RandomGenerator rnd) {
@@ -23,9 +22,9 @@ public class WorldGenerator {
     }
 
     public Room initializeCenterRoom(Player player, RandomGenerator rnd, RoomFactory roomFactory) {
-        Room mainClass = new Room("Učebna č.1", rnd.randomNumber(2, 15), rnd.randomNumber(2,15));
+        Room mainClass = new Room("Učebna č.1", rnd.randomNumber(3, 15), rnd.randomNumber(3,15));
         Room result = new Room("Chodba", player.getRoomsLeftCount() * 2, rnd.randomNumber(4, 6));
-        roomFactory.connectRooms(mainClass, result, rnd);
+        roomFactory.connectRooms(result, mainClass, rnd);
         return result;
     }
 }
