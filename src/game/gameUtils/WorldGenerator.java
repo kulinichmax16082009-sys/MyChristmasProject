@@ -6,6 +6,7 @@ import game.uiUtils.RandomGenerator;
 import java.util.ArrayList;
 
 public class WorldGenerator {
+    private Room hall;
     private ArrayList<Room> rooms;
 
     public WorldGenerator() {
@@ -13,19 +14,33 @@ public class WorldGenerator {
     }
 
     public void initializeWorld(RoomFactory roomFactory, RandomGenerator rnd, Player player) {
-        //TODO: Doimplementovat metodu clearWayFromTeacherToDoor();
         for (int i = 0; i < player.getRoomsLeftCount(); i++) rooms.add(roomFactory.generateRoom(rnd));
-//        for (Room room : rooms) roomFactory.clearWayFromDoorToTeacher(room);
     }
 
-    public void connectAllRooms(Room center, RoomFactory roomFactory, RandomGenerator rnd) {
-        for (Room room : rooms) roomFactory.connectRooms(center, room, rnd);
+    public void connectAllRooms(RoomFactory roomFactory, RandomGenerator rnd) {
+        for (Room room : rooms) roomFactory.connectRooms(hall, room, rnd);
+        for (Room room : rooms) roomFactory.clearWayFromHallDoorToTeacher(room, hall);
     }
 
-    public Room initializeCenterRoom(Player player, RandomGenerator rnd, RoomFactory roomFactory) {
+    public void initializeHall(Player player, RandomGenerator rnd, RoomFactory roomFactory) {
         Room mainClass = new Room("Učebna č.1", rnd.randomNumber(3, 15), rnd.randomNumber(3,15));
-        Room result = new Room("Chodba", player.getRoomsLeftCount() * 2, rnd.randomNumber(4, 6));
-        roomFactory.connectRooms(result, mainClass, rnd);
-        return result;
+        hall = new Room("Chodba", player.getRoomsLeftCount() * 2, rnd.randomNumber(4, 6));
+        roomFactory.connectRooms(hall, mainClass, rnd);
+    }
+
+    public Room getHall() {
+        return hall;
+    }
+
+    public void setHall(Room hall) {
+        this.hall = hall;
+    }
+
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(ArrayList<Room> rooms) {
+        this.rooms = rooms;
     }
 }

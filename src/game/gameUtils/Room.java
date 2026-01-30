@@ -19,6 +19,14 @@ public class Room {
         this.isVisited = false;
     }
 
+    public Room() {
+        this.name = "";
+        this.gameObjects = new HashMap<>();
+        this.width = 0;
+        this.height = 0;
+        this.isVisited = false;
+    }
+
     public String getName() {
         return name;
     }

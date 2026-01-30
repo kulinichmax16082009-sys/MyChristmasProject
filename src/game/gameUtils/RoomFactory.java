@@ -89,37 +89,44 @@ public class RoomFactory {
         allPossibleItems.clear();
     }
 
-    public void clearWayFromDoorToTeacher(Room room) {
+    //TODO:Opravit chybu s úhlem, který nejde smazat
+    public void clearWayFromHallDoorToTeacher(Room room, Room hall) {
         Teacher teacher = null;
-        Door door = null;
+        Door hallDoor = null;
 
         for (GameObject gameObject : room.getGameObjects().values()) {
-            if (gameObject instanceof Door) door = (Door) gameObject;
+            if (gameObject instanceof Door door && door.getNextRoom() == hall) hallDoor = door;
             if (gameObject instanceof Teacher) teacher = (Teacher) gameObject;
         }
 
-        if (teacher == null || door == null) return;
+        if (teacher == null || hallDoor == null) return;
 
-        Coordinates doorCoordinates = door.getCoordinates();
+        Coordinates doorCoordinates = hallDoor.getCoordinates();
+        Coordinates teacherCoordinates = teacher.getCoordinates();
 
         //Vypočet rozdílu souřadnic
-        int coordinatesDiffX = teacher.getCoordinates().getX() - door.getCoordinates().getX();
-        int coordinatesDiffY = teacher.getCoordinates().getY() - door.getCoordinates().getY();
+        int coordinatesDiffX = teacher.getCoordinates().getX() - hallDoor.getCoordinates().getX();
+        int coordinatesDiffY = teacher.getCoordinates().getY() - hallDoor.getCoordinates().getY();
+        System.out.println(coordinatesDiffX + " + " + coordinatesDiffY);
 
         //X souřadnice
         for (int i = 1; i < Math.abs(coordinatesDiffX); i++) {
             room.getGameObjects().remove(new Coordinates(doorCoordinates.getX() + Integer.signum(coordinatesDiffX) * i, doorCoordinates.getY()));
         }
 
+        //Angle
+        Coordinates corner = new Coordinates(teacherCoordinates.getX(), doorCoordinates.getY());
+        if (!corner.equals(teacherCoordinates) && !corner.equals(doorCoordinates)) room.getGameObjects().remove(corner);
+
         //Y souřadnice
-        for (int i = 0; i < Math.abs(coordinatesDiffY); i++) {
-            room.getGameObjects().remove(new Coordinates(doorCoordinates.getX() + coordinatesDiffX, doorCoordinates.getY() + Integer.signum(coordinatesDiffY) * i));
+        for (int i = 1; i < Math.abs(coordinatesDiffY); i++) {
+            room.getGameObjects().remove(new Coordinates(teacherCoordinates.getX(), doorCoordinates.getY() + Integer.signum(coordinatesDiffY) * i));
         }
     }
 
     //TODO: Zarezervovat další místo
     public boolean isReserved(int x, int y, Room room) {
-        return x == 0 && y == 0 || x == room.getWidth() - 1 && y == room.getHeight() - 1;
+        return x == 0 && y == 0 || x == room.getWidth() - 1 && y == room.getHeight() - 1 || x == room.getWidth() / 2 && y == room.getHeight() / 2;
     }
 
     public void clearItemsAroundDoor(Room room, Door door) {

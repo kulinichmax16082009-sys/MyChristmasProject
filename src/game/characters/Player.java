@@ -15,13 +15,19 @@ public class Player extends Character {
     private int oneStepDistance;
     private Inventory inventory;
     private Marks marks;
-    private Room currentRoom;
     private ArrayList<Task> tasks;
+    private Room currentRoom;
     private boolean isTalking;
 
     public Player() {
         super(null);
-        roomsLeftCount = 1;
+        this.roomsLeftCount = 1;
+        this.currentRoom = new Room();
+        this.tasks = new ArrayList<>();
+        this.marks = new Marks();
+        this.inventory = new Inventory();
+        this.isTalking = false;
+        this.oneStepDistance = 1;
     }
 
     public int getRoomsLeftCount() {

@@ -39,8 +39,8 @@ public abstract class GameObject {
     }
 
     public GameObject getAnyObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
-        int x = getCoordinates().getX();
-        int y = getCoordinates().getY();
+        int x = coordinates.getX();
+        int y = coordinates.getY();
 
         for (int[] d : initializeDirections()) {
             Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);

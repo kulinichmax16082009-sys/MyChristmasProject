@@ -15,18 +15,52 @@ public class Game {
 
         Player player = new Player();
 
-        //Pokud nezadame, celý system spadne
+//      Pokud nezadame, celý system spadne
         player.setRoomsLeftCount(8);
         scannerUtils.initialize();
 
         worldGenerator.initializeWorld(roomFactory, rnd, player);
-        Room center = worldGenerator.initializeCenterRoom(player, rnd, roomFactory);
-        worldGenerator.connectAllRooms(center, roomFactory, rnd);
+        worldGenerator.initializeHall(player, rnd, roomFactory);
+        worldGenerator.connectAllRooms(roomFactory, rnd);
 
-        player.setCurrentRoom(center);
-        center.place(center.findFreeCoordinates().get(0), player);
+        player.setCurrentRoom(worldGenerator.getHall());
+        worldGenerator.getHall().place(worldGenerator.getHall().findFreeCoordinates().get(0), player);
 
         player.setOneStepDistance(1);
+
+        System.out.println();
+        System.out.println();
+
+        for (int i = 0; i < worldGenerator.getRooms().size(); i++) {
+            outputUtils.printRoom(worldGenerator.getRooms().get(i));
+            System.out.println();
+        }
+
+
+//        Room newRoom = roomFactory.generateRoom(rnd);
+//        worldGenerator.setHall(newRoom);
+//        outputUtils.printRoom(newRoom);
+//        System.out.println();
+//        Room roomA = roomFactory.generateRoom(rnd);
+//        outputUtils.printRoom(roomA);
+//
+//        System.out.println();
+//        System.out.println();
+//
+//        roomFactory.connectRooms(roomA, newRoom, rnd);
+//        outputUtils.printRoom(newRoom);
+//        System.out.println();
+//        outputUtils.printRoom(roomA);
+//
+//        System.out.println();
+//        System.out.println();
+//
+//        roomFactory.clearWayFromHallDoorToTeacher(roomA, newRoom);
+//
+//        outputUtils.printRoom(newRoom);
+//        System.out.println();
+//        outputUtils.printRoom(roomA);
+
 
         while (true) {
             outputUtils.printRoom(player.getCurrentRoom());

@@ -69,8 +69,10 @@ public class Door extends Item {
     }
 
     public void lockConnectedDoors() {
-        isOpen = false;
-        nextDoor.isOpen = false;
+        if (nextDoor != null) {
+            isOpen = false;
+            nextDoor.isOpen = false;
+        }
     }
 
     @Override
