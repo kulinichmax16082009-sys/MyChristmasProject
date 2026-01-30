@@ -13,8 +13,9 @@ public class WorldGenerator {
     }
 
     public void initializeWorld(RoomFactory roomFactory, RandomGenerator rnd, Player player) {
+        //TODO: Doimplementovat metodu clearWayFromTeacherToDoor();
         for (int i = 0; i < player.getRoomsLeftCount(); i++) rooms.add(roomFactory.generateRoom(rnd));
-        for (Room room : rooms) roomFactory.clearWayFromDoorToTeacher(room);
+//        for (Room room : rooms) roomFactory.clearWayFromDoorToTeacher(room);
     }
 
     public void connectAllRooms(Room center, RoomFactory roomFactory, RandomGenerator rnd) {

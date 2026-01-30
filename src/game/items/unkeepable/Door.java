@@ -1,6 +1,7 @@
 package game.items.unkeepable;
 
 import game.characters.Player;
+import game.gameUtils.Coordinates;
 import game.gameUtils.Room;
 import game.items.Item;
 import game.uiUtils.RandomGenerator;
@@ -48,9 +49,28 @@ public class Door extends Item {
                 ", is open: " + isOpen;
     }
 
-    //TODO: Implement useAbility method
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
+        int x = nextDoor.getCoordinates().getX();
+        int y = nextDoor.getCoordinates().getY();
+
+        int[][] directions = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+
+        for (int[] d : directions) {
+            Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);
+
+            if (nextRoom.canBePlaced(coordinates)) {
+                player.getCurrentRoom().getGameObjects().remove(player.getCoordinates());
+                player.setCurrentRoom(nextRoom);
+                nextRoom.place(coordinates, player);
+                break;
+            }
+        }
+    }
+
+    public void lockConnectedDoors() {
+        isOpen = false;
+        nextDoor.isOpen = false;
     }
 
     @Override

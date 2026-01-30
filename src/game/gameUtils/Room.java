@@ -1,5 +1,7 @@
 package game.gameUtils;
 
+import game.uiUtils.RandomGenerator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -100,5 +102,9 @@ public class Room {
             }
         }
         return freeCoordinates;
+    }
+
+    public Coordinates findRandomFreeCoordinates(RandomGenerator rnd) {
+        return findFreeCoordinates().get(rnd.randomNumber(0, findFreeCoordinates().size() - 1));
     }
 }

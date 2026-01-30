@@ -21,6 +21,7 @@ public class Player extends Character {
 
     public Player() {
         super(null);
+        roomsLeftCount = 1;
     }
 
     public int getRoomsLeftCount() {

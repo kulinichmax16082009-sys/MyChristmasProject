@@ -13,19 +13,22 @@ public class RoomFactory {
 
     public RoomFactory() {
         allPossibleItems = new ArrayList<>();
-        initializeAllPossibleItems();
     }
 
     public Room generateRoom(RandomGenerator rnd) {
+        initializeAllPossibleItems();
         Room room = new Room("Učebna č." + rnd.randomNumber(2, 100), rnd.randomNumber(3, 15), rnd.randomNumber(3, 15));
         room.place(new Coordinates(rnd.randomNumber(0, room.getWidth() - 1), rnd.randomNumber(0, room.getHeight() - 1)), Teacher.teacherFactory(rnd.randomNumber(1,5)));
         generateItems(room, rnd);
+        clearAllPossibleItems();
 
         //Další kabinet v učebně
         if (rnd.generateProbability(50)) {
+            initializeAllPossibleItems();
             Room sideRoom = new Room("Kabinet č." + rnd.randomNumber(1, 100), rnd.randomNumber(2, 6), rnd.randomNumber(2, 6));
             generateItems(sideRoom, rnd);
             connectRooms(room, sideRoom, rnd);
+            clearAllPossibleItems();
         }
         return room;
     }
@@ -39,8 +42,8 @@ public class RoomFactory {
         doorB.setNextRoom(roomA);
         doorB.setNextDoor(doorA);
 
-        if (roomA.getName().equals("Učebna č.1") || roomB.getName().equals("Učebna č.1")) lockConnectedDoors(doorA, doorB);
-        if (rnd.generateProbability(5)) lockConnectedDoors(doorA, doorB);
+        if (roomA.getName().equals("Učebna č.1") || roomB.getName().equals("Učebna č.1")) doorA.lockConnectedDoors();
+        if (rnd.generateProbability(5)) doorA.lockConnectedDoors();
 
         //Přidání dveří do místností
         placeDoor(roomA, doorA, rnd);
@@ -82,6 +85,10 @@ public class RoomFactory {
         allPossibleItems.add(new Desk().initializeItem());
     }
 
+    public void clearAllPossibleItems() {
+        allPossibleItems.clear();
+    }
+
     public void clearWayFromDoorToTeacher(Room room) {
         Teacher teacher = null;
         Door door = null;
@@ -110,6 +117,7 @@ public class RoomFactory {
         }
     }
 
+    //TODO: Zarezervovat další místo
     public boolean isReserved(int x, int y, Room room) {
         return x == 0 && y == 0 || x == room.getWidth() - 1 && y == room.getHeight() - 1;
     }
@@ -123,21 +131,10 @@ public class RoomFactory {
         }
     }
 
-    public void lockConnectedDoors(Door doorA, Door doorB) {
-        if (doorA.getNextDoor() == doorB && doorB.getNextDoor() == doorA) {
-            doorA.setIsOpen(false);
-            doorB.setIsOpen(false);
-        }
-    }
-
     private void placeDoor(Room room, Door door, RandomGenerator rnd) {
-        room.place(randomFree(room, rnd), door);
+        room.place(room.findRandomFreeCoordinates(rnd), door);
         while (door.isAnyObjectNearByType(Door.class, false, room)) {
-            room.move(randomFree(room, rnd), door);
+            room.move(room.findRandomFreeCoordinates(rnd), door);
         }
-    }
-
-    private Coordinates randomFree(Room room, RandomGenerator rnd) {
-        return room.findFreeCoordinates().get(rnd.randomNumber(0, room.findFreeCoordinates().size() - 1));
     }
 }
