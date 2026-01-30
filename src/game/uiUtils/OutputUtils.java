@@ -4,7 +4,7 @@ import game.gameUtils.Coordinates;
 import game.gameUtils.Room;
 
 public class OutputUtils {
-    public void printMessage(String message) {
+    public void showMessage(String message) {
         System.out.println(message);
     }
 
