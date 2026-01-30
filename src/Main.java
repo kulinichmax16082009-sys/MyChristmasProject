@@ -1,16 +1,18 @@
-import game.gameUtils.Coordinates;
-import game.gameUtils.Game;
-import game.gameUtils.Room;
-import game.gameUtils.RoomFactory;
-import game.items.unkeepable.Chair;
-import game.items.unkeepable.Door;
+import game.characters.Player;
+import game.gameUtils.*;
 import game.uiUtils.OutputUtils;
 import game.uiUtils.RandomGenerator;
 
 public class Main {
     public static void main(String[] args) {
+
+        System.out.println(2%3);
+
         OutputUtils outputUtils = new OutputUtils();
+        WorldGenerator worldGenerator = new WorldGenerator();
         RoomFactory roomFactory = new RoomFactory();
+        Player player = new Player();
+        player.setRoomsLeftCount(16);
 //        Room roomA = new Room("a", 15, 15);
 //
 //      Door door = new Door();
@@ -32,8 +34,13 @@ public class Main {
 //        System.out.println();
 //        outputUtils.printRoom(roomB);
 
-        Room newRoom = roomFactory.generateRoom(new RandomGenerator());
-        outputUtils.printRoom(newRoom);
+//        Room newRoom = roomFactory.generateRoom(new RandomGenerator());
+//        outputUtils.printRoom(newRoom);
+        worldGenerator.initializeWorld(roomFactory, new RandomGenerator(), player);
+        Room center = worldGenerator.initializeCenterRoom(player, new RandomGenerator(), roomFactory);
+        worldGenerator.connectAllRooms(center, roomFactory, new RandomGenerator());
+
+        outputUtils.printRoom(center);
 
         Game game = new Game();
         game.play();

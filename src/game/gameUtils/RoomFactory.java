@@ -17,7 +17,7 @@ public class RoomFactory {
     }
 
     public Room generateRoom(RandomGenerator rnd) {
-        Room room = new Room("Učebna č." + rnd.randomNumber(1, 100), rnd.randomNumber(2, 15), rnd.randomNumber(2, 15));
+        Room room = new Room("Učebna č." + rnd.randomNumber(2, 100), rnd.randomNumber(2, 15), rnd.randomNumber(2, 15));
         room.place(new Coordinates(rnd.randomNumber(0, room.getWidth() - 1), rnd.randomNumber(0, room.getHeight() - 1)), Teacher.teacherFactory(rnd.randomNumber(1,5)));
         generateItems(room, rnd);
 
@@ -39,9 +39,12 @@ public class RoomFactory {
         doorB.setNextRoom(roomA);
         doorB.setNextDoor(doorA);
 
+        if (roomA.getName().equals("Učebna č.1") || roomB.getName().equals("Učebna č.1")) lockConnectedDoors(doorA, doorB);
+        if (rnd.generateProbability(5)) lockConnectedDoors(doorA, doorB);
+
         //Přidání dveří do místností
-        roomA.place(roomA.findFreeCoordinates().get(rnd.randomNumber(0, roomA.findFreeCoordinates().size() - 1)), doorA);
-        roomB.place(roomB.findFreeCoordinates().get(rnd.randomNumber(0, roomB.findFreeCoordinates().size() - 1)), doorB);
+        placeDoor(roomA, doorA, rnd);
+        placeDoor(roomB, doorB, rnd);
 
         //Odstranění překážek kolem dveři
         clearItemsAroundDoor(roomA, doorA);
@@ -80,9 +83,6 @@ public class RoomFactory {
     }
 
     public void clearWayFromDoorToTeacher(Room room) {
-        int coordinatesDiffX;
-        int coordinatesDiffY;
-
         Teacher teacher = null;
         Door door = null;
 
@@ -96,8 +96,8 @@ public class RoomFactory {
         Coordinates doorCoordinates = door.getCoordinates();
 
         //Vypočet rozdílu souřadnic
-        coordinatesDiffX = teacher.getCoordinates().getX() - door.getCoordinates().getX();
-        coordinatesDiffY = teacher.getCoordinates().getY() - door.getCoordinates().getY();
+        int coordinatesDiffX = teacher.getCoordinates().getX() - door.getCoordinates().getX();
+        int coordinatesDiffY = teacher.getCoordinates().getY() - door.getCoordinates().getY();
 
         //X souřadnice
         for (int i = 1; i < Math.abs(coordinatesDiffX); i++) {
@@ -121,5 +121,23 @@ public class RoomFactory {
             if (deletedUnkeepable != null) room.getGameObjects().remove(deletedUnkeepable.getCoordinates());
             if (deletedKeepable != null) room.getGameObjects().remove(deletedKeepable.getCoordinates());
         }
+    }
+
+    public void lockConnectedDoors(Door doorA, Door doorB) {
+        if (doorA.getNextDoor() == doorB && doorB.getNextDoor() == doorA) {
+            doorA.setOpen(false);
+            doorB.setOpen(false);
+        }
+    }
+
+    private void placeDoor(Room room, Door door, RandomGenerator rnd) {
+        room.place(randomFree(room, rnd), door);
+        while (door.isAnyDoorNear(room)) {
+            room.move(randomFree(room, rnd), door);
+        }
+    }
+
+    private Coordinates randomFree(Room room, RandomGenerator rnd) {
+        return room.findFreeCoordinates().get(rnd.randomNumber(0, room.findFreeCoordinates().size() - 1));
     }
 }
