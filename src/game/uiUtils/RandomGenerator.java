@@ -7,9 +7,10 @@ import java.util.Random;
 public class RandomGenerator {
     private Random rnd = new Random();
 
-    public boolean generateProbability(int percent) {
-        int randomChance = randomNumber(0, 100);
+    public boolean generateProbability(float percent) {
+        float randomChance = rnd.nextFloat(101);
         if (percent > 100 || percent <= 0) return false;
+        System.out.println(percent + " + " + randomChance);
         return randomChance <= percent;
     }
 
@@ -24,6 +25,7 @@ public class RandomGenerator {
     }
 
     public int randomNumber(int min, int max) {
-        return rnd.nextInt(max - min + 1) + min;
+        if (max == Integer.MAX_VALUE) return 0;
+        return rnd.nextInt(min, max + 1);
     }
 }

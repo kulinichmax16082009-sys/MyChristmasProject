@@ -1,6 +1,6 @@
 {
   "name": "lavice",
-  "spawnChance": 10,
+  "spawnChance": 15.0,
   "damageChance": 0,
   "damageInPercent": 0,
   "maxCount": 20

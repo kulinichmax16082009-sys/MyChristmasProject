@@ -54,7 +54,7 @@ public class Door extends Item {
         int x = nextDoor.getCoordinates().getX();
         int y = nextDoor.getCoordinates().getY();
 
-        int[][] directions = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+        int[][] directions = initDirections();
 
         for (int[] d : directions) {
             Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);

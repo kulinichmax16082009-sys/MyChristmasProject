@@ -1,6 +1,6 @@
 {
   "name": "zeď",
-  "spawnChance": 10,
+  "spawnChance": 12.5,
   "damageChance": 0,
   "damageInPercent": 0,
   "maxCount": 25

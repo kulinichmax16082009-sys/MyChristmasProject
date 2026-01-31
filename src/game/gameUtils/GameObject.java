@@ -34,15 +34,17 @@ public abstract class GameObject {
 
     public abstract String getSprite();
 
-    public int[][] initializeDirections() {
+    public int[][] initDirections() {
         return new int[][] { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1} };
     }
 
-    public GameObject getAnyObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
+    public GameObject getObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
         int x = coordinates.getX();
         int y = coordinates.getY();
 
-        for (int[] d : initializeDirections()) {
+        int[][] directions = initDirections();
+
+        for (int[] d : directions) {
             Coordinates coordinates = new Coordinates(x + d[0], y + d[1]);
             if (currentRoom.getGameObjects().containsKey(coordinates)) {
 
@@ -60,7 +62,13 @@ public abstract class GameObject {
         return null;
     }
 
-    public boolean isAnyObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
-        return getAnyObjectNearByType(type, isKeepable, currentRoom) != null;
+    public void removeObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
+        if (isObjectNearByType(type, isKeepable, currentRoom)){
+            currentRoom.getGameObjects().remove(getObjectNearByType(type, isKeepable, currentRoom).coordinates);
+        }
+    }
+
+    public boolean isObjectNearByType(Class<?> type, boolean isKeepable, Room currentRoom) {
+        return getObjectNearByType(type, isKeepable, currentRoom) != null;
     }
 }

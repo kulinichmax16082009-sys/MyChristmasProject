@@ -9,28 +9,46 @@ import game.uiUtils.RandomGenerator;
 import java.util.ArrayList;
 
 public class RoomFactory {
-    ArrayList<Item> allPossibleItems;
+    private ArrayList<Item> allPossibleItems;
+    private static final int MIN_ROOM_NUMBER = 2;
+    private static final int MAX_ROOM_NUMBER = 100;
+    private static final int MIN_ROOM_SIZE = 3;
+    private static final int MAX_ROOM_SIZE = 15;
+    private static final int MIN_SIDE_ROOM_SIZE = 3;
+    private static final int MAX_SIDE_ROOM_SIZE = 6;
+    private static final float SIDE_ROOM_PROBABILITY = 50.0F;
+    private static final float DOOR_LOCK_PROBABILITY = 5.0F;
 
     public RoomFactory() {
         allPossibleItems = new ArrayList<>();
     }
 
     public Room generateRoom(RandomGenerator rnd) {
-        initializeAllPossibleItems();
-        Room room = new Room("Učebna č." + rnd.randomNumber(2, 100), rnd.randomNumber(3, 15), rnd.randomNumber(3, 15));
-        room.place(new Coordinates(rnd.randomNumber(0, room.getWidth() - 1), rnd.randomNumber(0, room.getHeight() - 1)), Teacher.teacherFactory(rnd.randomNumber(1,5)));
-        generateItems(room, rnd);
-        clearAllPossibleItems();
+        String name = "Učebna č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
+        int width = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
+        int height = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
+        Room newRoom = new Room(name, width, height);
+
+        Coordinates teacherCoords = new Coordinates(rnd.randomNumber(0, width - 1), rnd.randomNumber(0, height - 1));
+        newRoom.place(teacherCoords, Teacher.teacherFactory(rnd.randomNumber(1, 5)));
+        generateItems(newRoom, rnd);
 
         //Další kabinet v učebně
-        if (rnd.generateProbability(50)) {
-            initializeAllPossibleItems();
-            Room sideRoom = new Room("Kabinet č." + rnd.randomNumber(1, 100), rnd.randomNumber(2, 6), rnd.randomNumber(2, 6));
-            generateItems(sideRoom, rnd);
-            connectRooms(room, sideRoom, rnd);
-            clearAllPossibleItems();
+        if (rnd.generateProbability(SIDE_ROOM_PROBABILITY)) {
+            connectRooms(generateSideRoom(rnd), newRoom, rnd);
         }
-        return room;
+
+        return newRoom;
+    }
+
+    private Room generateSideRoom(RandomGenerator rnd) {
+        String name = "Kabinet č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
+        int width = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
+        int height = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
+        Room sideRoom = new Room(name, width, height);
+        generateItems(sideRoom, rnd);
+
+        return sideRoom;
     }
 
     public void connectRooms(Room roomA, Room roomB, RandomGenerator rnd) {
@@ -42,19 +60,15 @@ public class RoomFactory {
         doorB.setNextRoom(roomA);
         doorB.setNextDoor(doorA);
 
-        if (roomA.getName().equals("Učebna č.1") || roomB.getName().equals("Učebna č.1")) doorA.lockConnectedDoors();
-        if (rnd.generateProbability(5)) doorA.lockConnectedDoors();
+        if (shouldLockDoors(roomA, roomB, rnd)) doorA.lockConnectedDoors();
 
         //Přidání dveří do místností
         placeDoor(roomA, doorA, rnd);
         placeDoor(roomB, doorB, rnd);
-
-        //Odstranění překážek kolem dveři
-        clearItemsAroundDoor(roomA, doorA);
-        clearItemsAroundDoor(roomB, doorB);
     }
 
     public void generateItems(Room room, RandomGenerator rnd) {
+        initPossibleItems();
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 Coordinates coordinates = new Coordinates(j, i);
@@ -64,20 +78,20 @@ public class RoomFactory {
 
                 //generace předmětů
                 for (Item possibleItem : allPossibleItems) {
-                    Item item = possibleItem.initializeItem();
                     if (rnd.generateProbability(possibleItem.getSpawnChance()) && possibleItem.getMaxCount() != 0) {
-                        room.place(coordinates, item);
+                        room.place(coordinates, possibleItem.initializeItem());
                         possibleItem.subMaxCount(1);
+                        break;
                     }
                 }
             }
         }
     }
 
-    public void initializeAllPossibleItems() {
+    public void initPossibleItems() {
+        allPossibleItems.clear();
         allPossibleItems.add(new MagicPear().initializeItem());
         allPossibleItems.add(new GoldenKey().initializeItem());
-        allPossibleItems.add(new EnergyDrink().initializeItem());
         allPossibleItems.add(new EnergyDrink().initializeItem());
         allPossibleItems.add(new Resistor().initializeItem());
         allPossibleItems.add(new Chair().initializeItem());
@@ -85,63 +99,81 @@ public class RoomFactory {
         allPossibleItems.add(new Desk().initializeItem());
     }
 
-    public void clearAllPossibleItems() {
-        allPossibleItems.clear();
-    }
-
-    //TODO:Opravit chybu s úhlem, který nejde smazat
     public void clearWayFromHallDoorToTeacher(Room room, Room hall) {
-        Teacher teacher = null;
-        Door hallDoor = null;
-
-        for (GameObject gameObject : room.getGameObjects().values()) {
-            if (gameObject instanceof Door door && door.getNextRoom() == hall) hallDoor = door;
-            if (gameObject instanceof Teacher) teacher = (Teacher) gameObject;
-        }
+        Door hallDoor = findHallDoor(room, hall);
+        Teacher teacher = findTeacher(room);
 
         if (teacher == null || hallDoor == null) return;
 
-        Coordinates doorCoordinates = hallDoor.getCoordinates();
-        Coordinates teacherCoordinates = teacher.getCoordinates();
+        clearPathBetween(hallDoor.getCoordinates(), teacher.getCoordinates(), room);
+    }
 
-        //Vypočet rozdílu souřadnic
-        int coordinatesDiffX = teacher.getCoordinates().getX() - hallDoor.getCoordinates().getX();
-        int coordinatesDiffY = teacher.getCoordinates().getY() - hallDoor.getCoordinates().getY();
-        System.out.println(coordinatesDiffX + " + " + coordinatesDiffY);
+    private Door findHallDoor(Room room, Room hall) {
+        for (GameObject obj : room.getGameObjects().values()) {
+            if (obj instanceof Door door && door.getNextRoom() == hall) {
+                return door;
+            }
+        }
+        return null;
+    }
 
-        //X souřadnice
-        for (int i = 1; i < Math.abs(coordinatesDiffX); i++) {
-            room.getGameObjects().remove(new Coordinates(doorCoordinates.getX() + Integer.signum(coordinatesDiffX) * i, doorCoordinates.getY()));
+    private Teacher findTeacher(Room room) {
+        for (GameObject obj : room.getGameObjects().values()) {
+            if (obj instanceof Teacher teacher) {
+                return teacher;
+            }
+        }
+        return null;
+    }
+
+    private void clearPathBetween(Coordinates start, Coordinates end, Room room) {
+        int diffX = end.getX() - start.getX();
+        int diffY = end.getY() - start.getY();
+
+        for (int i = 1; i < Math.abs(diffX); i++) {
+            int x = start.getX() + Integer.signum(diffX) * i;
+            Coordinates pos = new Coordinates(x, start.getY());
+            room.getGameObjects().remove(pos);
         }
 
-        //Angle
-        Coordinates corner = new Coordinates(teacherCoordinates.getX(), doorCoordinates.getY());
-        if (!corner.equals(teacherCoordinates) && !corner.equals(doorCoordinates)) room.getGameObjects().remove(corner);
+        Coordinates corner = new Coordinates(end.getX(), start.getY());
+        if (!corner.equals(start) && !corner.equals(end)) {
+            room.getGameObjects().remove(corner);
+        }
 
-        //Y souřadnice
-        for (int i = 1; i < Math.abs(coordinatesDiffY); i++) {
-            room.getGameObjects().remove(new Coordinates(teacherCoordinates.getX(), doorCoordinates.getY() + Integer.signum(coordinatesDiffY) * i));
+        for (int i = 1; i < Math.abs(diffY); i++) {
+            int y = start.getY() + Integer.signum(diffY) * i;
+            Coordinates pos = new Coordinates(end.getX(), y);
+            room.getGameObjects().remove(pos);
         }
     }
 
-    //TODO: Zarezervovat další místo
-    public boolean isReserved(int x, int y, Room room) {
-        return x == 0 && y == 0 || x == room.getWidth() - 1 && y == room.getHeight() - 1 || x == room.getWidth() / 2 && y == room.getHeight() / 2;
+    private boolean isReserved(int x, int y, Room room) {
+        boolean isStart = (x == 0 && y == 0);
+        boolean isCenter = (x == room.getWidth() / 2 && y == room.getHeight() / 2);
+        boolean isOppositeCorner = (x == room.getWidth() - 1 && y == room.getHeight() - 1);
+
+        return isCenter || isStart || isOppositeCorner;
     }
 
-    public void clearItemsAroundDoor(Room room, Door door) {
+    private void clearItemsAroundDoor(Room room, Door door) {
         for (int i = 0; i < 8; i++) {
-            Item deletedKeepable = (Item) door.getAnyObjectNearByType(Item.class, false , room);
-            Item deletedUnkeepable = (Item) door.getAnyObjectNearByType(Item.class,true, room);
-            if (deletedUnkeepable != null) room.getGameObjects().remove(deletedUnkeepable.getCoordinates());
-            if (deletedKeepable != null) room.getGameObjects().remove(deletedKeepable.getCoordinates());
+            door.removeObjectNearByType(Item.class, true, room);
+            door.removeObjectNearByType(Item.class, false, room);
         }
+    }
+
+    private boolean shouldLockDoors(Room roomA, Room roomB, RandomGenerator rnd) {
+        return roomA.getName().equals("Učebna č.1") ||
+                roomB.getName().equals("Učebna č.1") ||
+                rnd.generateProbability(DOOR_LOCK_PROBABILITY);
     }
 
     private void placeDoor(Room room, Door door, RandomGenerator rnd) {
         room.place(room.findRandomFreeCoordinates(rnd), door);
-        while (door.isAnyObjectNearByType(Door.class, false, room)) {
+        while (door.isObjectNearByType(Door.class, false, room)) {
             room.move(room.findRandomFreeCoordinates(rnd), door);
         }
+        clearItemsAroundDoor(room, door);
     }
 }

@@ -14,16 +14,22 @@ public class Room {
     public Room(String name, int width, int height) {
         this.name = name;
         this.gameObjects = new HashMap<>();
-        this.width = width;
-        this.height = height;
         this.isVisited = false;
+
+        if (width < 3 && height < 3) {
+            this.width = this.height = 3;
+        }
+        else {
+            this.width = width;
+            this.height = height;
+        }
     }
 
     public Room() {
-        this.name = "";
+        this.name = "Bez názbu";
         this.gameObjects = new HashMap<>();
-        this.width = 0;
-        this.height = 0;
+        this.width = 3;
+        this.height = 3;
         this.isVisited = false;
     }
 
@@ -39,31 +45,19 @@ public class Room {
         return gameObjects;
     }
 
-    public void setGameObjects(HashMap<Coordinates, GameObject> gameObjects) {
-        this.gameObjects = gameObjects;
-    }
-
     public int getWidth() {
         return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public boolean isVisited() {
+    public boolean getIsVisited() {
         return isVisited;
     }
 
-    public void setVisited(boolean visited) {
+    public void setIsVisited(boolean visited) {
         isVisited = visited;
     }
 
@@ -96,7 +90,9 @@ public class Room {
     }
 
     public boolean canBePlaced(Coordinates where) {
-        return where.getX() >= 0 && where.getX() < width && where.getY() >= 0 && where.getY() < height && !gameObjects.containsKey(where);
+        return where.getX() >= 0 && where.getX() < width &&
+                where.getY() >= 0 && where.getY() < height &&
+                !gameObjects.containsKey(where);
     }
 
     public ArrayList<Coordinates> findFreeCoordinates() {

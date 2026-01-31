@@ -1,6 +1,6 @@
 {
   "name": "zlatý_klíč",
-  "spawnChance": 1,
+  "spawnChance": 1.2,
   "damageChance": 0,
   "damageInPercent": 0,
   "maxCount": 4
