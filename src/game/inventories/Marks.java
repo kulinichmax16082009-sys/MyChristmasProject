@@ -1,5 +1,36 @@
 package game.inventories;
 
+import java.util.ArrayList;
+
 public class Marks {
-    public void addMark(int mark) {}
+    private ArrayList<Integer> marks;
+
+    public Marks() {
+        marks = new ArrayList<>();
+    }
+
+    public ArrayList<Integer> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(ArrayList<Integer> marks) {
+        this.marks = marks;
+    }
+
+    public void addMark(int mark) {
+        if (mark < 1 || mark > 5) return;
+        marks.add(mark);
+    }
+
+    public boolean hasEightOnes() {
+        int onesAmount = 0;
+        for (Integer mark : marks) if (mark == 1) onesAmount++;
+        return onesAmount >= 8;
+    }
+
+    @Override
+    public String toString() {
+        if (marks.isEmpty()) return "Zatím nemáte žádné známky";
+        return "Váše známky: " + marks;
+    }
 }
