@@ -25,7 +25,6 @@ public class Player extends Character {
         this.currentRoom = new Room();
         this.tasks = new ArrayList<>();
         this.marks = new Marks();
-        this.inventory = new Inventory();
         this.isTalking = false;
         this.oneStepDistance = 1;
     }

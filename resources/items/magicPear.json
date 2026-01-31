@@ -1,6 +1,6 @@
 {
   "name": "magická_hruška",
-  "spawnChance": 0.02,
+  "spawnChance": 0.5,
   "damageChance": 1,
   "damageInPercent": 0.5,
   "maxCount": 1
