@@ -1,0 +1,28 @@
+Všechny dostupné příkazy ve hře:
+===============================
+Příkazy pro pohyb:
+- jdi sever
+- jdi jih
+- jdi východ
+- jdi západ
+- vstup
+
+Příkazy pro dialog:
+- mluv
+- odpověz <volba>
+- ukončí dialog
+
+Přikazy pro inventář:
+- inventář
+- známky
+- použíj <předmět>
+- vyhoď <předmět>
+- seber
+
+Další utility:
+- konec
+- nápověda
+- pomoc
+
+Zobrazit úkoly:
+- úkoly

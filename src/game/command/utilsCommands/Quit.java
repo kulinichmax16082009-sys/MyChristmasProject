@@ -6,11 +6,11 @@ import game.command.Command;
 public class Quit extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        return "";
+        return "Program končí...";
     }
 
     @Override
     public boolean exit() {
-        return false;
+        return true;
     }
 }
