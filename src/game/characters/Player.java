@@ -102,8 +102,8 @@ public class Player extends Character {
     }
 
     public void subRoomsLeftCount(int amount) {
-        if (roomsLeftCount - amount >= 0) roomsLeftCount -= amount;
-        else roomsLeftCount = 0;
+        if (roomsLeftCount - amount < 0) roomsLeftCount = 0;
+        else roomsLeftCount -= amount;
     }
 
     @Override

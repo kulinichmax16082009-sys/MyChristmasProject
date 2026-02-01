@@ -16,7 +16,7 @@ public class Room {
         this.gameObjects = new HashMap<>();
         this.isVisited = false;
 
-        if (width < 3 && height < 3) {
+        if (width < 5 && height < 5) {
             this.width = this.height = 3;
         }
         else {
