@@ -4,12 +4,10 @@
   "oneStepDistance": 1,
   "inventory": {
       "items": [],
-      "capacity": 10
+      "capacity": 2
   },
   "marks": {
       "marks": []
   },
-  "tasks": [],
-  "isTalking": false,
-  "coordinates": null
+  "tasks": []
 }

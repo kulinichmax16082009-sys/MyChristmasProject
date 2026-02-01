@@ -1,5 +1,6 @@
 {
   "name": "energetický_nápoj",
+  "description": "Po použítí všechny překážky v učebně zmízejí",
   "spawnChance": 1,
   "damageChance": 35,
   "damageInPercent": 0.35,

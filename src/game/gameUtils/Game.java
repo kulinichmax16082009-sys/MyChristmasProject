@@ -31,6 +31,9 @@ public class Game {
         System.out.println();
         System.out.println();
 
+        player.initializePlayer();
+        System.out.println(player);
+
         for (int i = 0; i < worldGenerator.getRooms().size(); i++) {
             outputUtils.printRoom(worldGenerator.getRooms().get(i));
             System.out.println();

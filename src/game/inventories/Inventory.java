@@ -49,7 +49,7 @@ public class Inventory {
 
     @Override
     public String toString() {
-        if (items.isEmpty()) return "Váš batoh je prázdný";
-        return "Váš batoh: " + items;
+        if (items.isEmpty()) return "Váš batoh je prázdný" + "\n" + "Kapacita: " + capacity;
+        return "Váš batoh: " + items + "\n" + "Kapacita: " + capacity;
     }
 }

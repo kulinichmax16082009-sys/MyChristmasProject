@@ -22,9 +22,10 @@ public class Player extends Character {
     public Player() {
         super(null);
         this.roomsLeftCount = 1;
-        this.currentRoom = new Room();
+        this.currentRoom = null;
         this.tasks = new ArrayList<>();
         this.marks = new Marks();
+        this.inventory = new Inventory();
         this.isTalking = false;
         this.oneStepDistance = 1;
     }
@@ -90,7 +91,6 @@ public class Player extends Character {
         return "\uD83E\uDDCD";
     }
 
-    //TODO: handle exceptions properly
     public void initializePlayer() {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -106,14 +106,14 @@ public class Player extends Character {
         else roomsLeftCount -= amount;
     }
 
-    @Override
-    public String toString() {
-        return "roomsLeftCount" + roomsLeftCount +
-                ", oneStepDistance=" + oneStepDistance +
-                ", inventory=" + inventory +
-                ", marks=" + marks +
-                ", currentRoom=" + currentRoom +
-                ", tasks=" + tasks +
-                ", isTalking=" + isTalking;
-    }
+//    @Override
+//    public String toString() {
+//        return "roomsLeftCount" + roomsLeftCount +
+//                ", oneStepDistance=" + oneStepDistance +
+//                ", inventory=" + inventory +
+//                ", marks=" + marks +
+//                ", currentRoom=" + currentRoom +
+//                ", tasks=" + tasks +
+//                ", isTalking=" + isTalking + "int" + getIntelligence();
+//    }
 }

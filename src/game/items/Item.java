@@ -81,12 +81,6 @@ public abstract class Item extends GameObject {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "description='" + description + '\'' +
-                ", spawnChance=" + spawnChance +
-                ", damageChance=" + damageChance +
-                ", damageInPercent=" + damageInPercent +
-                ", maxCount=" + maxCount +
-                '}';
+        return getSprite() + ": " +  description;
     }
 }

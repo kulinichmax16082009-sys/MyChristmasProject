@@ -1,5 +1,6 @@
 package game.gameUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 
 public class Room {
     private String name;
+    @JsonIgnore
     private HashMap<Coordinates, GameObject> gameObjects;
     private int width, height;
     private boolean isVisited;
@@ -61,14 +63,14 @@ public class Room {
         isVisited = visited;
     }
 
-    @Override
-    public String toString() {
-        return "name: " + name +
-                ", gameObjects: " + gameObjects +
-                ", height: " + height +
-                ", width: " + width +
-                ", is visited: " + isVisited;
-    }
+//    @Override
+//    public String toString() {
+//        return "name: " + name +
+//                ", gameObjects: " + gameObjects +
+//                ", height: " + height +
+//                ", width: " + width +
+//                ", is visited: " + isVisited;
+//    }
 
     public boolean move(Coordinates where, GameObject gameObject) {
         if (canBePlaced(where) && gameObjects.containsKey(gameObject.getCoordinates())) {

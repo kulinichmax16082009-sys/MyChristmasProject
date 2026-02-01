@@ -54,7 +54,7 @@ public abstract class GameObject {
                 }
 
                 //Obecný výběr
-                if (type.isInstance(currentRoom.getGameObjects().get(coordinates))) {
+                else if (type.isInstance(currentRoom.getGameObjects().get(coordinates))) {
                     return currentRoom.getGameObjects().get(coordinates);
                 }
             }
