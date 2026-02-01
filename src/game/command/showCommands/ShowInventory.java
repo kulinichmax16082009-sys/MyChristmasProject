@@ -6,7 +6,8 @@ import game.command.Command;
 public class ShowInventory extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        return "";
+        if (commandArgument != null && !commandArgument.isEmpty()) return "Příkaz 'inventář' nepotřebuje další argumenty";
+        return player.getInventory().toString();
     }
 
     @Override

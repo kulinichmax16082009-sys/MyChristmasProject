@@ -6,7 +6,8 @@ import game.command.Command;
 public class ShowIntelligence extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        return "";
+        if (commandArgument != null && !commandArgument.isEmpty()) return "Příkaz 'inteligence' nepotřebuje další argumenty";
+        return "Váše inteligence: " + player.getIntelligence();
     }
 
     @Override
