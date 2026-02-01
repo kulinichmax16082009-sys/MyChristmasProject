@@ -9,9 +9,10 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public abstract class Item extends GameObject {
-    private int spawnChance;
-    private int damageChance;
-    private int damageInPercent;
+    private String description;
+    private float spawnChance;
+    private float damageChance;
+    private float damageInPercent;
     private int maxCount;
 
     public Item(String name) {
@@ -22,28 +23,36 @@ public abstract class Item extends GameObject {
 
     public abstract boolean isKeepable();
 
-    public int getSpawnChance() {
+    public float getSpawnChance() {
         return spawnChance;
     }
 
-    public void setSpawnChance(int spawnChance) {
+    public void setSpawnChance(float spawnChance) {
         this.spawnChance = spawnChance;
     }
 
-    public int getDamageChance() {
+    public float getDamageChance() {
         return damageChance;
     }
 
-    public void setDamageChance(int damageChance) {
+    public void setDamageChance(float damageChance) {
         this.damageChance = damageChance;
     }
 
-    public int getDamageInPercent() {
+    public float getDamageInPercent() {
         return damageInPercent;
     }
 
-    public void setDamageInPercent(int damageInPercent) {
+    public void setDamageInPercent(float damageInPercent) {
         this.damageInPercent = damageInPercent;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getMaxCount() {
@@ -72,9 +81,12 @@ public abstract class Item extends GameObject {
 
     @Override
     public String toString() {
-        return "spawn chance: " + spawnChance +
-                ", damage chance: " + damageChance +
-                ", damage in percent: " + damageInPercent +
-                ", max count: " + maxCount;
+        return "Item{" +
+                "description='" + description + '\'' +
+                ", spawnChance=" + spawnChance +
+                ", damageChance=" + damageChance +
+                ", damageInPercent=" + damageInPercent +
+                ", maxCount=" + maxCount +
+                '}';
     }
 }

@@ -11,6 +11,13 @@ public class Resistor extends Item {
 
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
+        for (int i = 0; i < player.getTasks().size(); i++) {
+            player.getTasks().get(i).addDuration(player.getTasks().get(i).getDuration());
+        }
+
+        if (rnd.generateProbability(getDamageChance())) {
+            player.subIntelligence((int) (player.getIntelligence() * getDamageInPercent()));
+        }
     }
 
     @Override

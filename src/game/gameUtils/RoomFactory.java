@@ -60,7 +60,7 @@ public class RoomFactory {
         doorB.setNextRoom(roomA);
         doorB.setNextDoor(doorA);
 
-        if (shouldLockDoors(roomA, roomB, rnd)) doorA.lockConnectedDoors();
+        if (shouldLockDoors(roomA, roomB, rnd)) doorA.setConnectedDoorsOpen(false);
 
         //Přidání dveří do místností
         placeDoor(roomA, doorA, rnd);
