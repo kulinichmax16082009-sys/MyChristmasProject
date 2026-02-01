@@ -16,7 +16,7 @@ public class Collect extends Command {
 
             if (!isCollected) return "Váš batoh je přeplněný";
 
-            player.getCurrentRoom().getGameObjects().remove(nearItem.getCoordinates());
+            player.removeObjectNearByType(Item.class, true, player.getCurrentRoom());
 
             return "Sebrali jste předmět <" + nearItem.getName() + ">" + "\n" +
                     "Předmět umožňuje: " + nearItem.getDescription();

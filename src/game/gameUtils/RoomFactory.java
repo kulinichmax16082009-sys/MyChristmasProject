@@ -15,7 +15,7 @@ public class RoomFactory {
     private static final int MIN_ROOM_SIZE = 5;
     private static final int MAX_ROOM_SIZE = 15;
     private static final int MIN_SIDE_ROOM_SIZE = 5;
-    private static final int MAX_SIDE_ROOM_SIZE = 6;
+    private static final int MAX_SIDE_ROOM_SIZE = 7;
     private static final float SIDE_ROOM_PROBABILITY = 50.0F;
     private static final float DOOR_LOCK_PROBABILITY = 5.0F;
 

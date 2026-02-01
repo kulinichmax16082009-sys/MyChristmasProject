@@ -19,16 +19,15 @@ public class Room {
         this.isVisited = false;
 
         if (width < 5 && height < 5) {
-            this.width = this.height = 3;
-        }
-        else {
+            this.width = this.height = 5;
+        } else {
             this.width = width;
             this.height = height;
         }
     }
 
     public Room() {
-        this.name = "Bez názbu";
+        this.name = "Bez názvu";
         this.gameObjects = new HashMap<>();
         this.width = 3;
         this.height = 3;

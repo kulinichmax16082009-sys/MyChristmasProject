@@ -6,7 +6,10 @@ import game.uiUtils.RandomGenerator;
 import java.util.ArrayList;
 
 public class WorldGenerator {
+    private static final int MIN_MAIN_CLASS_SIZE = 5;
+    private static final int MAX_MAIN_CLASS_SIZE = 10;
     private Room hall;
+    private Room mainClass;
     private ArrayList<Room> rooms;
 
     public WorldGenerator() {
@@ -23,24 +26,24 @@ public class WorldGenerator {
     }
 
     public void initializeHall(Player player, RandomGenerator rnd, RoomFactory roomFactory) {
-        Room mainClass = new Room("Učebna č.1", rnd.randomNumber(3, 15), rnd.randomNumber(3,15));
-        hall = new Room("Chodba", player.getRoomsLeftCount() * 2, rnd.randomNumber(4, 6));
+        initializeMainClass(rnd);
+        hall = new Room("Chodba", player.getRoomsLeftCount() * 2, rnd.randomNumber(5, 7));
         roomFactory.connectRooms(hall, mainClass, rnd);
+    }
+
+    public void initializeMainClass(RandomGenerator rnd) {
+        String name = "Učebna č.1";
+        int width = rnd.randomNumber(MIN_MAIN_CLASS_SIZE, MAX_MAIN_CLASS_SIZE);
+        int heigh = rnd.randomNumber(MIN_MAIN_CLASS_SIZE, MAX_MAIN_CLASS_SIZE);
+
+        mainClass = new Room(name, width, heigh);
     }
 
     public Room getHall() {
         return hall;
     }
 
-    public void setHall(Room hall) {
-        this.hall = hall;
-    }
-
     public ArrayList<Room> getRooms() {
         return rooms;
-    }
-
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
     }
 }
