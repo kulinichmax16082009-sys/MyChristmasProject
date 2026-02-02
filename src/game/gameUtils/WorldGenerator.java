@@ -21,14 +21,17 @@ public class WorldGenerator {
     }
 
     public void connectAllRooms(RoomFactory roomFactory, RandomGenerator rnd) {
+        roomFactory.connectRooms(hall, mainClass, rnd);
         for (Room room : rooms) roomFactory.connectRooms(hall, room, rnd);
         for (Room room : rooms) roomFactory.clearWayFromHallDoorToTeacher(room, hall);
     }
 
-    public void initializeHall(Player player, RandomGenerator rnd, RoomFactory roomFactory) {
-        initializeMainClass(rnd);
-        hall = new Room("Chodba", player.getRoomsLeftCount() * 2, rnd.randomNumber(5, 7));
-        roomFactory.connectRooms(hall, mainClass, rnd);
+    public void initializeHall(Player player, RandomGenerator rnd) {
+        String name = "Chodba";
+        int width = player.getRoomsLeftCount() * 2;
+        int heigh = rnd.randomNumber(5,7);
+
+        hall = new Room(name, width, heigh);
     }
 
     public void initializeMainClass(RandomGenerator rnd) {
@@ -45,5 +48,9 @@ public class WorldGenerator {
 
     public ArrayList<Room> getRooms() {
         return rooms;
+    }
+
+    public Room getMainClass() {
+        return mainClass;
     }
 }

@@ -10,7 +10,7 @@ Příkazy pro pohyb:
 Příkazy pro dialog:
 - mluv
 - odpověz <volba>
-- ukončí dialog
+- ukončí_dialog
 
 Přikazy pro inventář:
 - inventář

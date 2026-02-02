@@ -8,6 +8,7 @@ import game.uiUtils.RandomGenerator;
 public class Entry extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
+        if (player.getIsTalking()) return "Příkaz nejde použít při dialogu";
         if (commandArgument != null && !commandArgument.isEmpty()) return "Příkaz 'vstup' nepotřebuje další argumenty";
 
         if (player.isObjectNearByType(Door.class, false, player.getCurrentRoom())) {

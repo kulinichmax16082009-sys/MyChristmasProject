@@ -19,4 +19,17 @@ public class FileManager {
             return "Soubor je poškozený nebo neexistuje";
         }
     }
+
+    public String readLineByIndex(String txtPath, int index) {
+        String result = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(txtPath))) {
+            for (int i = 0; i < index + 1; i++) {
+                result = br.readLine();
+            }
+
+        } catch (Exception e) {
+            return "Soubor je poškozený nebo neexistuje";
+        }
+        return result;
+    }
 }

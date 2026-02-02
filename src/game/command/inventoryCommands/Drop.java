@@ -9,7 +9,7 @@ public class Drop extends Command {
     public String execute(Player player, String commandArgument) {
         for (int i = 0; i < player.getInventory().getItems().size(); i++) {
 
-            if (player.getInventory().getItems().get(i).getName().equals(commandArgument.trim().toLowerCase())) {
+            if (player.getInventory().getItems().get(i).getName().equals(commandArgument)) {
 
                 Item deleted = player.getInventory().getItems().get(i);
                 player.getInventory().getItems().remove(i);

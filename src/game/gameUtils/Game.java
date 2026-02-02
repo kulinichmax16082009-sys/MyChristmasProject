@@ -20,11 +20,14 @@ public class Game {
         scannerUtils.initialize();
 
         worldGenerator.initializeWorld(roomFactory, rnd, player);
-        worldGenerator.initializeHall(player, rnd, roomFactory);
+        worldGenerator.initializeMainClass(rnd);
+        worldGenerator.initializeHall(player, rnd);
         worldGenerator.connectAllRooms(roomFactory, rnd);
 
         player.setCurrentRoom(worldGenerator.getHall());
         worldGenerator.getHall().place(worldGenerator.getHall().findFreeCoordinates().get(0), player);
+
+        outputUtils.printRoom(worldGenerator.getMainClass());
 
         player.setOneStepDistance(1);
 
@@ -63,7 +66,6 @@ public class Game {
 //        outputUtils.printRoom(newRoom);
 //        System.out.println();
 //        outputUtils.printRoom(roomA);
-
 
         while (true) {
             outputUtils.printRoom(player.getCurrentRoom());

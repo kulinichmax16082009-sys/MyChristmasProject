@@ -1,6 +1,7 @@
 {
   "name": "Igo",
   "intelligence": 2000,
+  "maxTasksCount": 3,
   "oneStepDistance": 1,
   "inventory": {
       "items": [],

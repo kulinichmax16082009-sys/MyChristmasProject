@@ -30,7 +30,7 @@ public class RoomFactory {
         Room newRoom = new Room(name, width, height);
 
         Coordinates teacherCoords = new Coordinates(rnd.randomNumber(0, width - 1), rnd.randomNumber(0, height - 1));
-        newRoom.place(teacherCoords, Teacher.teacherFactory(rnd.randomNumber(1, 5)));
+        newRoom.place(teacherCoords, Teacher.teacherFactory(rnd.randomNumber(1, 5), rnd));
         generateItems(newRoom, rnd);
 
         //Další kabinet v učebně

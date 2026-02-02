@@ -7,6 +7,7 @@ import game.items.Item;
 public class Collect extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
+        if (player.getIsTalking()) return "Příkaz nejde použít při dialogu";
         if (commandArgument != null && !commandArgument.isEmpty()) return "Příkaz 'seber' nepotřebuje další argumenty";
 
         if (player.isObjectNearByType(Item.class, true, player.getCurrentRoom())) {

@@ -7,6 +7,7 @@ import game.gameUtils.Coordinates;
 public class Walk extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
+        if (player.getIsTalking()) return "Příkaz nejde použít při dialogu";
         int shiftX = 0, shiftY = 0;
         String result = "Hráč byl posunut na ";
 

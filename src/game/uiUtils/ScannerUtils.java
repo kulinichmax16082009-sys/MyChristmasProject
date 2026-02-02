@@ -38,7 +38,7 @@ public class ScannerUtils {
 
         commands.put("mluv", new Talk());
         commands.put("odpověz", new Answer());
-        commands.put("nemluv", new StopTalking());
+        commands.put("ukonči_dialog", new StopTalking());
     }
 
     public void complete(Player player, OutputUtils ou) {

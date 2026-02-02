@@ -5,13 +5,16 @@ import game.gameUtils.Room;
 import game.inventories.Inventory;
 import game.inventories.Marks;
 import game.inventories.Task;
+import game.uiUtils.RandomGenerator;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player extends Character {
     private int roomsLeftCount;
+    private int maxTasksCount;
     private int oneStepDistance;
     private Inventory inventory;
     private Marks marks;
@@ -28,6 +31,7 @@ public class Player extends Character {
         this.inventory = new Inventory();
         this.isTalking = false;
         this.oneStepDistance = 1;
+        this.maxTasksCount = 1;
     }
 
     public int getRoomsLeftCount() {
@@ -78,12 +82,28 @@ public class Player extends Character {
         this.tasks = tasks;
     }
 
-    public boolean isTalking() {
+    public boolean getIsTalking() {
         return isTalking;
     }
 
-    public void setTalking(boolean talking) {
+    public void setIsTalking(boolean talking) {
         isTalking = talking;
+    }
+
+    public int getMaxTasksCount() {
+        return maxTasksCount;
+    }
+
+    public void setMaxTasksCount(int maxTasksCount) {
+        this.maxTasksCount = maxTasksCount;
+    }
+
+    public int getRandomTasksCount(RandomGenerator rnd) {
+        return rnd.randomNumber(1, maxTasksCount);
+    }
+
+    public void addTask(Task task) {
+        if (tasks.size() <= maxTasksCount) tasks.add(task);
     }
 
     @Override

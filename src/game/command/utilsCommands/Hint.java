@@ -9,7 +9,7 @@ public class Hint extends Command {
     public String execute(Player player, String commandArgument) {
         FileManager fileManager = new FileManager();
         String hint = player.getCurrentRoom().getName().toLowerCase().split(" ")[0];
-        if (player.isTalking()) fileManager.readAllTxt("resources/txtFiles/hints/mluví");
+        if (player.getIsTalking()) return fileManager.readAllTxt("resources/txtFiles/hints/mluví");
         return fileManager.readAllTxt("resources/txtFiles/hints/" + hint);
     }
 

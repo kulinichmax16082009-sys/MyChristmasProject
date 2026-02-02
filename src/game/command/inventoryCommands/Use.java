@@ -9,7 +9,7 @@ public class Use extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
         for (int i = 0; i < player.getInventory().getItems().size(); i++) {
-            if (player.getInventory().getItems().get(i).getName().equals(commandArgument.trim().toLowerCase())) {
+            if (player.getInventory().getItems().get(i).getName().equals(commandArgument)) {
                 Item used = player.getInventory().getItems().get(i);
 
                 used.useAbility(player, new RandomGenerator());

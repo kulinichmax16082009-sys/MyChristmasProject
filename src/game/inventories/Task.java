@@ -1,21 +1,28 @@
 package game.inventories;
 
 public class Task {
-    private String description;
+    private String question;
     private String answer;
     private long duration;
 
+    public Task(String question, String answer, long duration) {
+        this.question = question;
+        this.answer = answer;
+        this.duration = duration;
+    }
+
     public Task() {
-        description = "";
-        duration = 0;
+        this.question = "";
+        this.answer = "";
+        this.duration = -1;
     }
 
-    public String getDescription() {
-        return description;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public long getDuration() {
@@ -39,23 +46,26 @@ public class Task {
     }
 
     public void startTimer() {
-        try {
-            while (!isExpired()) {
-                duration--;
-                Thread.sleep(1000);
+        if (duration < 0) return;
+        new Thread(() -> {
+            try {
+                while (!isExpired()) {
+                    duration--;
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     public boolean isExpired() {
-        return duration <= 0;
+        return duration == 0;
     }
 
     @Override
     public String toString() {
-        return "popis: " + description +
-                ", trvání: " + duration + " s";
+        if (duration < 0) return "Otázka: " + question + ", Trvání: není časově omezené";
+        return "Otázka: " + question + ", Trvání: " + duration + " s";
     }
 }

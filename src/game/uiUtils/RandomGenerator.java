@@ -19,13 +19,17 @@ public class RandomGenerator {
     public int generateFileLineIndex(String fileName) {
         int size = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            do size++; while (br.readLine() != null);
+            while (br.readLine() != null) {
+                size++;
+            }
         } catch (Exception e) {
             return -1;
         }
+
+        if (size == 0) return -1;
+
         return randomNumber(0, size - 1);
     }
-
     public int randomNumber(int min, int max) {
         if (max == Integer.MAX_VALUE) return 0;
         return rnd.nextInt(min, max + 1);

@@ -1,23 +1,32 @@
 package game.characters.teachers;
 
+import game.uiUtils.RandomGenerator;
+
 public class PhysicsTeacher extends Teacher {
-    public PhysicsTeacher(String name) {
-        super(name);
+
+    public PhysicsTeacher(RandomGenerator rnd) {
+        setName(initializeName(rnd));
+        setIntelligence(rnd.randomNumber(2500, 4000));
     }
 
     @Override
-    public String getTasksFile() {
-        return "";
+    public String getQuestionsFile() {
+        return "resources/txtFiles/teachers/physics/physicsQuestions";
     }
 
     @Override
     public String getNamesFile() {
-        return "";
+        return "resources/txtFiles/teachers/physics/physicsNames";
     }
 
     @Override
     public String getAnswersFile() {
-        return "";
+        return "resources/txtFiles/teachers/physics/physicsAnswers";
+    }
+
+    @Override
+    public String getDurationsFile() {
+        return "resources/txtFiles/teachers/physics/physicsDurations";
     }
 
     @Override
