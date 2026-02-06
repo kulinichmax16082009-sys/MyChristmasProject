@@ -25,8 +25,8 @@ public class Answer extends Command {
             }
 
             if (sameLettersCount == correctAnswer.length()) {
-                player.getMarks().addMark(1);
                 player.getTasks().remove(0);
+                player.getMarks().addMark(1);
                 return "Hráč odpověděl na otázku správně";
 
             } else if (sameLettersCount >= correctAnswer.length() / 2 && sameLettersCount < correctAnswer.length()) {

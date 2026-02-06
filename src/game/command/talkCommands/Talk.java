@@ -22,7 +22,7 @@ public class Talk extends Command {
         int tasksCount = player.getRandomTasksCount(new RandomGenerator());
 
         for (int i = 0; i < tasksCount; i++) {
-            Task task = teacher.initializeTask(new RandomGenerator());
+            Task task = teacher.generateTask(new RandomGenerator());
             task.startTimer();
             player.addTask(task);
         }

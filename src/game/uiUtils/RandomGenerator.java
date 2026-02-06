@@ -8,11 +8,9 @@ public class RandomGenerator {
     private Random rnd = new Random();
 
     public boolean generateProbability(float percent) {
-        //TODO: solve mistake
         float randomChance = rnd.nextFloat(101);
         if (percent <= 0) return false;
         if (percent >= 100) return true;
-        System.out.println(percent + " + " + randomChance);
         return randomChance <= percent;
     }
 

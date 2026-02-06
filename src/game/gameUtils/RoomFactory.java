@@ -27,7 +27,7 @@ public class RoomFactory {
         String name = "Učebna č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
         int width = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
         int height = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
-        Room newRoom = new Room(name, width, height);
+        Room newRoom = new Room(name, width, height, RoomType.CLASSROOM);
 
         Coordinates teacherCoords = new Coordinates(rnd.randomNumber(0, width - 1), rnd.randomNumber(0, height - 1));
         newRoom.place(teacherCoords, Teacher.teacherFactory(rnd.randomNumber(1, 5), rnd));
@@ -45,7 +45,7 @@ public class RoomFactory {
         String name = "Kabinet č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
         int width = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
         int height = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
-        Room sideRoom = new Room(name, width, height);
+        Room sideRoom = new Room(name, width, height, RoomType.TEACHERS_OFFICE);
         generateItems(sideRoom, rnd);
 
         return sideRoom;
@@ -164,8 +164,8 @@ public class RoomFactory {
     }
 
     private boolean shouldLockDoors(Room roomA, Room roomB, RandomGenerator rnd) {
-        return roomA.getName().equals("Učebna č.1") ||
-                roomB.getName().equals("Učebna č.1") ||
+        return roomA.getRoomType().equals(RoomType.MAIN_CLASS) ||
+                roomB.getRoomType().equals(RoomType.MAIN_CLASS) ||
                 rnd.generateProbability(DOOR_LOCK_PROBABILITY);
     }
 

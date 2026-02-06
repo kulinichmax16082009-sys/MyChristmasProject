@@ -19,7 +19,7 @@ public abstract class Teacher extends Character {
 
     public abstract String getDurationsFile();
 
-    public Task initializeTask(RandomGenerator rnd) {
+    public Task generateTask(RandomGenerator rnd) {
         FileManager fileManager = new FileManager();
         int lineIndex = rnd.generateFileLineIndex(getQuestionsFile());
 
@@ -46,16 +46,13 @@ public abstract class Teacher extends Character {
     }
 
     public static Teacher teacherFactory(int number, RandomGenerator rnd) {
-
-        return new ItTeacher(rnd);
-
-//        return switch (number) {
-//            case 1 -> new CzechTeacher(rnd);
-//            case 2 -> new PhysicsTeacher(rnd);
-//            case 3 -> new MathTeacher(rnd);
-//            case 4 -> new ItTeacher(rnd);
-//            case 5 -> new EleTeacher(rnd);
-//            default -> null;
-//        };
+        return switch (number) {
+            case 1 -> new CzechTeacher(rnd);
+            case 2 -> new PhysicsTeacher(rnd);
+            case 3 -> new MathTeacher(rnd);
+            case 4 -> new ItTeacher(rnd);
+            case 5 -> new EleTeacher(rnd);
+            default -> null;
+        };
     }
 }

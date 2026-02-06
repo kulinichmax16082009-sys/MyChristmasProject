@@ -1,75 +1,68 @@
 package game.gameUtils;
 
 import game.characters.Player;
+import game.uiUtils.FileManager;
 import game.uiUtils.OutputUtils;
 import game.uiUtils.RandomGenerator;
 import game.uiUtils.ScannerUtils;
 
 public class Game {
+    WorldGenerator worldGenerator;
+    Player player;
+
     public void play() {
-        WorldGenerator worldGenerator = new WorldGenerator();
         RoomFactory roomFactory = new RoomFactory();
-        ScannerUtils scannerUtils = new ScannerUtils();
-        OutputUtils outputUtils = new OutputUtils();
+        ScannerUtils sc = new ScannerUtils();
+        OutputUtils ou = new OutputUtils();
         RandomGenerator rnd = new RandomGenerator();
+        FileManager fileMgr = new FileManager();
 
-        Player player = new Player();
+        //Inicialize hráče
+        initializeGamePlayer(rnd);
 
-//      Pokud nezadame, celý system spadne
-        player.setRoomsLeftCount(8);
-        scannerUtils.initialize();
+        //inicializace herního světa
+        initializeGameWorld(rnd, roomFactory);
 
+        //inicializace prikazu
+        sc.initialize();
+
+        //Umíštění hráče na chodbu
+        placePlayer();
+
+        //Příběh
+        ou.showMessage(fileMgr.readAllTxt("resources/txtFiles/introducingStory"));
+
+        //Hlavní herní smyčka
+        gameLoop(sc, ou);
+    }
+
+    public boolean isGameEnd(ScannerUtils sc, Player player) {
+        return sc.getIsExit() || player.hasNoIntelligence() || player.hasNoRoomsLeft() || player.getMarks().hasEightOnes();
+    }
+
+    private void initializeGameWorld(RandomGenerator rnd, RoomFactory roomFactory) {
+        worldGenerator = new WorldGenerator();
         worldGenerator.initializeWorld(roomFactory, rnd, player);
         worldGenerator.initializeMainClass(rnd);
         worldGenerator.initializeHall(player, rnd);
         worldGenerator.connectAllRooms(roomFactory, rnd);
+    }
 
+    private void initializeGamePlayer(RandomGenerator rnd) {
+        player = new Player();
+        player.initializePlayer(rnd);
+    }
+
+    private void placePlayer() {
         player.setCurrentRoom(worldGenerator.getHall());
         worldGenerator.getHall().place(worldGenerator.getHall().findFreeCoordinates().get(0), player);
+    }
 
-        outputUtils.printRoom(worldGenerator.getMainClass());
-
-        player.setOneStepDistance(1);
-
-        System.out.println();
-        System.out.println();
-
-        player.initializePlayer();
-        System.out.println(player);
-
-        for (int i = 0; i < worldGenerator.getRooms().size(); i++) {
-            outputUtils.printRoom(worldGenerator.getRooms().get(i));
-            System.out.println();
-        }
-
-
-//        Room newRoom = roomFactory.generateRoom(rnd);
-//        worldGenerator.setHall(newRoom);
-//        outputUtils.printRoom(newRoom);
-//        System.out.println();
-//        Room roomA = roomFactory.generateRoom(rnd);
-//        outputUtils.printRoom(roomA);
-//
-//        System.out.println();
-//        System.out.println();
-//
-//        roomFactory.connectRooms(roomA, newRoom, rnd);
-//        outputUtils.printRoom(newRoom);
-//        System.out.println();
-//        outputUtils.printRoom(roomA);
-//
-//        System.out.println();
-//        System.out.println();
-//
-//        roomFactory.clearWayFromHallDoorToTeacher(roomA, newRoom);
-//
-//        outputUtils.printRoom(newRoom);
-//        System.out.println();
-//        outputUtils.printRoom(roomA);
-
-        while (true) {
-            outputUtils.printRoom(player.getCurrentRoom());
-            scannerUtils.complete(player, outputUtils);
+    private void gameLoop(ScannerUtils sc, OutputUtils ou) {
+        while (!isGameEnd(sc, player)) {
+            ou.printRoom(player.getCurrentRoom());
+            sc.complete(player, ou);
+            player.visitRoom();
         }
     }
 }

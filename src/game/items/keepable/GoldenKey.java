@@ -2,6 +2,7 @@ package game.items.keepable;
 
 import game.characters.Player;
 import game.gameUtils.GameObject;
+import game.gameUtils.RoomType;
 import game.items.Item;
 import game.items.unkeepable.Door;
 import game.uiUtils.RandomGenerator;
@@ -15,7 +16,7 @@ public class GoldenKey extends Item {
     public void useAbility(Player player, RandomGenerator rnd) {
         for (GameObject obj : player.getCurrentRoom().getGameObjects().values()) {
             if (obj instanceof Door door) {
-                if (!door.getNextRoom().getName().equals("Učebna č.1")) {
+                if (!door.getNextRoom().getRoomType().equals(RoomType.MAIN_CLASS)) {
                     door.setConnectedDoorsOpen(true);
                 }
             }

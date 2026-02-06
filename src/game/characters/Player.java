@@ -1,16 +1,13 @@
 package game.characters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import game.gameUtils.Room;
-import game.inventories.Inventory;
-import game.inventories.Marks;
-import game.inventories.Task;
+import game.gameUtils.*;
+import game.inventories.*;
 import game.uiUtils.RandomGenerator;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Player extends Character {
     private int roomsLeftCount;
@@ -111,7 +108,7 @@ public class Player extends Character {
         return "\uD83E\uDDCD";
     }
 
-    public void initializePlayer() {
+    public void initializePlayer(RandomGenerator rnd) {
         ObjectMapper mapper = new ObjectMapper();
 
         try (InputStream input = new FileInputStream("resources/player.json")) {
@@ -119,6 +116,8 @@ public class Player extends Character {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        roomsLeftCount = rnd.randomNumber(8, 16);
     }
 
     public void subRoomsLeftCount(int amount) {
@@ -126,14 +125,18 @@ public class Player extends Character {
         else roomsLeftCount -= amount;
     }
 
-//    @Override
-//    public String toString() {
-//        return "roomsLeftCount" + roomsLeftCount +
-//                ", oneStepDistance=" + oneStepDistance +
-//                ", inventory=" + inventory +
-//                ", marks=" + marks +
-//                ", currentRoom=" + currentRoom +
-//                ", tasks=" + tasks +
-//                ", isTalking=" + isTalking + "int" + getIntelligence();
-//    }
+    public boolean hasNoIntelligence() {
+        return getIntelligence() == 0;
+    }
+
+    public boolean hasNoRoomsLeft() {
+        return roomsLeftCount == 0;
+    }
+
+    public void visitRoom() {
+        if (!currentRoom.getIsVisited() && currentRoom.getRoomType().equals(RoomType.CLASSROOM)) {
+            subRoomsLeftCount(1);
+            currentRoom.setIsVisited(true);
+        }
+    }
 }

@@ -8,15 +8,17 @@ import java.util.HashMap;
 
 public class Room {
     private String name;
+    private RoomType roomType;
     @JsonIgnore
     private HashMap<Coordinates, GameObject> gameObjects;
     private int width, height;
     private boolean isVisited;
 
-    public Room(String name, int width, int height) {
+    public Room(String name, int width, int height, RoomType roomType) {
         this.name = name;
         this.gameObjects = new HashMap<>();
         this.isVisited = false;
+        this.roomType = roomType;
 
         if (width < 5 && height < 5) {
             this.width = this.height = 5;
@@ -24,14 +26,6 @@ public class Room {
             this.width = width;
             this.height = height;
         }
-    }
-
-    public Room() {
-        this.name = "Bez názvu";
-        this.gameObjects = new HashMap<>();
-        this.width = 3;
-        this.height = 3;
-        this.isVisited = false;
     }
 
     public String getName() {
@@ -62,14 +56,9 @@ public class Room {
         isVisited = visited;
     }
 
-//    @Override
-//    public String toString() {
-//        return "name: " + name +
-//                ", gameObjects: " + gameObjects +
-//                ", height: " + height +
-//                ", width: " + width +
-//                ", is visited: " + isVisited;
-//    }
+    public RoomType getRoomType() {
+        return roomType;
+    }
 
     public boolean move(Coordinates where, GameObject gameObject) {
         if (canBePlaced(where) && gameObjects.containsKey(gameObject.getCoordinates())) {

@@ -31,7 +31,7 @@ public class WorldGenerator {
         int width = player.getRoomsLeftCount() * 2;
         int heigh = rnd.randomNumber(5,7);
 
-        hall = new Room(name, width, heigh);
+        hall = new Room(name, width, heigh, RoomType.HALL);
     }
 
     public void initializeMainClass(RandomGenerator rnd) {
@@ -39,18 +39,10 @@ public class WorldGenerator {
         int width = rnd.randomNumber(MIN_MAIN_CLASS_SIZE, MAX_MAIN_CLASS_SIZE);
         int heigh = rnd.randomNumber(MIN_MAIN_CLASS_SIZE, MAX_MAIN_CLASS_SIZE);
 
-        mainClass = new Room(name, width, heigh);
+        mainClass = new Room(name, width, heigh, RoomType.MAIN_CLASS);
     }
 
     public Room getHall() {
         return hall;
-    }
-
-    public ArrayList<Room> getRooms() {
-        return rooms;
-    }
-
-    public Room getMainClass() {
-        return mainClass;
     }
 }
