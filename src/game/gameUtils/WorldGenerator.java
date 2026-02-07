@@ -1,6 +1,7 @@
 package game.gameUtils;
 
 import game.characters.Player;
+import game.items.unkeepable.Door;
 import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
@@ -16,17 +17,17 @@ public class WorldGenerator {
         this.rooms = new ArrayList<>();
     }
 
-    public void initializeWorld(RoomFactory roomFactory, RandomGenerator rnd, Player player) {
+    private void initializeRooms(RoomFactory roomFactory, RandomGenerator rnd, Player player) {
         for (int i = 0; i < player.getRoomsLeftCount(); i++) rooms.add(roomFactory.generateRoom(rnd));
     }
 
-    public void connectAllRooms(RoomFactory roomFactory, RandomGenerator rnd) {
+    private void connectAllRooms(RoomFactory roomFactory, RandomGenerator rnd) {
         roomFactory.connectRooms(hall, mainClass, rnd);
         for (Room room : rooms) roomFactory.connectRooms(hall, room, rnd);
         for (Room room : rooms) roomFactory.clearWayFromHallDoorToTeacher(room, hall);
     }
 
-    public void initializeHall(Player player, RandomGenerator rnd) {
+    private void initializeHall(Player player, RandomGenerator rnd) {
         String name = "Chodba";
         int width = player.getRoomsLeftCount() * 2;
         int heigh = rnd.randomNumber(5,7);
@@ -34,7 +35,7 @@ public class WorldGenerator {
         hall = new Room(name, width, heigh, RoomType.HALL);
     }
 
-    public void initializeMainClass(RandomGenerator rnd) {
+    private void initializeMainClass(RandomGenerator rnd) {
         String name = "Učebna č.1";
         int width = rnd.randomNumber(MIN_MAIN_CLASS_SIZE, MAX_MAIN_CLASS_SIZE);
         int heigh = rnd.randomNumber(MIN_MAIN_CLASS_SIZE, MAX_MAIN_CLASS_SIZE);
@@ -44,5 +45,20 @@ public class WorldGenerator {
 
     public Room getHall() {
         return hall;
+    }
+
+    public void initializeWorld(RoomFactory roomFactory, RandomGenerator rnd, Player player) {
+        initializeRooms(roomFactory, rnd, player);
+        initializeMainClass(rnd);
+        initializeHall(player, rnd);
+        connectAllRooms(roomFactory, rnd);
+    }
+
+    public void openMainClass() {
+        for (GameObject gameObject : mainClass.getGameObjects().values()) {
+            if (gameObject instanceof Door door) {
+                door.setConnectedDoorsOpen(true);
+            }
+        }
     }
 }

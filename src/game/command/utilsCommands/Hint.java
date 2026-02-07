@@ -8,9 +8,16 @@ public class Hint extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
         FileManager fileManager = new FileManager();
-        String hint = player.getCurrentRoom().getName().toLowerCase().split(" ")[0];
-        if (player.getIsTalking()) return fileManager.readAllTxt("resources/txtFiles/hints/mluví");
-        return fileManager.readAllTxt("resources/txtFiles/hints/" + hint);
+
+        if (player.getIsTalking()) return fileManager.readAllTxt("resources/txtFiles/hints/talking");
+
+        switch (player.getCurrentRoom().getRoomType()) {
+            case CLASSROOM -> {return fileManager.readAllTxt("resources/txtFiles/hints/classroom");}
+            case TEACHER_OFFICE -> {return fileManager.readAllTxt("resources/txtFiles/hints/teacherOffice");}
+            case HALL -> {return fileManager.readAllTxt("resources/txtFiles/hints/hall");}
+        }
+
+        return "Nápověda není k dispozici";
     }
 
     @Override

@@ -28,6 +28,7 @@ public class RandomGenerator {
 
         return randomNumber(0, size - 1);
     }
+
     public int randomNumber(int min, int max) {
         if (max == Integer.MAX_VALUE) return 0;
         return rnd.nextInt(min, max + 1);

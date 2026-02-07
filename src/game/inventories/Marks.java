@@ -1,5 +1,7 @@
 package game.inventories;
 
+import game.characters.Player;
+
 import java.util.ArrayList;
 
 public class Marks {
@@ -22,10 +24,10 @@ public class Marks {
         marks.add(mark);
     }
 
-    public boolean hasEightOnes() {
+    public boolean hasEnoughOnes(Player player) {
         int onesAmount = 0;
         for (Integer mark : marks) if (mark == 1) onesAmount++;
-        return onesAmount >= 8;
+        return onesAmount >= player.getRequiredOnesAmount();
     }
 
     @Override

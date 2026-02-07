@@ -1,6 +1,10 @@
 package game.characters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import game.exceptions.BadIntelligenceException;
+import game.exceptions.BadInventoryCapacityException;
+import game.exceptions.BadRequiredOnesAmountException;
+import game.exceptions.BadRoomsLeftCountException;
 import game.gameUtils.*;
 import game.inventories.*;
 import game.uiUtils.RandomGenerator;
@@ -10,6 +14,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Player extends Character {
+    private int minRoomsLeftCount;
+    private int maxRoomsLeftCount;
     private int roomsLeftCount;
     private int maxTasksCount;
     private int oneStepDistance;
@@ -18,6 +24,7 @@ public class Player extends Character {
     private ArrayList<Task> tasks;
     private Room currentRoom;
     private boolean isTalking;
+    private int requiredOnesAmount;
 
     public Player() {
         super(null);
@@ -29,38 +36,25 @@ public class Player extends Character {
         this.isTalking = false;
         this.oneStepDistance = 1;
         this.maxTasksCount = 1;
+        this.requiredOnesAmount = 8;
+        this.minRoomsLeftCount = 8;
+        this.maxRoomsLeftCount = 16;
     }
 
     public int getRoomsLeftCount() {
         return roomsLeftCount;
     }
 
-    public void setRoomsLeftCount(int roomsLeftCount) {
-        this.roomsLeftCount = roomsLeftCount;
-    }
-
     public int getOneStepDistance() {
         return oneStepDistance;
-    }
-
-    public void setOneStepDistance(int oneStepDistance) {
-        this.oneStepDistance = oneStepDistance;
     }
 
     public Inventory getInventory() {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
     public Marks getMarks() {
         return marks;
-    }
-
-    public void setMarks(Marks marks) {
-        this.marks = marks;
     }
 
     public Room getCurrentRoom() {
@@ -75,24 +69,28 @@ public class Player extends Character {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     public boolean getIsTalking() {
         return isTalking;
-    }
-
-    public void setIsTalking(boolean talking) {
-        isTalking = talking;
     }
 
     public int getMaxTasksCount() {
         return maxTasksCount;
     }
 
-    public void setMaxTasksCount(int maxTasksCount) {
-        this.maxTasksCount = maxTasksCount;
+    public void setIsTalking(boolean talking) {
+        isTalking = talking;
+    }
+
+    public int getRequiredOnesAmount() {
+        return requiredOnesAmount;
+    }
+
+    public int getMinRoomsLeftCount() {
+        return minRoomsLeftCount;
+    }
+
+    public int getMaxRoomsLeftCount() {
+        return maxRoomsLeftCount;
     }
 
     public int getRandomTasksCount(RandomGenerator rnd) {
@@ -117,7 +115,23 @@ public class Player extends Character {
             throw new RuntimeException(e);
         }
 
-        roomsLeftCount = rnd.randomNumber(8, 16);
+        if (minRoomsLeftCount <= 0 || maxRoomsLeftCount <= 0 || maxRoomsLeftCount <= minRoomsLeftCount) {
+            throw new BadRoomsLeftCountException();
+        }
+
+        if (requiredOnesAmount <= 0) {
+            throw new BadRequiredOnesAmountException();
+        }
+
+        if (getIntelligence() <= 0) {
+            throw new BadIntelligenceException();
+        }
+
+        if (inventory.getCapacity() < 0) {
+            throw new BadInventoryCapacityException();
+        }
+
+        roomsLeftCount = rnd.randomNumber(minRoomsLeftCount, maxRoomsLeftCount);
     }
 
     public void subRoomsLeftCount(int amount) {

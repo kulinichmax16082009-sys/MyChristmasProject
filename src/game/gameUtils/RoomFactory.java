@@ -33,7 +33,7 @@ public class RoomFactory {
         newRoom.place(teacherCoords, Teacher.teacherFactory(rnd.randomNumber(1, 5), rnd));
         generateItems(newRoom, rnd);
 
-        //Další kabinet v učebně
+        //Další teacherOffice v učebně
         if (rnd.generateProbability(SIDE_ROOM_PROBABILITY)) {
             connectRooms(generateSideRoom(rnd), newRoom, rnd);
         }
@@ -45,7 +45,7 @@ public class RoomFactory {
         String name = "Kabinet č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
         int width = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
         int height = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
-        Room sideRoom = new Room(name, width, height, RoomType.TEACHERS_OFFICE);
+        Room sideRoom = new Room(name, width, height, RoomType.TEACHER_OFFICE);
         generateItems(sideRoom, rnd);
 
         return sideRoom;

@@ -22,5 +22,4 @@ public class OutputUtils {
             System.out.println();
         }
     }
-
 }

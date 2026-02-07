@@ -11,12 +11,6 @@ public class Task {
         this.duration = duration;
     }
 
-    public Task() {
-        this.question = "";
-        this.answer = "";
-        this.duration = -1;
-    }
-
     public String getQuestion() {
         return question;
     }

@@ -4,9 +4,7 @@ import game.characters.Player;
 import game.command.Command;
 import game.command.inventoryCommands.*;
 import game.command.showCommands.*;
-import game.command.talkCommands.Answer;
-import game.command.talkCommands.StopTalking;
-import game.command.talkCommands.Talk;
+import game.command.talkCommands.*;
 import game.command.utilsCommands.*;
 import game.command.walkCommands.*;
 
@@ -15,7 +13,6 @@ import java.util.Scanner;
 
 public class ScannerUtils {
     private HashMap<String, Command> commands = new HashMap<>();
-    public static String commandsFile = "commands";
     private boolean isExit = false;
     private Scanner scanner = new Scanner(System.in);
 

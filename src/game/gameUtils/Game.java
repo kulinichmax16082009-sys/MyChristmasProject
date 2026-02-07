@@ -10,6 +10,11 @@ public class Game {
     WorldGenerator worldGenerator;
     Player player;
 
+    public Game() {
+        this.worldGenerator = new WorldGenerator();
+        this.player = new Player();
+    }
+
     public void play() {
         RoomFactory roomFactory = new RoomFactory();
         ScannerUtils sc = new ScannerUtils();
@@ -18,10 +23,10 @@ public class Game {
         FileManager fileMgr = new FileManager();
 
         //Inicialize hráče
-        initializeGamePlayer(rnd);
+        player.initializePlayer(rnd);
 
         //inicializace herního světa
-        initializeGameWorld(rnd, roomFactory);
+        worldGenerator.initializeWorld(roomFactory, rnd, player);
 
         //inicializace prikazu
         sc.initialize();
@@ -30,27 +35,10 @@ public class Game {
         placePlayer();
 
         //Příběh
-        ou.showMessage(fileMgr.readAllTxt("resources/txtFiles/introducingStory"));
+        ou.showMessage(fileMgr.readAllTxt("resources/txtFiles/mainStories/introducingStory"));
 
         //Hlavní herní smyčka
-        gameLoop(sc, ou);
-    }
-
-    public boolean isGameEnd(ScannerUtils sc, Player player) {
-        return sc.getIsExit() || player.hasNoIntelligence() || player.hasNoRoomsLeft() || player.getMarks().hasEightOnes();
-    }
-
-    private void initializeGameWorld(RandomGenerator rnd, RoomFactory roomFactory) {
-        worldGenerator = new WorldGenerator();
-        worldGenerator.initializeWorld(roomFactory, rnd, player);
-        worldGenerator.initializeMainClass(rnd);
-        worldGenerator.initializeHall(player, rnd);
-        worldGenerator.connectAllRooms(roomFactory, rnd);
-    }
-
-    private void initializeGamePlayer(RandomGenerator rnd) {
-        player = new Player();
-        player.initializePlayer(rnd);
+        gameLoop(sc, ou, fileMgr);
     }
 
     private void placePlayer() {
@@ -58,11 +46,32 @@ public class Game {
         worldGenerator.getHall().place(worldGenerator.getHall().findFreeCoordinates().get(0), player);
     }
 
-    private void gameLoop(ScannerUtils sc, OutputUtils ou) {
-        while (!isGameEnd(sc, player)) {
+    private void gameLoop(ScannerUtils sc, OutputUtils ou, FileManager fileMgr) {
+        while (!sc.getIsExit()) {
             ou.printRoom(player.getCurrentRoom());
             sc.complete(player, ou);
             player.visitRoom();
+
+            //Všechny konce hry
+            if (player.hasNoIntelligence()) {
+                ou.showMessage("Hráčovi došla inteligence! Program končí...");
+                break;
+            }
+
+            if (player.hasNoRoomsLeft() && !player.getMarks().hasEnoughOnes(player)) {
+                ou.showMessage("Hráčovi došel počet zbývajících místnosti! Program končí...");
+                break;
+            }
+
+            if (player.getCurrentRoom().getRoomType().equals(RoomType.MAIN_CLASS)) {
+                fileMgr.readAllTxt("resources/txtFiles/mainStories/endingStory");
+                break;
+            }
+
+            if (player.getMarks().hasEnoughOnes(player)) {
+                ou.showMessage("Hráč dostal 8 jedníček a může jit do Učebny č.1");
+                worldGenerator.openMainClass();
+            }
         }
     }
 }
