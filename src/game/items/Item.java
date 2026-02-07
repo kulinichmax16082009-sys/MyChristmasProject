@@ -2,6 +2,7 @@ package game.items;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Player;
+import game.exceptions.*;
 import game.gameUtils.GameObject;
 import game.uiUtils.RandomGenerator;
 
@@ -52,11 +53,23 @@ public abstract class Item extends GameObject {
     public Item initializeItem() {
         ObjectMapper mapper = new ObjectMapper();
 
+        Item newItem;
+
         try (InputStream input = new FileInputStream(getPathFile())) {
-            return mapper.readValue(input, (Class<Item>) this.getClass());
+            newItem = mapper.readValue(input, (Class<Item>) this.getClass());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        if (newItem.damageInPercent < 0) {
+            throw new BadDamageInPercentException();
+        }
+
+        if (newItem.maxCount < 0) {
+            throw new BadMaxCountException();
+        }
+
+        return newItem;
     }
 
     @Override
