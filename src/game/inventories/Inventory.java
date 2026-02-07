@@ -25,10 +25,6 @@ public class Inventory {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
     private boolean isFull() {
         return capacity == 0;
     }

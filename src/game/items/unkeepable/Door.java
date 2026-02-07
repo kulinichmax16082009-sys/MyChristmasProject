@@ -26,20 +26,12 @@ public class Door extends Item {
         this.nextRoom = nextRoom;
     }
 
-    public Door getNextDoor() {
-        return nextDoor;
-    }
-
     public void setNextDoor(Door nextDoor) {
         this.nextDoor = nextDoor;
     }
 
     public boolean getIsOpen() {
         return isOpen;
-    }
-
-    public void setIsOpen(boolean open) {
-        isOpen = open;
     }
 
     @Override
