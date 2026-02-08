@@ -15,10 +15,6 @@ public class Marks {
         return marks;
     }
 
-    public void setMarks(ArrayList<Integer> marks) {
-        this.marks = marks;
-    }
-
     public void addMark(int mark) {
         if (mark < 1 || mark > 5) return;
         marks.add(mark);

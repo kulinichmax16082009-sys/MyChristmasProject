@@ -70,13 +70,11 @@ public class Room {
         return false;
     }
 
-    public boolean place(Coordinates where, GameObject gameObject) {
+    public void place(Coordinates where, GameObject gameObject) {
         if (canBePlaced(where)) {
             gameObjects.put(where, gameObject);
             gameObject.setCoordinates(where);
-            return true;
         }
-        return false;
     }
 
     public boolean canBePlaced(Coordinates where) {
