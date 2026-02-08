@@ -13,7 +13,11 @@ public class StopTalking extends Command {
         player.setIsTalking(false);
 
         //Pětka za každé nedokončené zadání
-        for (int i = 0; i < player.getTasks().size(); i++) player.getMarks().addMark(5);
+        for (int i = 0; i < player.getTasks().size(); i++) {
+            player.getMarks().addMark(5);
+            player.subIntelligence(500);
+        }
+
         player.getTasks().clear();
 
         player.removeObjectNearByType(Teacher.class, true, player.getCurrentRoom());

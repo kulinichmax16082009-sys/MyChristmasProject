@@ -1,6 +1,7 @@
 package game.gameUtils;
 
 import game.characters.Player;
+import game.characters.teachers.Teacher;
 import game.items.unkeepable.Door;
 import game.uiUtils.RandomGenerator;
 
@@ -60,5 +61,14 @@ public class WorldGenerator {
                 door.setConnectedDoorsOpen(true);
             }
         }
+    }
+
+    public boolean isAnyTeacherLeft() {
+        for (Room room : rooms) {
+            for (GameObject gameObject : room.getGameObjects().values()) {
+                if (gameObject instanceof Teacher) return true;
+            }
+        }
+        return false;
     }
 }

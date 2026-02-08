@@ -48,28 +48,28 @@ public class Game {
 
     private void gameLoop(ScannerUtils sc, OutputUtils ou, FileManager fileMgr) {
         while (!sc.getIsExit()) {
+            player.visitRoom();
             ou.printRoom(player.getCurrentRoom());
             sc.complete(player, ou);
-            player.visitRoom();
 
             //Všechny konce hry
             if (player.hasNoIntelligence()) {
                 ou.showMessage("Hráčovi došla inteligence! Program končí...");
-                break;
+                System.exit(0);
             }
 
-            if (player.hasNoRoomsLeft() && !player.getMarks().hasEnoughOnes(player)) {
+            if (player.hasNoRoomsLeft() && !player.getMarks().hasEnoughOnes(player) && !worldGenerator.isAnyTeacherLeft()) {
                 ou.showMessage("Hráčovi došel počet zbývajících místnosti! Program končí...");
-                break;
+                System.exit(0);
             }
 
             if (player.getCurrentRoom().getRoomType().equals(RoomType.MAIN_CLASS)) {
                 fileMgr.readAllTxt("resources/txtFiles/mainStories/endingStory");
-                break;
+                System.exit(0);
             }
 
             if (player.getMarks().hasEnoughOnes(player)) {
-                ou.showMessage("Hráč dostal 8 jedníček a může jit do Učebny č.1");
+                ou.showMessage("Hráč dostal " + player.getRequiredOnesAmount() + " jedníček a může jit do Učebny č.1");
                 worldGenerator.openMainClass();
             }
         }

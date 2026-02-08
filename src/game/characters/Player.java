@@ -140,7 +140,7 @@ public class Player extends Character {
     }
 
     public boolean hasNoIntelligence() {
-        return getIntelligence() == 0;
+        return getIntelligence() <= 0;
     }
 
     public boolean hasNoRoomsLeft() {
