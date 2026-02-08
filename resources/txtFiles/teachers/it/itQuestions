@@ -1,3 +1,10 @@
-Ahoj
-čau
-KA
+Který sort je v praxi často nejrychlejší?
+Jaká je průměrná složitost quick sortu?
+Lze v Javě dědit z více tříd? (ano/ne)
+Má HashMap zachované pořadí prvků? (ano/ne)
+Která datová struktura pracuje principem LIFO? A) queue B) stack C) array
+Rozdíl mezi polem a ArrayListem?
+Která kolekce NEumožňuje duplicity? A) List B) Set C) ArrayList
+Které tvrzení o quick sortu je správné? A) je vždy O(n log n) B) je stabilní C) může být O (n²)
+Najdi chybu: ArrayList<int> list = new ArrayList<>();
+Doplň: HashMap<Coordinates, GameObject> gameObjects = _____________

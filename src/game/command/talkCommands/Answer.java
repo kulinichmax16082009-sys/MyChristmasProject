@@ -40,7 +40,7 @@ public class Answer extends Command {
                 return "Hráč odpověděl na otázku nepřesně";
 
             } else if (sameLettersCount < correctAnswer.length() / 2) {
-                player.subIntelligence(500);
+                player.subIntelligence((int) (nearTeacher.getIntelligence() * nearTeacher.getIntelligenceModifier()));
                 player.getTasks().remove(0);
                 player.getMarks().addMark(new RandomGenerator().randomNumber(4,5));
                 return "Hráč odpověděl na otázku nedostatečně";
@@ -48,7 +48,7 @@ public class Answer extends Command {
         }
 
         player.getMarks().addMark(5);
-        player.subIntelligence(500);
+        player.subIntelligence((int) (nearTeacher.getIntelligence() * nearTeacher.getIntelligenceModifier()));
         player.getTasks().remove(0);
         return "Hráč nestihl odpovědět na otázku";
     }

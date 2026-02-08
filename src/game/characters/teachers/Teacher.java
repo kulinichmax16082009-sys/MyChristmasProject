@@ -90,15 +90,14 @@ public abstract class Teacher extends Character {
     }
 
     public static Teacher teacherFactory(int number, RandomGenerator rnd) {
-        return new ItTeacher().initializeTeacher(rnd);
-
-//        return switch (number) {
-//            case 1 -> new CzechTeacher().initializeTeacher(rnd);
-//            case 2 -> new PhysicsTeacher().initializeTeacher(rnd);
-//            case 3 -> new MathTeacher().initializeTeacher(rnd);
-//            case 4 -> new ItTeacher().initializeTeacher(rnd);
-//            case 5 -> new EleTeacher().initializeTeacher(rnd);
-//            default -> null;
-//        };
+//        return new ItTeacher().initializeTeacher(rnd);
+        return switch (number) {
+            case 1 -> new CzechTeacher().initializeTeacher(rnd);
+            case 2 -> new PhysicsTeacher().initializeTeacher(rnd);
+            case 3 -> new MathTeacher().initializeTeacher(rnd);
+            case 4 -> new ItTeacher().initializeTeacher(rnd);
+            case 5 -> new EleTeacher().initializeTeacher(rnd);
+            default -> null;
+        };
     }
 }

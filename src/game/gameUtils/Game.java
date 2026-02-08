@@ -1,10 +1,7 @@
 package game.gameUtils;
 
 import game.characters.Player;
-import game.uiUtils.FileManager;
-import game.uiUtils.OutputUtils;
-import game.uiUtils.RandomGenerator;
-import game.uiUtils.ScannerUtils;
+import game.uiUtils.*;
 
 public class Game {
     WorldGenerator worldGenerator;

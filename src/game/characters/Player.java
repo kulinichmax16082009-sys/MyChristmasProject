@@ -109,7 +109,7 @@ public class Player extends Character {
     public void initializePlayer(RandomGenerator rnd) {
         ObjectMapper mapper = new ObjectMapper();
 
-        try (InputStream input = new FileInputStream("resources/player.json")) {
+        try (InputStream input = new FileInputStream("resources/jsonFiles/player.json")) {
             mapper.readerForUpdating(this).readValue(input);
         } catch (Exception e) {
             throw new RuntimeException(e);
