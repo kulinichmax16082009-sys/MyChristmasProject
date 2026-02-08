@@ -66,7 +66,6 @@ public abstract class Teacher extends Character {
 
     public Task generateTask(RandomGenerator rnd) {
         int randomIndex = rnd.randomNumber(0, allPossibleTasks.size() - 1);
-        System.out.println(randomIndex);
         return allPossibleTasks.get(randomIndex);
     }
 

@@ -33,13 +33,13 @@ public class Answer extends Command {
                 player.getMarks().addMark(1);
                 return "Hráč odpověděl na otázku správně";
 
-            } else if (sameLettersCount >= correctAnswer.length() / 2 && sameLettersCount < correctAnswer.length()) {
+            } else if (sameLettersCount > correctAnswer.length() / 2 && sameLettersCount < correctAnswer.length()) {
                 player.subIntelligence((int) (player.getIntelligence() * nearTeacher.getIntelligenceModifier()));
                 player.getTasks().remove(0);
                 player.getMarks().addMark(new RandomGenerator().randomNumber(2,3));
                 return "Hráč odpověděl na otázku nepřesně";
 
-            } else if (sameLettersCount < correctAnswer.length() / 2) {
+            } else if (sameLettersCount <= correctAnswer.length() / 2) {
                 player.subIntelligence((int) (nearTeacher.getIntelligence() * nearTeacher.getIntelligenceModifier()));
                 player.getTasks().remove(0);
                 player.getMarks().addMark(new RandomGenerator().randomNumber(4,5));
