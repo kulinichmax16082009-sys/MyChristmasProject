@@ -65,7 +65,7 @@ public class Game {
             }
 
             if (player.getMarks().hasEnoughOnes(player)) {
-                ou.showMessage("Hráč dostal " + player.getRequiredOnesAmount() + " jedníček a může jit do Učebny č.1");
+                ou.showMessage("Hráč dostal potřebný počet jedníček a může jit do Učebny č.1");
                 worldGenerator.openMainClass();
             }
         }

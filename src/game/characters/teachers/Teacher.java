@@ -9,24 +9,21 @@ import game.uiUtils.RandomGenerator;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public abstract class Teacher extends Character {
 
     private int maxIntelligence;
     private int minIntelligence;
     private float intelligenceModifier;
+    private ArrayList<Task> allPossibleTasks;
 
     public Teacher() {
         super(null);
+        allPossibleTasks = new ArrayList<>();
     }
 
-    public abstract String getQuestionsFile();
-
     public abstract String getNamesFile();
-
-    public abstract String getAnswersFile();
-
-    public abstract String getDurationsFile();
 
     public abstract String getJsonFilePath();
 
@@ -40,6 +37,10 @@ public abstract class Teacher extends Character {
 
     public float getIntelligenceModifier() {
         return intelligenceModifier;
+    }
+
+    public ArrayList<Task> getAllPossibleTasks() {
+        return allPossibleTasks;
     }
 
     public Teacher initializeTeacher(RandomGenerator rnd) {
@@ -64,22 +65,9 @@ public abstract class Teacher extends Character {
     }
 
     public Task generateTask(RandomGenerator rnd) {
-        FileManager fileManager = new FileManager();
-        int lineIndex = rnd.generateFileLineIndex(getQuestionsFile());
-
-        String question;
-        String answer;
-        long duration;
-
-        question = fileManager.readLineByIndex(getQuestionsFile(), lineIndex);
-        answer = fileManager.readLineByIndex(getAnswersFile(), lineIndex);
-        try {
-            duration = Long.parseLong(fileManager.readLineByIndex(getDurationsFile(), lineIndex));
-        } catch (Exception e) {
-            duration = -1;
-        }
-
-        return new Task(question, answer, duration);
+        int randomIndex = rnd.randomNumber(0, allPossibleTasks.size() - 1);
+        System.out.println(randomIndex);
+        return allPossibleTasks.get(randomIndex);
     }
 
     public String initializeName(RandomGenerator rnd) {
@@ -90,7 +78,6 @@ public abstract class Teacher extends Character {
     }
 
     public static Teacher teacherFactory(int number, RandomGenerator rnd) {
-//        return new ItTeacher().initializeTeacher(rnd);
         return switch (number) {
             case 1 -> new CzechTeacher().initializeTeacher(rnd);
             case 2 -> new PhysicsTeacher().initializeTeacher(rnd);

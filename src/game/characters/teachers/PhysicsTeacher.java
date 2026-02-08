@@ -3,23 +3,8 @@ package game.characters.teachers;
 public class PhysicsTeacher extends Teacher {
 
     @Override
-    public String getQuestionsFile() {
-        return "resources/txtFiles/teachers/physics/physicsQuestions";
-    }
-
-    @Override
     public String getNamesFile() {
-        return "resources/txtFiles/teachers/physics/physicsNames";
-    }
-
-    @Override
-    public String getAnswersFile() {
-        return "resources/txtFiles/teachers/physics/physicsAnswers";
-    }
-
-    @Override
-    public String getDurationsFile() {
-        return "resources/txtFiles/teachers/physics/physicsDurations";
+        return "resources/txtFiles/teachersNames/physicsNames";
     }
 
     @Override

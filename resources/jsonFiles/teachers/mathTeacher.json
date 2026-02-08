@@ -1,5 +1,32 @@
 {
   "maxIntelligence": 3000,
   "minIntelligence": 2000,
-  "intelligenceModifier": 0.2
+  "intelligenceModifier": 0.2,
+  "allPossibleTasks": [
+    {
+      "question": "Jaká je hodnota diskriminantu rovnice: x² − 6x + 9 = 0",
+      "answer": "0",
+      "duration": 10
+    },
+    {
+      "question": "Jaká je hodnota: tan(45°)",
+      "answer": "1",
+      "duration": 10
+    },
+    {
+      "question": "Která z funkcí je lichá? \nA) sin(x) \nB) cos(x) \nC) 1/x²",
+      "answer": "A",
+      "duration": 10
+    },
+    {
+      "question": "Jaká je perioda funkce tg(x)? \nA) π \nB) 2π \nC) 4π",
+      "answer": "A",
+      "duration": 15
+    },
+    {
+      "question": "Pro který x je tan(x) nedefinovaná? \nA) 90° \nB) 45° \nC) 0°",
+      "answer": "A",
+      "duration": 15
+    }
+  ]
 }

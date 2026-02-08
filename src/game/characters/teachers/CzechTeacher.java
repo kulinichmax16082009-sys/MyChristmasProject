@@ -3,23 +3,8 @@ package game.characters.teachers;
 public class CzechTeacher extends Teacher {
 
     @Override
-    public String getQuestionsFile() {
-        return "resources/txtFiles/teachers/czech/czechQuestions";
-    }
-
-    @Override
     public String getNamesFile() {
-        return "resources/txtFiles/teachers/czech/czechNames";
-    }
-
-    @Override
-    public String getAnswersFile() {
-        return "resources/txtFiles/teachers/czech/czechAnswers";
-    }
-
-    @Override
-    public String getDurationsFile() {
-        return "resources/txtFiles/teachers/czech/czechDurations";
+        return "resources/txtFiles/teachersNames/czechNames";
     }
 
     @Override

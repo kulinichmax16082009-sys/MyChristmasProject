@@ -11,12 +11,22 @@ public class Task {
         this.duration = duration;
     }
 
+    public Task() {
+        this.question = "";
+        this.answer = "";
+        this.duration = -1;
+    }
+
     public long getDuration() {
         return duration;
     }
 
     public String getAnswer() {
         return answer;
+    }
+
+    public String getQuestion() {
+        return question;
     }
 
     public void addDuration(long amount) {
@@ -43,7 +53,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (duration < 0) return "Otázka: " + question + ", Trvání: není časově omezené";
-        return "Otázka: " + question + ", Trvání: " + duration + " s";
+        if (duration < 0) return "Otázka: " + question + "\n Trvání: není časově omezené";
+        return "Otázka: " + question + "\n Trvání: " + duration + " s";
     }
 }
