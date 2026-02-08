@@ -12,12 +12,10 @@ public class Room {
     @JsonIgnore
     private HashMap<Coordinates, GameObject> gameObjects;
     private int width, height;
-    private boolean isVisited;
 
     public Room(String name, int width, int height, RoomType roomType) {
         this.name = name;
         this.gameObjects = new HashMap<>();
-        this.isVisited = false;
         this.roomType = roomType;
 
         if (width < 5 && height < 5) {
@@ -46,14 +44,6 @@ public class Room {
 
     public int getHeight() {
         return height;
-    }
-
-    public boolean getIsVisited() {
-        return isVisited;
-    }
-
-    public void setIsVisited(boolean visited) {
-        isVisited = visited;
     }
 
     public RoomType getRoomType() {

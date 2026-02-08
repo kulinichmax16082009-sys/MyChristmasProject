@@ -20,10 +20,10 @@ public class Game {
         FileManager fileMgr = new FileManager();
 
         //Inicialize hráče
-        player.initializePlayer(rnd);
+        player.initializePlayer();
 
         //inicializace herního světa
-        worldGenerator.initializeWorld(roomFactory, rnd, player);
+        worldGenerator.initializeWorld(roomFactory, rnd);
 
         //inicializace prikazu
         sc.initialize();
@@ -45,7 +45,6 @@ public class Game {
 
     private void gameLoop(ScannerUtils sc, OutputUtils ou, FileManager fileMgr) {
         while (!sc.getIsExit()) {
-            player.visitRoom();
             ou.printRoom(player.getCurrentRoom());
             sc.complete(player, ou);
 
@@ -55,7 +54,7 @@ public class Game {
                 System.exit(0);
             }
 
-            if (player.hasNoRoomsLeft() && !player.getMarks().hasEnoughOnes(player) && !worldGenerator.isAnyTeacherLeft()) {
+            if (!player.getMarks().hasEnoughOnes(player) && !worldGenerator.isAnyTeacherLeft()) {
                 ou.showMessage("Hráčovi došel počet zbývajících místnosti! Program končí...");
                 System.exit(0);
             }
