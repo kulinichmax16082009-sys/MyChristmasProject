@@ -27,7 +27,7 @@ public class Resistor extends Item {
 
     @Override
     public String getPathFile() {
-        return "resources/items/resistor.json";
+        return "resources/jsonFiles/items/resistor.json";
     }
 
     @Override

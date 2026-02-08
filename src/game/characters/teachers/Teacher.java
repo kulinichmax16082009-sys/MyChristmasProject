@@ -1,11 +1,20 @@
 package game.characters.teachers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.Character;
+import game.exceptions.BadIntelligenceException;
 import game.inventories.Task;
 import game.uiUtils.FileManager;
 import game.uiUtils.RandomGenerator;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public abstract class Teacher extends Character {
+
+    private int maxIntelligence;
+    private int minIntelligence;
+    private float intelligenceModifier;
 
     public Teacher() {
         super(null);
@@ -18,6 +27,41 @@ public abstract class Teacher extends Character {
     public abstract String getAnswersFile();
 
     public abstract String getDurationsFile();
+
+    public abstract String getJsonFilePath();
+
+    public int getMaxIntelligence() {
+        return maxIntelligence;
+    }
+
+    public int getMinIntelligence() {
+        return minIntelligence;
+    }
+
+    public float getIntelligenceModifier() {
+        return intelligenceModifier;
+    }
+
+    public Teacher initializeTeacher(RandomGenerator rnd) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Teacher newTeacher;
+
+        try (InputStream input = new FileInputStream(getJsonFilePath())) {
+            newTeacher = mapper.readValue(input, (Class<Teacher>) this.getClass());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (newTeacher.minIntelligence <= 0 || newTeacher.maxIntelligence <= 0 || newTeacher.maxIntelligence <= newTeacher.minIntelligence) {
+            throw new BadIntelligenceException();
+        }
+
+        newTeacher.setName(initializeName(rnd));
+        newTeacher.setIntelligence(rnd.randomNumber(newTeacher.minIntelligence, newTeacher.maxIntelligence));
+
+        return newTeacher;
+    }
 
     public Task generateTask(RandomGenerator rnd) {
         FileManager fileManager = new FileManager();
@@ -46,13 +90,15 @@ public abstract class Teacher extends Character {
     }
 
     public static Teacher teacherFactory(int number, RandomGenerator rnd) {
-        return switch (number) {
-            case 1 -> new CzechTeacher(rnd);
-            case 2 -> new PhysicsTeacher(rnd);
-            case 3 -> new MathTeacher(rnd);
-            case 4 -> new ItTeacher(rnd);
-            case 5 -> new EleTeacher(rnd);
-            default -> null;
-        };
+        return new ItTeacher().initializeTeacher(rnd);
+
+//        return switch (number) {
+//            case 1 -> new CzechTeacher().initializeTeacher(rnd);
+//            case 2 -> new PhysicsTeacher().initializeTeacher(rnd);
+//            case 3 -> new MathTeacher().initializeTeacher(rnd);
+//            case 4 -> new ItTeacher().initializeTeacher(rnd);
+//            case 5 -> new EleTeacher().initializeTeacher(rnd);
+//            default -> null;
+//        };
     }
 }

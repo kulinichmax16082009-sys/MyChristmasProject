@@ -1,13 +1,6 @@
 package game.characters.teachers;
 
-import game.uiUtils.RandomGenerator;
-
 public class EleTeacher extends Teacher {
-
-    public EleTeacher(RandomGenerator rnd) {
-        setName(initializeName(rnd));
-        setIntelligence(rnd.randomNumber(2500, 4500));
-    }
 
     @Override
     public String getQuestionsFile() {
@@ -27,6 +20,11 @@ public class EleTeacher extends Teacher {
     @Override
     public String getDurationsFile() {
         return "resources/txtFiles/teachers/ele/eleDurations";
+    }
+
+    @Override
+    public String getJsonFilePath() {
+        return "resources/jsonFiles/teachers/eleTeacher.json";
     }
 
     @Override

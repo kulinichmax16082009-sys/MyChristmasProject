@@ -39,7 +39,7 @@ public class MagicPear extends Item {
 
     @Override
     public String getPathFile() {
-        return "resources/items/magicPear.json";
+        return "resources/jsonFiles/items/magicPear.json";
     }
 
     @Override

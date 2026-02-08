@@ -1,0 +1,5 @@
+{
+  "maxIntelligence": 3000,
+  "minIntelligence": 2000,
+  "intelligenceModifier": 0.2
+}

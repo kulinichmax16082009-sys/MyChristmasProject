@@ -11,7 +11,7 @@ public class ShowTasks extends Command {
 
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < player.getTasks().size(); i++) {
-            tasks.append(player.getTasks().get(i).toString()).append("\n").append("==================").append("\n");
+            tasks.append(player.getTasks().get(i).toString()).append("\n").append("===========================").append("\n");
         }
         return tasks.toString();
     }

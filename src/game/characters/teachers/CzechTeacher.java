@@ -1,13 +1,6 @@
 package game.characters.teachers;
 
-import game.uiUtils.RandomGenerator;
-
 public class CzechTeacher extends Teacher {
-
-    public CzechTeacher(RandomGenerator rnd) {
-        setName(initializeName(rnd));
-        setIntelligence(rnd.randomNumber(2000, 2500));
-    }
 
     @Override
     public String getQuestionsFile() {
@@ -27,6 +20,11 @@ public class CzechTeacher extends Teacher {
     @Override
     public String getDurationsFile() {
         return "resources/txtFiles/teachers/czech/czechDurations";
+    }
+
+    @Override
+    public String getJsonFilePath() {
+        return "resources/jsonFiles/teachers/czechTeacher.json";
     }
 
     @Override

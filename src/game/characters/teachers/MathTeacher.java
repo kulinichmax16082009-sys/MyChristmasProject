@@ -1,13 +1,6 @@
 package game.characters.teachers;
 
-import game.uiUtils.RandomGenerator;
-
 public class MathTeacher extends Teacher {
-
-    public MathTeacher(RandomGenerator rnd) {
-        setName(initializeName(rnd));
-        setIntelligence(rnd.randomNumber(2000, 3000));
-    }
 
     @Override
     public String getQuestionsFile() {
@@ -27,6 +20,11 @@ public class MathTeacher extends Teacher {
     @Override
     public String getDurationsFile() {
         return "resources/txtFiles/teachers/math/mathDurations";
+    }
+
+    @Override
+    public String getJsonFilePath() {
+        return "resources/jsonFiles/teachers/mathTeacher.json";
     }
 
     @Override
