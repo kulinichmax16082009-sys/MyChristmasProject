@@ -1,7 +1,6 @@
 package game.inventories;
 
 import game.characters.Player;
-import game.uiUtils.Colors;
 
 import java.util.ArrayList;
 
@@ -29,9 +28,7 @@ public class Marks {
 
     @Override
     public String toString() {
-        if (marks.isEmpty()) {
-            return Colors.BRIGHT_YELLOW + "Zatím nemáte žádné známky" + Colors.RESET;
-        }
-        return Colors.BRIGHT_YELLOW + "Váše známky: " + marks + Colors.RESET;
+        if (marks.isEmpty()) return "Zatím nemáte žádné známky";
+        return "Váše známky: " + marks;
     }
 }

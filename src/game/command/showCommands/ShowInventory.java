@@ -10,7 +10,7 @@ public class ShowInventory extends Command {
         if (commandArgument != null && !commandArgument.isEmpty()) {
             return Colors.BRIGHT_RED + "Příkaz 'inventář' nepotřebuje další argumenty" + Colors.RESET;
         }
-        return Colors.BRIGHT_YELLOW + player.getInventory().toString() + Colors.RESET;
+        return Colors.BRIGHT_BLUE + player.getInventory().toString() + Colors.RESET;
     }
 
     @Override

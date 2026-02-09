@@ -11,14 +11,14 @@ public class ShowTasks extends Command {
             return Colors.BRIGHT_RED + "Příkaz 'úkoly' nepotřebuje další argumenty" + Colors.RESET;
         }
         if (player.getTasks().isEmpty()) {
-            return Colors.BRIGHT_YELLOW + "Zatím nemáte žádné úkoly" + Colors.RESET;
+            return Colors.BRIGHT_BLUE + "Zatím nemáte žádné úkoly" + Colors.RESET;
         }
 
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < player.getTasks().size(); i++) {
             tasks.append(player.getTasks().get(i).toString()).append("\n").append("===========================").append("\n");
         }
-        return Colors.BRIGHT_YELLOW + tasks + Colors.BRIGHT_YELLOW;
+        return Colors.BRIGHT_BLUE + tasks + Colors.RESET;
     }
 
     @Override

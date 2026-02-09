@@ -4,14 +4,21 @@ import game.characters.Player;
 import game.characters.teachers.Teacher;
 import game.command.Command;
 import game.inventories.Task;
+import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
 public class Talk extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        if (commandArgument != null && !commandArgument.isEmpty()) return "Příkaz 'mluv' nepotřebuje další argumenty";
-        if (player.getIsTalking()) return "Nejde provést příkaz, protože hráč už má dialog";
-        if (!player.isObjectNearByType(Teacher.class, true, player.getCurrentRoom())) return "Vedle není učitel na dialog";
+        if (commandArgument != null && !commandArgument.isEmpty()) {
+            return Colors.BRIGHT_RED + "Příkaz 'mluv' nepotřebuje další argumenty" + Colors.RESET;
+        }
+        if (player.getIsTalking()) {
+            return Colors.BRIGHT_RED + "Nejde provést příkaz, protože hráč už má dialog" + Colors.RESET;
+        }
+        if (!player.isObjectNearByType(Teacher.class, true, player.getCurrentRoom())) {
+            return Colors.BRIGHT_RED + "Vedle není učitel na dialog" + Colors.RESET;
+        }
 
         player.setIsTalking(true);
 
@@ -27,11 +34,11 @@ public class Talk extends Command {
             player.addTask(task);
         }
 
-        return teacher.getName() + ": Ahoj " + player.getName() + ", jsem rád/a, že jsi tu." +
+        return Colors.BRIGHT_BLUE + teacher.getName() + ": Ahoj " + player.getName() + ", jsem rád/a, že jsi tu." +
                 "\n" + teacher.getName() + ": Moje inteligence je " + teacher.getIntelligence() +
                 ", takže lehké otázky nečekej!" +
                 "\n" + teacher.getName() + ": Přeji ti hodně štěstí a přidávam ti " + tasksCount + " zadání." +
-                "\n" + teacher.getName() + ": Zobrazit úkoly můžeš pomocí přikazu <úkoly>";
+                "\n" + teacher.getName() + ": Zobrazit úkoly můžeš pomocí přikazu <úkoly>" + Colors.RESET;
     }
 
     @Override

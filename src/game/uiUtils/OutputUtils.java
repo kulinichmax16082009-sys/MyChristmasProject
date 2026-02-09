@@ -13,10 +13,10 @@ public class OutputUtils {
             for (int j = 0; j < room.getWidth(); j++) {
                 Coordinates coordinates = new Coordinates(j, i);
                 if (room.getGameObjects().containsKey(coordinates)) {
-                    System.out.print("| " + room.getGameObjects().get(coordinates).getSprite() + " |");
+                    System.out.print(Colors.MAGENTA + "| " + room.getGameObjects().get(coordinates).getSprite() + " |" + Colors.RESET);
                 }
                 else {
-                    System.out.print("|    |");
+                    System.out.print(Colors.MAGENTA + "|    |" + Colors.RESET);
                 }
             }
             System.out.println();

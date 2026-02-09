@@ -7,7 +7,7 @@ import game.uiUtils.Colors;
 public class Quit extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        return Colors.BRIGHT_YELLOW + "Program končí..." + Colors.RESET;
+        return Colors.BRIGHT_GREEN + "Program končí..." + Colors.RESET;
     }
 
     @Override

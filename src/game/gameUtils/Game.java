@@ -32,7 +32,7 @@ public class Game {
         placePlayer();
 
         //Příběh
-        ou.showMessage(fileMgr.readAllTxt("resources/txtFiles/mainStories/introducingStory"));
+        ou.showMessage(Colors.BRIGHT_GREEN + fileMgr.readAllTxt("resources/txtFiles/mainStories/introducingStory") + Colors.RESET);
 
         //Hlavní herní smyčka
         gameLoop(sc, ou, fileMgr);
@@ -50,22 +50,22 @@ public class Game {
 
             //Všechny konce hry
             if (player.hasNoIntelligence()) {
-                ou.showMessage("Hráčovi došla inteligence! Program končí...");
+                ou.showMessage(Colors.BRIGHT_GREEN + "Hráčovi došla inteligence! Program končí..." + Colors.RESET);
                 System.exit(0);
             }
 
             if (!player.getMarks().hasEnoughOnes(player) && !worldGenerator.isAnyTeacherLeft()) {
-                ou.showMessage("Hráčovi došel počet zbývajících místnosti! Program končí...");
+                ou.showMessage(Colors.BRIGHT_GREEN + "Hráčovi došel počet zbývajících místnosti! Program končí..." + Colors.RESET);
                 System.exit(0);
             }
 
             if (player.getCurrentRoom().getRoomType().equals(RoomType.MAIN_CLASS)) {
-                fileMgr.readAllTxt("resources/txtFiles/mainStories/endingStory");
+                ou.showMessage(Colors.BRIGHT_GREEN + fileMgr.readAllTxt("resources/txtFiles/mainStories/endingStory") + Colors.RESET);
                 System.exit(0);
             }
 
             if (player.getMarks().hasEnoughOnes(player)) {
-                ou.showMessage("Hráč dostal potřebný počet jedníček a může jit do Učebny č.1");
+                ou.showMessage(Colors.BRIGHT_GREEN + "Hráč dostal potřebný počet jedníček a může jit do Učebny č.1" + Colors.RESET);
                 worldGenerator.openMainClass();
             }
         }

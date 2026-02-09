@@ -3,12 +3,17 @@ package game.command.talkCommands;
 import game.characters.Player;
 import game.characters.teachers.Teacher;
 import game.command.Command;
+import game.uiUtils.Colors;
+
+import java.awt.*;
 
 public class StopTalking extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        if (commandArgument != null && !commandArgument.isEmpty()) return "Příkaz 'ukonči_dialog' nepotřebuje další argumenty";
-        if (!player.getIsTalking()) return "Nejde provést příkaz, protože hráč nezačal dialog";
+        if (commandArgument != null && !commandArgument.isEmpty()) {
+            return Colors.BRIGHT_RED + "Příkaz 'ukonči_dialog' nepotřebuje další argumenty" + Colors.RESET;
+        }
+        if (!player.getIsTalking()) return Colors.BRIGHT_RED + "Nejde provést příkaz, protože hráč nezačal dialog" + Colors.RESET;
 
         player.setIsTalking(false);
 
@@ -22,7 +27,7 @@ public class StopTalking extends Command {
 
         player.removeObjectNearByType(Teacher.class, true, player.getCurrentRoom());
 
-        return "Hráč ukončil dialog";
+        return Colors.BRIGHT_BLUE + "Hráč ukončil dialog" + Colors.RESET;
     }
 
     @Override

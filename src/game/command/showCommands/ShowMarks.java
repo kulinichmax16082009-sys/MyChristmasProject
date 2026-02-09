@@ -10,7 +10,7 @@ public class ShowMarks extends Command {
         if (commandArgument != null && !commandArgument.isEmpty()) {
             return Colors.BRIGHT_RED + "Příkaz 'známky' nepotřebuje další argumenty" + Colors.RESET;
         }
-        return Colors.BRIGHT_YELLOW + player.getMarks().toString() + Colors.RESET;
+        return Colors.BRIGHT_BLUE + player.getMarks().toString() + Colors.RESET;
     }
 
     @Override

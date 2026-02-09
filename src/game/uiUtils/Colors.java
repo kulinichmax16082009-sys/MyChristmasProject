@@ -7,4 +7,5 @@ public class Colors {
     public static final String BRIGHT_YELLOW = "\u001B[33;1m";
     public static final String BRIGHT_BLUE = "\u001B[34;1m";
     public static final String BRIGHT_CYAN = "\u001B[36;1m";
+    public static final String MAGENTA	= "\u001B[35m";
 }

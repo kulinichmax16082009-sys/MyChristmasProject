@@ -3,13 +3,14 @@ package game.command.talkCommands;
 import game.characters.Player;
 import game.characters.teachers.Teacher;
 import game.command.Command;
+import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
 public class Answer extends Command {
     @Override
     public String execute(Player player, String commandArgument) {
-        if (!player.getIsTalking()) return "Nejde provést příkaz, protože hráč nezačal dialog";
-        if (player.getTasks().isEmpty()) return "Nemáte žádné zadání, můžete ukončit dialog";
+        if (!player.getIsTalking()) return Colors.BRIGHT_RED + "Nejde provést příkaz, protože hráč nezačal dialog" + Colors.RESET;
+        if (player.getTasks().isEmpty()) return Colors.BRIGHT_BLUE + "Nemáte žádné zadání, můžete ukončit dialog" + Colors.BRIGHT_YELLOW;
 
         Teacher nearTeacher = (Teacher) player.getObjectNearByType(Teacher.class, true, player.getCurrentRoom());
 
@@ -31,26 +32,26 @@ public class Answer extends Command {
                 player.addIntelligence((int) (player.getIntelligence() * nearTeacher.getIntelligenceModifier()));
                 player.getTasks().remove(0);
                 player.getMarks().addMark(1);
-                return "Hráč odpověděl na otázku správně";
+                return Colors.BRIGHT_BLUE + "Hráč odpověděl na otázku správně" + Colors.RESET;
 
             } else if (sameLettersCount > correctAnswer.length() / 2 && sameLettersCount < correctAnswer.length()) {
                 player.subIntelligence((int) (player.getIntelligence() * nearTeacher.getIntelligenceModifier()));
                 player.getTasks().remove(0);
                 player.getMarks().addMark(new RandomGenerator().randomNumber(2,3));
-                return "Hráč odpověděl na otázku nepřesně";
+                return Colors.BRIGHT_BLUE + "Hráč odpověděl na otázku nepřesně" + Colors.RESET;
 
             } else if (sameLettersCount <= correctAnswer.length() / 2) {
                 player.subIntelligence((int) (nearTeacher.getIntelligence() * nearTeacher.getIntelligenceModifier()));
                 player.getTasks().remove(0);
                 player.getMarks().addMark(new RandomGenerator().randomNumber(4,5));
-                return "Hráč odpověděl na otázku nedostatečně";
+                return Colors.BRIGHT_BLUE + "Hráč odpověděl na otázku nedostatečně" + Colors.RESET;
             }
         }
 
         player.getMarks().addMark(5);
         player.subIntelligence((int) (nearTeacher.getIntelligence() * nearTeacher.getIntelligenceModifier()));
         player.getTasks().remove(0);
-        return "Hráč nestihl odpovědět na otázku";
+        return Colors.BRIGHT_BLUE + "Hráč nestihl odpovědět na otázku" + Colors.RESET;
     }
 
     @Override

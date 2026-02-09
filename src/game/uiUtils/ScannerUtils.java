@@ -55,7 +55,7 @@ public class ScannerUtils {
         if (commands.containsKey(basicCommand) && commandSplited.length <= 2) {
             ou.showMessage(commands.get(basicCommand).execute(player, argument));
             isExit = commands.get(basicCommand).exit();
-        } else ou.showMessage(">> Nedefinovaný příkaz");
+        } else ou.showMessage(Colors.BRIGHT_RED + ">> Nedefinovaný příkaz" + Colors.RESET);
     }
 
     public boolean getIsExit() {

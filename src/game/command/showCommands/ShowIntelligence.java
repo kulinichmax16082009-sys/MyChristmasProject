@@ -10,7 +10,7 @@ public class ShowIntelligence extends Command {
         if (commandArgument != null && !commandArgument.isEmpty()){
             return Colors.BRIGHT_RED + "Příkaz 'inteligence' nepotřebuje další argumenty" + Colors.RESET;
         }
-        return Colors.BRIGHT_YELLOW + "Váše inteligence: " + player.getIntelligence() + Colors.RESET;
+        return Colors.BRIGHT_BLUE + "Váše inteligence: " + player.getIntelligence() + Colors.RESET;
     }
 
     @Override
