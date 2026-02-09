@@ -39,7 +39,7 @@ public class ScannerUtils {
     }
 
     public void complete(Player player, OutputUtils ou) {
-        ou.showMessage(">> ");
+        ou.showMessage(Colors.BRIGHT_CYAN + ">> " + Colors.RESET);
         String command  = scanner.nextLine().trim().toLowerCase();
 
         String basicCommand, argument = "";

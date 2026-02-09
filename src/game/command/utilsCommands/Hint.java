@@ -2,6 +2,7 @@ package game.command.utilsCommands;
 
 import game.characters.Player;
 import game.command.Command;
+import game.uiUtils.Colors;
 import game.uiUtils.FileManager;
 
 public class Hint extends Command {
@@ -9,15 +10,15 @@ public class Hint extends Command {
     public String execute(Player player, String commandArgument) {
         FileManager fileManager = new FileManager();
 
-        if (player.getIsTalking()) return fileManager.readAllTxt("resources/txtFiles/hints/talking");
+        if (player.getIsTalking()) return Colors.BRIGHT_YELLOW + fileManager.readAllTxt("resources/txtFiles/hints/talking") + Colors.RESET;
 
         switch (player.getCurrentRoom().getRoomType()) {
-            case CLASSROOM -> {return fileManager.readAllTxt("resources/txtFiles/hints/classroom");}
-            case TEACHER_OFFICE -> {return fileManager.readAllTxt("resources/txtFiles/hints/teacherOffice");}
-            case HALL -> {return fileManager.readAllTxt("resources/txtFiles/hints/hall");}
+            case CLASSROOM -> {return Colors.BRIGHT_YELLOW + fileManager.readAllTxt("resources/txtFiles/hints/classroom") + Colors.RESET;}
+            case TEACHER_OFFICE -> {return Colors.BRIGHT_YELLOW + fileManager.readAllTxt("resources/txtFiles/hints/teacherOffice") + Colors.RESET;}
+            case HALL -> {return Colors.BRIGHT_YELLOW + fileManager.readAllTxt("resources/txtFiles/hints/hall") + Colors.RESET;}
         }
 
-        return "Nápověda není k dispozici";
+        return Colors.BRIGHT_RED + "Nápověda není k dispozici" + Colors.RESET;
     }
 
     @Override

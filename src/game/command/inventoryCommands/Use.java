@@ -3,6 +3,7 @@ package game.command.inventoryCommands;
 import game.characters.Player;
 import game.command.Command;
 import game.items.Item;
+import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
 public class Use extends Command {
@@ -16,10 +17,10 @@ public class Use extends Command {
 
                 player.getInventory().removeItem(used);
 
-                return "Předmět <" + used.getName() + "> byl úspěšně použit";
+                return Colors.BRIGHT_YELLOW + "Předmět <" + used.getName() + "> byl úspěšně použit" + Colors.RESET;
             }
         }
-        return "Špatný format zadání předmětu nebo předmět neexistuje";
+        return Colors.BRIGHT_RED + "Špatný format zadání předmětu nebo předmět neexistuje" + Colors.RESET;
     }
 
     @Override

@@ -3,6 +3,7 @@ package game.command.inventoryCommands;
 import game.characters.Player;
 import game.command.Command;
 import game.items.Item;
+import game.uiUtils.Colors;
 
 public class Drop extends Command {
     @Override
@@ -14,10 +15,10 @@ public class Drop extends Command {
                 Item deleted = player.getInventory().getItems().get(i);
                 player.getInventory().getItems().remove(i);
 
-                return "Předmět <" + deleted.getName() + "> byl úspěšně vyhozen";
+                return Colors.BRIGHT_YELLOW + "Předmět <" + deleted.getName() + "> byl úspěšně vyhozen" + Colors.RESET;
             }
         }
-        return "Špatný format zadání předmětu nebo předmět neexistuje";
+        return Colors.BRIGHT_RED + "Špatný format zadání předmětu nebo předmět neexistuje" + Colors.RESET;
     }
 
     @Override

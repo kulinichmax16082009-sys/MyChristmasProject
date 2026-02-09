@@ -1,6 +1,7 @@
 package game.inventories;
 
 import game.items.Item;
+import game.uiUtils.Colors;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,9 @@ public class Inventory {
 
     @Override
     public String toString() {
-        if (items.isEmpty()) return "Váš batoh je prázdný" + "\n" + "Kapacita: " + capacity;
-        return "Váš batoh: " + items + "\n" + "Kapacita: " + capacity;
+        if (items.isEmpty()) {
+            return Colors.BRIGHT_YELLOW + "Váš batoh je prázdný" + "\n" + "Kapacita: " + capacity + Colors.RESET;
+        }
+        return Colors.BRIGHT_YELLOW + "Váš batoh: " + items + "\n" + "Kapacita: " + capacity + Colors.RESET;
     }
 }
