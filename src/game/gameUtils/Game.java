@@ -30,6 +30,9 @@ public class Game {
         //Inicialize hráče
         player.initializePlayer();
 
+        //Inicializace parametrů pro generování světa
+        roomFactory.initializeRoomFactory();
+
         //inicializace herního světa
         worldGenerator.initializeWorld(roomFactory, rnd);
 

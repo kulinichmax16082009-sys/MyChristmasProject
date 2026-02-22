@@ -28,6 +28,8 @@ public class WorldGenerator {
 
     public WorldGenerator() {
         this.rooms = new ArrayList<>();
+        minRoomsAmount = 1;
+        maxRoomsAmount = 5;
     }
 
     /**
@@ -83,7 +85,7 @@ public class WorldGenerator {
     public void initializeWorld(RoomFactory roomFactory, RandomGenerator rnd) {
         ObjectMapper mapper = new ObjectMapper();
 
-        try (InputStream input = new FileInputStream("resources/jsonFiles/worldGenerator.json")) {
+        try (InputStream input = new FileInputStream("resources/jsonFiles/worldAndRooms/worldGenerator.json")) {
             mapper.readerForUpdating(this).readValue(input);
         } catch (Exception e) {
             throw new BadWorldCharacteristicsFormatException();

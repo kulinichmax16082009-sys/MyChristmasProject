@@ -1,11 +1,16 @@
 package game.gameUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.characters.teachers.Teacher;
+import game.exceptions.BadRoomCharacteristicsFormatException;
+import game.exceptions.BadRoomSizesException;
 import game.items.Item;
 import game.items.keepable.*;
 import game.items.unkeepable.*;
 import game.uiUtils.RandomGenerator;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -14,19 +19,46 @@ import java.util.ArrayList;
  * @author Maksym Kulynych
  */
 public class RoomFactory {
-    //TODO: add loading from json file
     private ArrayList<Item> allPossibleItems;
-    private static final int MIN_ROOM_NUMBER = 2;
-    private static final int MAX_ROOM_NUMBER = 100;
-    private static final int MIN_ROOM_SIZE = 5;
-    private static final int MAX_ROOM_SIZE = 15;
-    private static final int MIN_SIDE_ROOM_SIZE = 5;
-    private static final int MAX_SIDE_ROOM_SIZE = 7;
-    private static final float SIDE_ROOM_PROBABILITY = 50.0F;
-    private static final float DOOR_LOCK_PROBABILITY = 5.0F;
+    private int minRoomNumber;
+    private int maxRoomNumber;
+    private int minRoomSize;
+    private int maxRoomSize;
+    private int minSideRoomSize;
+    private int maxSideRoomSize;
+    private float sideRoomProbability;
+    private float doorLockProbability;
 
     public RoomFactory() {
         allPossibleItems = new ArrayList<>();
+        minRoomNumber = 2;
+        maxRoomNumber = 100;
+        minRoomSize = 5;
+        maxRoomSize = 15;
+        minSideRoomSize = 5;
+        maxSideRoomSize = 7;
+        sideRoomProbability = 50.0F;
+        doorLockProbability = 5.0F;
+    }
+
+    /**
+     * This method initializes all room factory characteristics from .json file
+     */
+    public void initializeRoomFactory() {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try (InputStream input = new FileInputStream("resources/jsonFiles/worldAndRooms/roomFactory.json")) {
+            mapper.readerForUpdating(this).readValue(input);
+        } catch (Exception e) {
+            throw new BadRoomCharacteristicsFormatException();
+        }
+
+        if (minRoomSize <= 0 || maxRoomSize <= 0 || maxRoomSize <= minRoomSize ||
+                minSideRoomSize <= 0 || maxSideRoomSize <= 0 || maxSideRoomSize <= minSideRoomSize) {
+            throw new BadRoomSizesException();
+        }
+
+        if (minRoomNumber == maxRoomNumber) maxRoomNumber++;
     }
 
     /**
@@ -35,9 +67,9 @@ public class RoomFactory {
      * @return generated room
      */
     public Room generateRoom(RandomGenerator rnd) {
-        String name = "Učebna č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
-        int width = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
-        int height = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
+        String name = "Učebna č." + rnd.randomNumber(minRoomNumber, maxRoomNumber);
+        int width = rnd.randomNumber(minRoomSize, maxRoomSize);
+        int height = rnd.randomNumber(minRoomSize, maxRoomSize);
         Room newRoom = new Room(name, width, height, RoomType.CLASSROOM);
 
         Coordinates teacherCoords = new Coordinates(rnd.randomNumber(0, width - 1), rnd.randomNumber(0, height - 1));
@@ -45,7 +77,7 @@ public class RoomFactory {
         generateItems(newRoom, rnd);
 
         //Další teacherOffice v učebně
-        if (rnd.generateProbability(SIDE_ROOM_PROBABILITY)) {
+        if (rnd.generateProbability(sideRoomProbability)) {
             connectRooms(generateSideRoom(rnd), newRoom, rnd);
         }
 
@@ -58,9 +90,9 @@ public class RoomFactory {
      * @return generated side room
      */
     private Room generateSideRoom(RandomGenerator rnd) {
-        String name = "Kabinet č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
-        int width = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
-        int height = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
+        String name = "Kabinet č." + rnd.randomNumber(minRoomNumber, maxRoomNumber);
+        int width = rnd.randomNumber(minSideRoomSize, maxSideRoomSize);
+        int height = rnd.randomNumber(minSideRoomSize, maxSideRoomSize);
         Room sideRoom = new Room(name, width, height, RoomType.TEACHER_OFFICE);
         generateItems(sideRoom, rnd);
 
@@ -230,11 +262,12 @@ public class RoomFactory {
     private boolean shouldLockDoors(Room roomA, Room roomB, RandomGenerator rnd) {
         return roomA.getRoomType().equals(RoomType.MAIN_CLASS) ||
                 roomB.getRoomType().equals(RoomType.MAIN_CLASS) ||
-                rnd.generateProbability(DOOR_LOCK_PROBABILITY);
+                rnd.generateProbability(doorLockProbability);
     }
 
-    /** This method places door in the room and then it checks if there is another door near it, if there is another door near it, it will move door to another random free coordinates until there is no other door near it.
-     * It also clears items around door after placing, so there will be more space around door for player to move
+    /** This method places door in the room, if there is another door near it,
+     * it will move door to another random free coordinates until there is no other door near.
+     * It also clears items around door after placing
      * @param room where door will be placed
      * @param door which will be placed
      * @param rnd is used to find random free coordinates for door
@@ -245,5 +278,41 @@ public class RoomFactory {
             room.move(room.findRandomFreeCoordinates(rnd), door);
         }
         clearItemsAroundDoor(room, door);
+    }
+
+    public ArrayList<Item> getAllPossibleItems() {
+        return allPossibleItems;
+    }
+
+    public int getMinRoomNumber() {
+        return minRoomNumber;
+    }
+
+    public int getMaxRoomNumber() {
+        return maxRoomNumber;
+    }
+
+    public int getMinRoomSize() {
+        return minRoomSize;
+    }
+
+    public int getMaxRoomSize() {
+        return maxRoomSize;
+    }
+
+    public int getMinSideRoomSize() {
+        return minSideRoomSize;
+    }
+
+    public int getMaxSideRoomSize() {
+        return maxSideRoomSize;
+    }
+
+    public float getSideRoomProbability() {
+        return sideRoomProbability;
+    }
+
+    public float getDoorLockProbability() {
+        return doorLockProbability;
     }
 }
