@@ -3,6 +3,11 @@ package game.gameUtils;
 import game.characters.Player;
 import game.uiUtils.*;
 
+/**
+ * This is main game class that allows player to play
+ *
+ * @author Maksym Kulynych
+ */
 public class Game {
     WorldGenerator worldGenerator;
     Player player;
@@ -12,6 +17,9 @@ public class Game {
         this.player = new Player();
     }
 
+    /**
+     * This method represents main game process, which initializes world and player and allows to play
+     */
     public void play() {
         RoomFactory roomFactory = new RoomFactory();
         ScannerUtils sc = new ScannerUtils();
@@ -38,11 +46,20 @@ public class Game {
         gameLoop(sc, ou, fileMgr);
     }
 
+    /**
+     * This method simply places player on the first free cell in room
+     */
     private void placePlayer() {
         player.setCurrentRoom(worldGenerator.getHall());
         worldGenerator.getHall().place(worldGenerator.getHall().findFreeCoordinates().get(0), player);
     }
 
+    /**
+     * This method represents main game loop, which prints current room, executes commands and ends, when needed
+     * @param sc allows player to enter commands in console
+     * @param ou allows to print current state/room of the game
+     * @param fileMgr is used to show ending story
+     */
     private void gameLoop(ScannerUtils sc, OutputUtils ou, FileManager fileMgr) {
         while (!sc.getIsExit()) {
             ou.printRoom(player.getCurrentRoom());

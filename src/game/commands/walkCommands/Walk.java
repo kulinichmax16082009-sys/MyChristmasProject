@@ -1,10 +1,15 @@
-package game.command.walkCommands;
+package game.commands.walkCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.gameUtils.Coordinates;
 import game.uiUtils.Colors;
 
+/**
+ * This class represents 'jdi' command, which is used to move player in the room
+ *
+ * @author Maksym Kulynych
+ */
 public class Walk extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

@@ -6,6 +6,11 @@ import game.gameUtils.Room;
 import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents item 'door' in game, which is used to transport between 2 places
+ *
+ * @author Maksym Kulynych
+ */
 public class Door extends Item {
     private Room nextRoom;
     private Door nextDoor;
@@ -41,6 +46,12 @@ public class Door extends Item {
                 ", is open: " + isOpen;
     }
 
+    /**
+     * This method represents entering the door by deleting player from his current room
+     * and placing near the door in next room
+     * @param player is used to change some characteristics while using item
+     * @param rnd is used for random effect from item ability
+     */
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
         int x = nextDoor.getCoordinates().getX();
@@ -60,6 +71,10 @@ public class Door extends Item {
         }
     }
 
+    /**
+     * This method simply locks/unlocks to connected doors
+     * @param open true - should unlock doors, false - should lock doors
+     */
     public void setConnectedDoorsOpen(boolean open) {
         if (nextDoor != null) {
             this.isOpen = open;
@@ -73,7 +88,7 @@ public class Door extends Item {
     }
 
     @Override
-    public String getPathFile() {
+    public String getJsonPathFile() {
         return "";
     }
 

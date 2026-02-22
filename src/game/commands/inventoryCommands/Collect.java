@@ -1,10 +1,15 @@
-package game.command.inventoryCommands;
+package game.commands.inventoryCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.items.Item;
 import game.uiUtils.Colors;
 
+/**
+ * This class represents 'seber' command, which is used to collect item, which is near player
+ *
+ * @author Maksym Kulynych
+ */
 public class Collect extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

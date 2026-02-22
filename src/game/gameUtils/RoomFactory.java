@@ -8,7 +8,13 @@ import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to generate rooms in the game world and to connect them together
+ *
+ * @author Maksym Kulynych
+ */
 public class RoomFactory {
+    //TODO: add loading from json file
     private ArrayList<Item> allPossibleItems;
     private static final int MIN_ROOM_NUMBER = 2;
     private static final int MAX_ROOM_NUMBER = 100;
@@ -23,6 +29,11 @@ public class RoomFactory {
         allPossibleItems = new ArrayList<>();
     }
 
+    /**
+     * This method generates new room with random name, size and items in it. It also places teacher in random coordinates and generates side room with some probability
+     * @param rnd is used to generate random name, size, items and side room
+     * @return generated room
+     */
     public Room generateRoom(RandomGenerator rnd) {
         String name = "Učebna č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
         int width = rnd.randomNumber(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
@@ -41,6 +52,11 @@ public class RoomFactory {
         return newRoom;
     }
 
+    /**
+     * This method generates side room with random name, size and items in it. It is used to connect it with main classroom
+     * @param rnd is used to generate random name, size and items
+     * @return generated side room
+     */
     private Room generateSideRoom(RandomGenerator rnd) {
         String name = "Kabinet č." + rnd.randomNumber(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER);
         int width = rnd.randomNumber(MIN_SIDE_ROOM_SIZE, MAX_SIDE_ROOM_SIZE);
@@ -51,6 +67,11 @@ public class RoomFactory {
         return sideRoom;
     }
 
+    /** This method connects two rooms together by placing doors in them. It also has some probability to lock doors
+     * @param roomA first room, which will be connected
+     * @param roomB second room, which will be connected
+     * @param rnd is used to generate random doors and to decide if doors will be locked or not
+     */
     public void connectRooms(Room roomA, Room roomB, RandomGenerator rnd) {
         Door doorA = new Door();
         Door doorB = new Door();
@@ -67,6 +88,11 @@ public class RoomFactory {
         placeDoor(roomB, doorB, rnd);
     }
 
+    /** This method generates items in the room. It checks every cell in the room and with some probability it generates item on it.
+     *  It also checks if there is reserved position on cell, where item will be generated, if there is reserved position, it will not generate item on this cell
+     * @param room where items will be generated
+     * @param rnd is used to generate random items and to decide if item will be generated on cell or not
+     */
     public void generateItems(Room room, RandomGenerator rnd) {
         initPossibleItems();
         for (int i = 0; i < room.getHeight(); i++) {
@@ -88,6 +114,9 @@ public class RoomFactory {
         }
     }
 
+    /**
+     * This method initializes all possible items in the game and adds them to list, which is used to generate items in rooms. It also resets max count of each item, so it can be generated again in next rooms
+     */
     public void initPossibleItems() {
         allPossibleItems.clear();
         allPossibleItems.add(new MagicPear().initializeItem());
@@ -99,8 +128,12 @@ public class RoomFactory {
         allPossibleItems.add(new Desk().initializeItem());
     }
 
-    public void clearWayFromHallDoorToTeacher(Room room, Room hall) {
-        Door hallDoor = findHallDoor(room, hall);
+    /** This method clears way from hall door to teacher in the room.
+     * It finds hall door and teacher in the room and then it removes all objects between them, so player can move from hall door to teacher without any obstacles
+     * @param room where way will be cleared
+     */
+    public void clearWayFromHallDoorToTeacher(Room room) {
+        Door hallDoor = findHallDoor(room);
         Teacher teacher = findTeacher(room);
 
         if (teacher == null || hallDoor == null) return;
@@ -108,15 +141,23 @@ public class RoomFactory {
         clearPathBetween(hallDoor.getCoordinates(), teacher.getCoordinates(), room);
     }
 
-    private Door findHallDoor(Room room, Room hall) {
+    /** This method finds door, which leads to hall, in the room
+     * @param room where hall door will be found
+     * @return hall door, if there is such door in the room, null if there is no such door in the room
+     */
+    private Door findHallDoor(Room room) {
         for (GameObject obj : room.getGameObjects().values()) {
-            if (obj instanceof Door door && door.getNextRoom() == hall) {
+            if (obj instanceof Door door && door.getNextRoom().getRoomType().equals(RoomType.HALL)) {
                 return door;
             }
         }
         return null;
     }
 
+    /** This method finds teacher in the room
+     * @param room where teacher will be found
+     * @return teacher, if there is such teacher in the room, null if there is no such teacher in the room
+     */
     private Teacher findTeacher(Room room) {
         for (GameObject obj : room.getGameObjects().values()) {
             if (obj instanceof Teacher teacher) {
@@ -126,6 +167,12 @@ public class RoomFactory {
         return null;
     }
 
+    /** This method removes all objects between two coordinates in the room. It is used to clear way from hall door to teacher in the room
+     * It removes all objects in straight line between two coordinates and also removes object in corner, if there is one
+     * @param start coordinates of first point (hall door)
+     * @param end coordinates of second point (teacher)
+     * @param room where objects will be removed
+     */
     private void clearPathBetween(Coordinates start, Coordinates end, Room room) {
         int diffX = end.getX() - start.getX();
         int diffY = end.getY() - start.getY();
@@ -148,6 +195,12 @@ public class RoomFactory {
         }
     }
 
+    /** This method checks if there is reserved position on cell, where item will be generated. It reserves starting position of player, position of teacher and center of room, so there will be more space around teacher for player to move
+     * @param x x coordinate of cell, where item will be generated
+     * @param y y coordinate of cell, where item will be generated
+     * @param room where item will be generated
+     * @return true - there is reserved position on cell, false - there is no reserved position on cell
+     */
     private boolean isReserved(int x, int y, Room room) {
         boolean isStart = (x == 0 && y == 0);
         boolean isCenter = (x == room.getWidth() / 2 && y == room.getHeight() / 2);
@@ -156,6 +209,11 @@ public class RoomFactory {
         return isCenter || isStart || isOppositeCorner;
     }
 
+    /** This method removes all items around door in the room
+     * It checks all 8 directions around door and removes all items in these directions, so there will be more space around door for player to move
+     * @param room where items will be removed
+     * @param door around which items will be removed
+     */
     private void clearItemsAroundDoor(Room room, Door door) {
         for (int i = 0; i < 8; i++) {
             door.removeObjectNearByType(Item.class, true, room);
@@ -163,12 +221,24 @@ public class RoomFactory {
         }
     }
 
+    /** This method checks if doors between two rooms should be locked. Doors will be locked if one of rooms is main classroom or with some probability, so there will be more variety in the game
+     * @param roomA first room, which will be connected
+     * @param roomB second room, which will be connected
+     * @param rnd is used to decide if doors will be locked or not
+     * @return true - doors should be locked, false - doors should not be locked
+     */
     private boolean shouldLockDoors(Room roomA, Room roomB, RandomGenerator rnd) {
         return roomA.getRoomType().equals(RoomType.MAIN_CLASS) ||
                 roomB.getRoomType().equals(RoomType.MAIN_CLASS) ||
                 rnd.generateProbability(DOOR_LOCK_PROBABILITY);
     }
 
+    /** This method places door in the room and then it checks if there is another door near it, if there is another door near it, it will move door to another random free coordinates until there is no other door near it.
+     * It also clears items around door after placing, so there will be more space around door for player to move
+     * @param room where door will be placed
+     * @param door which will be placed
+     * @param rnd is used to find random free coordinates for door
+     */
     private void placeDoor(Room room, Door door, RandomGenerator rnd) {
         room.place(room.findRandomFreeCoordinates(rnd), door);
         while (door.isObjectNearByType(Door.class, false, room)) {

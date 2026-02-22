@@ -1,11 +1,16 @@
-package game.command.talkCommands;
+package game.commands.talkCommands;
 
 import game.characters.Player;
 import game.characters.teachers.Teacher;
-import game.command.Command;
+import game.commands.Command;
 import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents 'odpověz' command, which is used to answer on teacher's question
+ *
+ * @author Maksym Kulynych
+ */
 public class Answer extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

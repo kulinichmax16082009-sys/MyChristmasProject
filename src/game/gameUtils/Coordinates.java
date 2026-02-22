@@ -2,6 +2,11 @@ package game.gameUtils;
 
 import java.util.Objects;
 
+/**
+ * This class represents coordinates in the room. It is used to track, where game objects are
+ *
+ * @author Maksym Kulynych
+ */
 public class Coordinates {
     private int x;
     private int y;

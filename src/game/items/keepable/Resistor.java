@@ -4,11 +4,22 @@ import game.characters.Player;
 import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents item 'resistor' in game, which is useful item
+ *
+ * @author Maksym Kulynych
+ */
 public class Resistor extends Item {
     public Resistor() {
         super(null);
     }
 
+    /**
+     * This method allows player to simply increase duration
+     * of all tasks 2x, but he can be damaged by chance
+     * @param player is used to change some characteristics while using item
+     * @param rnd is used for random effect from item ability
+     */
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
         for (int i = 0; i < player.getTasks().size(); i++) {
@@ -26,7 +37,7 @@ public class Resistor extends Item {
     }
 
     @Override
-    public String getPathFile() {
+    public String getJsonPathFile() {
         return "resources/jsonFiles/items/resistor.json";
     }
 

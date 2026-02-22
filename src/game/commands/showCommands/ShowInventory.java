@@ -1,9 +1,14 @@
-package game.command.showCommands;
+package game.commands.showCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.uiUtils.Colors;
 
+/**
+ * This class represents 'inventář' command, which is used to show all items, which player has in inventory
+ *
+ * @author Maksym Kulynych
+ */
 public class ShowInventory extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

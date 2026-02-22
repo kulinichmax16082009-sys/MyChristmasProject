@@ -1,10 +1,15 @@
-package game.command.utilsCommands;
+package game.commands.utilsCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.uiUtils.Colors;
 import game.uiUtils.FileManager;
 
+/**
+ * This class represents 'nápověda' command, which is used to get hints for current room
+ *
+ * @author Maksym Kulynych
+ */
 public class Hint extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

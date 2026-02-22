@@ -1,10 +1,15 @@
-package game.command.utilsCommands;
+package game.commands.utilsCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.uiUtils.Colors;
 import game.uiUtils.FileManager;
 
+/**
+ * This class represents 'pomoc' command, which is used to get list of all commands in game
+ *
+ * @author Maksym Kulynych
+ */
 public class Help extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

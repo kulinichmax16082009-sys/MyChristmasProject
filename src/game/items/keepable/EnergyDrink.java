@@ -8,11 +8,22 @@ import game.uiUtils.RandomGenerator;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents item 'energy drink' in game, which is useful item
+ *
+ * @author Maksym Kulynych
+ */
 public class EnergyDrink extends Item {
     public EnergyDrink() {
         super(null);
     }
 
+    /**
+     * This method allows player use item to clear all obstacles
+     * from map, but he can also be damaged by chance
+     * @param player is used to change some characteristics while using item
+     * @param rnd is used for random effect from item ability
+     */
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
         ArrayList<Item> obstacles = new ArrayList<>();
@@ -38,7 +49,7 @@ public class EnergyDrink extends Item {
     }
 
     @Override
-    public String getPathFile() {
+    public String getJsonPathFile() {
         return "resources/jsonFiles/items/energyDrink.json";
     }
 

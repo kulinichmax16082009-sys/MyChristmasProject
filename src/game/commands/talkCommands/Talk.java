@@ -1,12 +1,17 @@
-package game.command.talkCommands;
+package game.commands.talkCommands;
 
 import game.characters.Player;
 import game.characters.teachers.Teacher;
-import game.command.Command;
+import game.commands.Command;
 import game.inventories.Task;
 import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents 'mluv' command, which is used to start dialog with teacher and get tasks from him
+ *
+ * @author Maksym Kulynych
+ */
 public class Talk extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

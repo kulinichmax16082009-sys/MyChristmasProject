@@ -1,9 +1,14 @@
-package game.command.showCommands;
+package game.commands.showCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.uiUtils.Colors;
 
+/**
+ * This class represents 'známky' command, which is used to show all marks, which player has
+ *
+ * @author Maksym Kulynych
+ */
 public class ShowMarks extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

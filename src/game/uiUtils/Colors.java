@@ -1,5 +1,10 @@
 package game.uiUtils;
 
+/**
+ * This class is used to print color text in console
+ *
+ * @author Maksym Kulynych
+ */
 public class Colors {
     public static final String RESET = "\u001B[0m";
     public static final String BRIGHT_RED = "\u001B[31;1m";

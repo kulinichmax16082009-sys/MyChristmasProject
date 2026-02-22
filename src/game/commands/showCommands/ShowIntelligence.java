@@ -1,9 +1,14 @@
-package game.command.showCommands;
+package game.commands.showCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.uiUtils.Colors;
 
+/**
+ * This class represents 'inteligence' command, which is used to show player's intelligence
+ *
+ * @author Maksym Kulynych
+ */
 public class ShowIntelligence extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

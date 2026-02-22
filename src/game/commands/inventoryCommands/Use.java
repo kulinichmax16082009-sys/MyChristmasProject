@@ -1,11 +1,16 @@
-package game.command.inventoryCommands;
+package game.commands.inventoryCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.items.Item;
 import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents 'použít' command, which is used to use item from inventory
+ *
+ * @author Maksym Kulynych
+ */
 public class Use extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

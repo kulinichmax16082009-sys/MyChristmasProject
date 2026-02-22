@@ -1,11 +1,16 @@
-package game.command.walkCommands;
+package game.commands.walkCommands;
 
 import game.characters.Player;
-import game.command.Command;
+import game.commands.Command;
 import game.items.unkeepable.Door;
 import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents 'vstup' command, which is used to enter another room through door
+ *
+ * @author Maksym Kulynych
+ */
 public class Entry extends Command {
     @Override
     public String execute(Player player, String commandArgument) {

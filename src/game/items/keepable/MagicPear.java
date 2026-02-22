@@ -7,11 +7,22 @@ import game.gameUtils.GameObject;
 import game.items.Item;
 import game.uiUtils.RandomGenerator;
 
+/**
+ * This class represents item 'magic pear' in game, which is useful item
+ *
+ * @author Maksym Kulynych
+ */
 public class MagicPear extends Item {
     public MagicPear() {
         super(null);
     }
 
+    /**
+     * This method allows player to clear nearest teacher from map and add 1 to
+     * his marks, but he can be damaged by chance
+     * @param player is used to change some characteristics while using item
+     * @param rnd is used for random effect from item ability
+     */
     @Override
     public void useAbility(Player player, RandomGenerator rnd) {
         Coordinates teacherCoords = null;
@@ -38,7 +49,7 @@ public class MagicPear extends Item {
     }
 
     @Override
-    public String getPathFile() {
+    public String getJsonPathFile() {
         return "resources/jsonFiles/items/magicPear.json";
     }
 

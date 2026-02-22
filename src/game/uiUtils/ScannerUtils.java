@@ -1,21 +1,29 @@
 package game.uiUtils;
 
 import game.characters.Player;
-import game.command.Command;
-import game.command.inventoryCommands.*;
-import game.command.showCommands.*;
-import game.command.talkCommands.*;
-import game.command.utilsCommands.*;
-import game.command.walkCommands.*;
+import game.commands.Command;
+import game.commands.inventoryCommands.*;
+import game.commands.showCommands.*;
+import game.commands.talkCommands.*;
+import game.commands.utilsCommands.*;
+import game.commands.walkCommands.*;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * This class is solving problems with player's input in console
+ *
+ * @author Maksym Kulynych
+ */
 public class ScannerUtils {
     private HashMap<String, Command> commands = new HashMap<>();
     private boolean isExit = false;
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * This method initializes all possible commands in game
+     */
     public void initialize() {
         commands.put("jdi", new Walk());
         commands.put("vstup", new Entry());
@@ -38,6 +46,11 @@ public class ScannerUtils {
         commands.put("ukonči_dialog", new StopTalking());
     }
 
+    /**
+     * This method executes exact command by player's input
+     * @param player is used to change characteristics by some commands
+     * @param ou is used to print current state of the command
+     */
     public void complete(Player player, OutputUtils ou) {
         ou.showMessage(Colors.BRIGHT_CYAN + ">> " + Colors.RESET);
         String command  = scanner.nextLine().trim().toLowerCase();
