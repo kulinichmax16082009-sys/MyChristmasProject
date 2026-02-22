@@ -80,6 +80,10 @@ public class Player extends Character {
         return requiredOnesAmount;
     }
 
+    public void setRequiredOnesAmount(int requiredOnesAmount) {
+        this.requiredOnesAmount = requiredOnesAmount;
+    }
+
     /**
      * This method generates random amount of tasks that must be added to player's tasks in range of 1 to maxTasksCount
      * @param rnd is used to generate random number

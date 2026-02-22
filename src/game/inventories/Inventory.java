@@ -15,7 +15,7 @@ public class Inventory {
 
     public Inventory() {
         items = new ArrayList<>();
-        this.capacity = 0;
+        this.capacity = 1;
     }
 
     public ArrayList<Item> getItems() {
@@ -30,11 +30,15 @@ public class Inventory {
         return capacity;
     }
 
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
     /**
      * This method checks if inventory's capacity doesn't equal 0
      * @return true - capacity is 0, inventory is full. false - capacity isn't 0, inventory isn't full
      */
-    private boolean isFull() {
+    public boolean isFull() {
         return capacity == 0;
     }
 
