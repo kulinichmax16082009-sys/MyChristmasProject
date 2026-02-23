@@ -6,7 +6,7 @@ import game.commands.Command;
 import game.uiUtils.Colors;
 
 /**
- * This class represents 'ukonči_dialog' command, which is used to stop talking with teacher
+ * This class represents 'ukonci_dialog' command, which is used to stop talking with teacher
  *
  * @author Maksym Kulynych
  */

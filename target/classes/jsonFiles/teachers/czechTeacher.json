@@ -1,0 +1,32 @@
+{
+  "maxIntelligence": 2500,
+  "minIntelligence": 2000,
+  "intelligenceModifier": 0.15,
+  "allPossibleTasks": [
+    {
+      "question": "Kdo napsal „Babičku“? \nA) Božena Němcová \nB) Karel Čapek \nC) Alois Jirásek",
+      "answer": "A",
+      "duration": 10
+    },
+    {
+      "question": "Který literární směr patří k 19. století? \nA) futurismus \nB) romantismus \nC) realismus",
+      "answer": "C",
+      "duration": 20
+    },
+    {
+      "question": "Kdo je hlavní postava v románu „Bídníci“? \nA) Hugo \nB) Jean Valjean \nC) Cosette",
+      "answer": "B",
+      "duration": 20
+    },
+    {
+      "question": "Co je alegorie? \nA) vědecký text \nB) přímý popis \nC) obrazné znázornění",
+      "answer": "C",
+      "duration": 25
+    },
+    {
+      "question": "Kdo napsal „Romeo a Julie“? \nA) William Shakespeare \nB) Goethe \nC) Dante",
+      "answer": "A",
+      "duration": -1
+    }
+  ]
+}

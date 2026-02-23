@@ -7,7 +7,7 @@ import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
 /**
- * This class represents 'použít' command, which is used to use item from inventory
+ * This class represents 'pouzit' command, which is used to use item from inventory
  *
  * @author Maksym Kulynych
  */

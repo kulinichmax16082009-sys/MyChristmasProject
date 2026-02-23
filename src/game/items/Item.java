@@ -73,7 +73,7 @@ public abstract class Item extends GameObject {
     public abstract String getJsonPathFile();
 
     /**
-     * This method initializes exact item from json file
+     * This method initializes exact item from .json file
      * @return initialized item
      */
     public Item initializeItem() {

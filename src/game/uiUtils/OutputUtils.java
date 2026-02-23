@@ -18,7 +18,7 @@ public class OutputUtils {
     }
 
     /**
-     * This method prints all room with objects in it in console
+     * This method prints all room with objects in it into console
      * @param room room that must be printed
      */
     public void printRoom(Room room) {

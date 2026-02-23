@@ -1,0 +1,16 @@
+unnamed package
+game.characters
+game.characters.teachers
+game.commands
+game.commands.inventoryCommands
+game.commands.showCommands
+game.commands.talkCommands
+game.commands.utilsCommands
+game.commands.walkCommands
+game.exceptions
+game.gameUtils
+game.inventories
+game.items
+game.items.keepable
+game.items.unkeepable
+game.uiUtils

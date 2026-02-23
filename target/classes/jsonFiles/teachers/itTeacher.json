@@ -1,0 +1,57 @@
+{
+  "maxIntelligence": 5000,
+  "minIntelligence": 3000,
+  "intelligenceModifier": 0.35,
+  "allPossibleTasks": [
+    {
+      "question": "Který sort je v praxi často nejrychlejší?",
+      "answer": "quick_sort",
+      "duration": 25
+    },
+    {
+      "question": "Jaká je průměrná složitost quick sortu?",
+      "answer": "O_n_log_n",
+      "duration": 15
+    },
+    {
+      "question": "Lze v Javě dědit z více tříd? (ano/ne)",
+      "answer": "ne",
+      "duration": 7
+    },
+    {
+      "question": "Má HashMap zachované pořadí prvků? (ano/ne)",
+      "answer": "ne",
+      "duration": 7
+    },
+    {
+      "question": "Která datová struktura pracuje principem LIFO? \nA) queue \nB) stack \nC) array",
+      "answer": "B",
+      "duration": -1
+    },
+    {
+      "question": "Rozdíl mezi polem a ArrayListem?",
+      "answer": "pevná_velikost",
+      "duration": 15
+    },
+    {
+      "question": "Která kolekce NEumožňuje duplicity? \nA) List \nB) Set \nC) ArrayList",
+      "answer": "B",
+      "duration": 15
+    },
+    {
+      "question": "Které tvrzení o quick sortu je správné? \nA) je vždy O(n log n) \nB) je stabilní \nC) může být O (n²)",
+      "answer": "C",
+      "duration": 20
+    },
+    {
+      "question": "Najdi chybu: ArrayList<int> list = new ArrayList<>();",
+      "answer": "int",
+      "duration": -1
+    },
+    {
+      "question": "Doplň: HashMap<Coordinates, GameObject> gameObjects = _____________",
+      "answer": "new_HashMap<>();",
+      "duration": 15
+    }
+  ]
+}

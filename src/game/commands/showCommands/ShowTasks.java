@@ -5,7 +5,7 @@ import game.commands.Command;
 import game.uiUtils.Colors;
 
 /**
- * This class represents 'úkoly' command, which is used to show all tasks, which player has
+ * This class represents 'ukoly' command, which is used to show all tasks, which player has
  *
  * @author Maksym Kulynych
  */

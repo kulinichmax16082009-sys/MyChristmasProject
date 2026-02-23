@@ -1,0 +1,7 @@
+{
+  "name": "židle",
+  "spawnChance": 13.2,
+  "damageChance": 0,
+  "damageInPercent": 0,
+  "maxCount": 30
+}

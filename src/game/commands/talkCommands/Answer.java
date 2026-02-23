@@ -7,7 +7,7 @@ import game.uiUtils.Colors;
 import game.uiUtils.RandomGenerator;
 
 /**
- * This class represents 'odpověz' command, which is used to answer on teacher's question
+ * This class represents 'odpovez' command, which is used to answer on teacher's question
  *
  * @author Maksym Kulynych
  */

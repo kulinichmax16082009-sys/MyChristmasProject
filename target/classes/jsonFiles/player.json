@@ -1,0 +1,15 @@
+{
+  "name": "Igo",
+  "intelligence": 2000,
+  "requiredOnesAmount": 8,
+  "maxTasksCount": 3,
+  "oneStepDistance": 1,
+  "inventory": {
+      "items": [],
+      "capacity": 2
+  },
+  "marks": {
+      "marks": []
+  },
+  "tasks": []
+}

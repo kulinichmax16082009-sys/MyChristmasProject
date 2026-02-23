@@ -5,7 +5,7 @@ import game.commands.Command;
 import game.uiUtils.Colors;
 
 /**
- * This class represents 'známky' command, which is used to show all marks, which player has
+ * This class represents 'znamky' command, which is used to show all marks, which player has
  *
  * @author Maksym Kulynych
  */

@@ -72,7 +72,7 @@ public class Door extends Item {
     }
 
     /**
-     * This method simply locks/unlocks to connected doors
+     * This method simply locks/unlocks two connected doors
      * @param open true - should unlock doors, false - should lock doors
      */
     public void setConnectedDoorsOpen(boolean open) {

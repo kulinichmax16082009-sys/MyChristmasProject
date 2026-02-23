@@ -5,7 +5,7 @@ import game.commands.Command;
 import game.uiUtils.Colors;
 
 /**
- * This class represents 'inventář' command, which is used to show all items, which player has in inventory
+ * This class represents 'inventar' command, which is used to show all items, which player has in inventory
  *
  * @author Maksym Kulynych
  */

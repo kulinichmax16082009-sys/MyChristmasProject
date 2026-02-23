@@ -1,0 +1,10 @@
+{
+  "minRoomNumber": 2,
+  "maxRoomNumber": 100,
+  "minRoomSize": 5,
+  "maxRoomSize": 15,
+  "minSideRoomSize": 5,
+  "maxSideRoomSize": 7,
+  "sideRoomProbability": 50.0,
+  "doorLockProbability": 5.0
+}

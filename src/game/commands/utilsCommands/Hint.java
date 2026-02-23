@@ -6,7 +6,7 @@ import game.uiUtils.Colors;
 import game.uiUtils.FileManager;
 
 /**
- * This class represents 'nápověda' command, which is used to get hints for current room
+ * This class represents 'napoveda' command, which is used to get hints for current room
  *
  * @author Maksym Kulynych
  */

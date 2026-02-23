@@ -1,0 +1,8 @@
+{
+  "name": "zlatý_klíč",
+  "description": "Po použítí otevře jakekoli dveře v učebně (kromě Učebny č.1)",
+  "spawnChance": 1.2,
+  "damageChance": 0,
+  "damageInPercent": 0,
+  "maxCount": 4
+}

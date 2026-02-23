@@ -1,0 +1,32 @@
+{
+  "maxIntelligence": 4500,
+  "minIntelligence": 2500,
+  "intelligenceModifier": 0.3,
+  "allPossibleTasks": [
+    {
+      "question": "Hodnota odporu vodiče je 10 Ω a prochází proud 2 A. Jaké je napětí? \nA) 5 V \nB) 20 V \nC) 12 V",
+      "answer": "B",
+      "duration": 15
+    },
+    {
+      "question": "Jaký je symbol tranzistoru NPN? \nA) šipka ven \nB) šipka dovnitř \nC) bez šipky",
+      "answer": "A",
+      "duration": 25
+    },
+    {
+      "question": "Co znamená zkratka LED? \nA) light emitting diode \nB) low energy diode \nC) light energy device",
+      "answer": "A",
+      "duration": 20
+    },
+    {
+      "question": "Která brána dává výstup 1 pouze pokud jsou oba vstupy 1? \nA) XOR \nB) OR \nC) AND",
+      "answer": "C",
+      "duration": -1
+    },
+    {
+      "question": "Co je hlavní funkcí diody? \nA) propouští proud jedním směrem \nB) zesiluje napětí \nC) ukládá náboj",
+      "answer": "A",
+      "duration": -1
+    }
+  ]
+}

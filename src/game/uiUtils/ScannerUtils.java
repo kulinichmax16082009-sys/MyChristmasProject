@@ -22,7 +22,7 @@ public class ScannerUtils {
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * This method initializes all possible commands in game
+     * This method initializes all commands in game and puts them in HashMap with their name as key
      */
     public void initialize() {
         commands.put("jdi", new Walk());
@@ -47,7 +47,7 @@ public class ScannerUtils {
     }
 
     /**
-     * This method executes exact command by player's input
+     * This method executes exact command by player's input. It also ckecks if command is valid
      * @param player is used to change characteristics by some commands
      * @param ou is used to print current state of the command
      */
