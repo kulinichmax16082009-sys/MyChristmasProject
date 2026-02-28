@@ -38,8 +38,8 @@ This is a 2D made text game, which was coded in java using IntelliJ IDEA. Game u
 1) Create a folder with random name (ex. game)
 2) Put .jar file and resources folder in folder you have just created
 3) Open Windows Terminal and write: **chcp 65001**
-4) Go to your folder in Windows Terminal by using: **cd <path-to-the-folder>**
-5) To run the program enter: **java -jar <.jar-file-name>**
+4) Go to your folder in Terminal by using: **cd (folder-path)**
+5) To run the program enter: **java -jar (.jar-file-name)**
 
 ## Requirements
 * download JDK 17 or greater
