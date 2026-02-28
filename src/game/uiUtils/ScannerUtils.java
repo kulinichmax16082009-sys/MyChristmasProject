@@ -38,7 +38,7 @@ public class ScannerUtils {
         commands.put("nápověda", new Hint());
 
         commands.put("seber", new Collect());
-        commands.put("vyhod", new Drop());
+        commands.put("vyhoď", new Drop());
         commands.put("použíj", new Use());
 
         commands.put("mluv", new Talk());
